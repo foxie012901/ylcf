@@ -11,7 +11,7 @@ export default class ShangJia extends Component {
   render() {
     return (
       <View>
-        <Text> this is ShangJia </Text>
+        <Text> this is ShangJia asdasdasd</Text>
       </View>
     );
   }
