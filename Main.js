@@ -42,7 +42,7 @@ export default class Main extends Component {
         this.connectListener = result => {
           console.log("connectListener:" + JSON.stringify(result))
         };
-        JPush.addConnectEventListener(this.connectListener);00
+        JPush.addConnectEventListener(this.connectListener);
         //通知回调
         this.notificationListener = result => {
           console.log("notificationListener:" + JSON.stringify(result))

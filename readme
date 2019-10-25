@@ -1,5 +1,35 @@
-学习测试 asd asd asd
-sdzfSDFsDfv
-SDFSDFasdcasdascs
-xasdasdasdsDSFSDFSDF
-hahahahwowowo
+===========================20191025================================
+# ylcf项目介绍
+
+## 项目目录介绍
+
+### 根目录
+1. index.js 项目根文件,内嵌Main.js根组件;
+2. Main.js 项目根文件,配置全局路由,第一个Scene就是默认路由,当前配置默认路由为App组件;
+3. App.js 项目默认路由,配置项目底部TAB按钮功能;
+
+### app文件夹
+1. components文件夹内包含项目中所有组件;
+2. store文件夹为默认redux设置目录;
+    1. index.js 全局redux配置页
+    2. sagas.js 全局sagas工具
+    3. reducer.js 全局整合并广播组件级redux的工具
+
+-----------------------------------------------------------------
+
+## 项目配置流程
+(因RN.60版本问题,pod install下自带link会导致当前框架图标字体插件出问题,因此请按照以下流程进行配置,以保证IOS端能正常打包启动)
+### IOS配置
+1. git上下载代码后,打开package.json,找到"react-native-vector-icons": "^6.6.0",并删除,然后打开命令行,输入 yarn 安装配置node_module
+2. 命令行输入 cd ios && pod install 进行pod安装.
+3. 命令行输入 yarn add react-native-vector-icons,安装图标字体插件.
+4. 打开xcode 确定所用字体文件和info.plist内是否配置了字体相关列表.(正常git上下载的为配置好的,所以这步只是检查)
+5. 插入真机,xcode下command + b 进行打包安装.
+6. 成功就即可调试.
+7. 以上步骤导致打包失败请联系框架创建者.
+
+### ANDROID配置
+1. 安卓端自带ART绘图,因此无IOS配置顾虑,保证项目目录下android-app-src-main-assets-font-字体.ttf 文件存在.
+2. react-native run-android 打包运行项目.
+3. 以上步骤导致导报失败请联系框架创建者.
+==============================================================================

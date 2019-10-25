@@ -18,7 +18,6 @@ import styles from "./style.js";
 import { actionCreators } from "./store";
 
 
-const { Surface, Shape, Path } = ART;
 import { connect } from "react-redux";
 
 class Home extends Component {
@@ -30,7 +29,6 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    Path().moveTo(20, 20).lineTo(10, 20)
     this.props._getData()
     console.log('shenmging')
     console.log(this.props.isShow)
