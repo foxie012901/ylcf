@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, YellowBox, StyleSheet } from 'react-native';
+import { View, Text, YellowBox, StyleSheet,Platform } from 'react-native';
 import {
     Router,
     Stack,
@@ -14,6 +14,9 @@ import My from './app/components/My/My'
 //react-redux
 import { Provider } from "react-redux";
 import store from './app/store'
+
+import JPush from 'jpush-react-native';
+
 
 export default class Main extends Component {
     constructor(props) {
@@ -30,6 +33,49 @@ export default class Main extends Component {
         this.state = {
         };
     }
+
+    componentDidMount() {
+        //极光初始化  ios环境未配置，所以ios暂不支持
+        if(Platform.OS ==='android'){
+        JPush.init();
+        //连接状态
+        this.connectListener = result => {
+          console.log("connectListener:" + JSON.stringify(result))
+        };
+        JPush.addConnectEventListener(this.connectListener);00
+        //通知回调
+        this.notificationListener = result => {
+          console.log("notificationListener:" + JSON.stringify(result))
+        };
+        JPush.addNotificationListener(this.notificationListener);
+        //自定义消息回调
+        this.customMessageListener = result => {
+          console.log("customMessageListener:" + JSON.stringify(result))
+        };
+        JPush.addCustomMessagegListener(this.customMessageListener);
+        //本地通知回调 todo
+        this.localNotificationListener = result => {
+          console.log("localNotificationListener:" + JSON.stringify(result))
+        };
+        JPush.addLocalNotificationListener(this.localNotificationListener);
+        //tag alias事件回调
+        this.tagAliasListener = result => {
+          console.log("tagAliasListener:" + JSON.stringify(result))
+        };
+        JPush.addTagAliasListener(this.tagAliasListener);
+        //手机号码事件回调
+        this.mobileNumberListener = result => {
+          console.log("mobileNumberListener:" + JSON.stringify(result))
+        };
+        JPush.addMobileNumberListener(this.mobileNumberListener);
+        JPush.getRegistrationID(id =>{
+          
+          this.setState({
+            id :JSON.stringify(id)
+          })
+        })
+      }
+      }
 
     render() {
         return (

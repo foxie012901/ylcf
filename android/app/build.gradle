@@ -133,6 +133,10 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+    manifestPlaceholders = [
+                JPUSH_APPKEY: "ebc9c8882549aaef7108bd28",         //在此替换你的APPKey
+                JPUSH_CHANNEL: "default"        //在此替换你的channel
+        ]
     }
     splits {
         abi {
@@ -190,7 +194,8 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
-
+    implementation project(':jpush-react-native')  // 添加 jpush 依赖
+    implementation project(':jcore-react-native') 
     if (enableHermes) {
       def hermesPath = "../../node_modules/hermesvm/android/";
       debugImplementation files(hermesPath + "hermes-debug.aar")
