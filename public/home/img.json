@@ -1,0 +1,14 @@
+{
+    "status": 200,
+    "msg":"请求成功",
+    "imgList": [
+        {"name":"加油服务","url":"http://192.168.34.102:8081/app/images/home_jy.png"},
+        {"name":"交管服务","url":"http://192.168.34.102:8081/app/images/home_jgfw.png"},
+        {"name":"救援服务","url":"http://192.168.34.102:8081/app/images/home_jyfw.png"},
+        {"name":"驾照查询","url":"http://192.168.34.102:8081/app/images/home_jzcx.png"},
+        {"name":"车险服务","url":"http://192.168.34.102:8081/app/images/home_cxfw.png"},
+        {"name":"车检服务","url":"http://192.168.34.102:8081/app/images/home_cjfw.png"},
+        {"name":"积分兑宝","url":"http://192.168.34.102:8081/app/images/home_jfdb.png"},
+        {"name":"汽车资讯","url":"http://192.168.34.102:8081/app/images/home_jy.png"}
+    ]
+}

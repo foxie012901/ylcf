@@ -29,9 +29,18 @@ export default class App extends Component {
   }
 
   render() {
+
+    // let Platform = require('Platform');
+    // let Total = null
+    // if (Platform.OS === 'android') {
+    //   //todo
+      
+    // } else if (Platform.OS === 'ios')  {
+    //   //todo
+    // }
     return (
       <View style={styles.container}>
-        <StatusBar hidden={false} barStyle={'dark-content'} />
+        <StatusBar hidden={false} barStyle={'light-content'} />
         <TabNavigator>
           <TabNavigator.Item
             selected={this.state.selectedTab === 'home'}
@@ -84,7 +93,7 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: STATUSBAR_HEIGHT
+    // paddingTop: STATUSBAR_HEIGHT
   },
 
 });

@@ -28,9 +28,19 @@ export const delInitListIndex = index => ({
 
 export const getData = data => ({
     type: actionTypes.GET_DATA,
-    data:fromJS(data)
+    data: fromJS(data)
 })
 
 export const putDataToList = () => ({
     type: actionTypes.PUT_DATA_TO_LIST
 })
+
+export const initImgList = data =>({
+    type: actionTypes.INIT_IMG_LIST,
+    data:fromJS(data)
+})
+
+export const getImgListData = () => ({
+    type: actionTypes.GET_IMGLIST_DATA
+})
+

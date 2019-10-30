@@ -12,6 +12,7 @@ import { fromJS } from "immutable";
 const defaultState = fromJS({
     inputValue: '',
     list: [],
+    imgList: [],
     isShow: true
 })
 
@@ -34,6 +35,15 @@ export default (state = defaultState, action) => {
     if (action.type === actionTypes.GET_DATA) {
         return state.set('list', action.data)
     }
+
+    if (action.type === actionTypes.GET_IMGLIST_DATA) {
+        console.log('reducer')
+    }
+
+    if(action.type === actionTypes.INIT_IMG_LIST){
+        return state.set('imgList', action.data)
+    }
+
 
     return state
 }
