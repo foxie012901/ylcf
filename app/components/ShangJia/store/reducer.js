@@ -11,7 +11,10 @@ const defaultState = fromJS({
     text:'',
     videoIsShow :false,
     videoLoadStart:true,
-    videoIsError:false
+    videoIsError:false,
+    address :'',
+    response:Object,
+    imgTrue:true,
 })
 
 export default (state = defaultState, action) => {
@@ -21,7 +24,9 @@ export default (state = defaultState, action) => {
     //     return state.set('isShow', action.changedata)
     // }
 
-  
+    if (action.type === actionTypes.GET_IS_SHOW) {
+        return state.set('isShow', action.changedata)
+    }
     if (action.type === actionTypes.GET_DATA) {
         return state;
     }
@@ -34,6 +39,12 @@ export default (state = defaultState, action) => {
      }
      if(action.type ===actionTypes.VIDEO_LOAD_START){
          return state.set('videoLoadStart',true);
+     }
+     if(action.type ===actionTypes.JSON_DATA){
+        
+         
+        return state.set('response' ,JSON.parse(action.data).data);
+          
      }
     
 

@@ -126,7 +126,7 @@ class Home extends Component {
                   <View style={styles.HomeIconBtnButton} key={index}>
                     <View style={styles.HomeIconBtnButtonContent}>
                       <View>
-                        <Image source={{url:item.url}}  style={styles.HomeIconBtnImg} />
+                        <Image source={{uri:item.url}}  style={styles.HomeIconBtnImg} />
                       </View>
                       <Text style={styles.HomeIconBtnText}>{item.name}</Text>
                     </View>

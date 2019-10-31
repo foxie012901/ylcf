@@ -28,4 +28,12 @@ export const videoLoadStart = data =>({
 export const videoOnLoad = () =>({
     type:actionTypes.VIDEO_ON_LOAD,
 })
+export const getShangJia = config =>({
+    type:actionTypes.TEST_JSON,
+    config
+})
+export const shangjiaJsonData = data =>({
+    type: actionTypes.JSON_DATA,
+    data
+})
 
