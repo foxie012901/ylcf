@@ -67,6 +67,7 @@ class DateUtil {
       // 获取day天之后的日期
       return new Date(timestamp + day * 24 * 3600 * 1000);
     }
+    //判断时间是否在两个时间点之间 时间格式 hh:mm:ss
     static time_range (beginTime, endTime, nowTime) {
       var strb = beginTime.split (":");
       if (strb.length != 2) {
@@ -96,7 +97,7 @@ class DateUtil {
       if (n.getTime () - b.getTime () > 0 && n.getTime () - e.getTime () < 0) {
         return true;
       } else {
-        alert ("当前时间是：" + n.getHours () + ":" + n.getMinutes () + "，不在该时间范围内！");
+       
         return false;
       }
     }

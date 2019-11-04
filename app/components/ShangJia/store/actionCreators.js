@@ -36,4 +36,12 @@ export const shangjiaJsonData = data =>({
     type: actionTypes.JSON_DATA,
     data
 })
+export const changeVideoStatus =data =>({
+    type : actionTypes.CHANGE_VIDEO_STATUS,
+    data
+})
+export const changeShangjiaScreenStatus =data =>({
+    type:actionTypes.CHANGE_SCREEN_STATUS,
+    data
+})
 
