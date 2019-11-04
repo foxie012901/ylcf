@@ -1,4 +1,4 @@
-import { takeEvery, put } from "redux-saga/effects";
+import { takeEvery, put,call } from "redux-saga/effects";
 import { TEST_JSON } from '../components/ShangJia/store/actionTypes';
 import { PUT_DATA_TO_LIST, GET_IMGLIST_DATA, TEXT_TWO } from "../components/Home/store/actionTypes";
 import { getData, getIsShow, getImgListData, initImgList, textTwo, getTextTwo } from "../components/Home/store/actionCreators";
@@ -74,7 +74,7 @@ function* getShangJiaJSON(action) {
 }
 
 function* getTTwo(){
-
+    
 }
 
 function* getImgList() {
@@ -86,7 +86,7 @@ function* getImgList() {
 }
 function* getAxios() {
     try {
-        const res = yield axios.get('http://192.168.34.201:8081/public/home/img.json');
+        const res = yield axios.get('http://192.168.34.102:8081/public/home/img.json');
         console.log('res', res);
         let { status, msg, data } = res
         console.log('data', data.imgList)
@@ -94,6 +94,7 @@ function* getAxios() {
 
         if (status === 200) {
             yield put(initImgList(data.imgList))
+            // yield put(getTextTwo())
         }
     } catch (error) {
         console.log('error', error);

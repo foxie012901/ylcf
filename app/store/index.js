@@ -3,7 +3,7 @@ import { createStore, applyMiddleware, compose } from "redux";
 import reducer from "./reducer";
 
 import createSagaMiddleware from "redux-saga";  //引入saga的创建中间件
-import homeSagas from './sagas'  //引入sagas.js
+import Sagas from './sagas/index.js'  //引入sagas.js
 
 const sagaMiddleware = createSagaMiddleware() // 创建saga中间件
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({}) : compose;  //配置调试器
@@ -14,6 +14,6 @@ const store = createStore(
     reducer,
     enhancer
 )
-sagaMiddleware.run(homeSagas)  //开启saga中间件
+sagaMiddleware.run(Sagas)  //开启saga中间件
 
 export default store
