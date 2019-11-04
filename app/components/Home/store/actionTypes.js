@@ -14,5 +14,7 @@ export const INIT_IMG_LIST = 'home/init_img_list'
 
 export const GET_IMGLIST_DATA = 'home/get_imglist_data' //获取图片列表数据
 
+export const TEXT_TWO = 'home/text_two'
 
+export const GET_TEXT_TWO = 'home/get_text_two'
 //每个字符串加home证明这个store是服务于home组件的

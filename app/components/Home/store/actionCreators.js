@@ -35,12 +35,22 @@ export const putDataToList = () => ({
     type: actionTypes.PUT_DATA_TO_LIST
 })
 
-export const initImgList = data =>({
+export const initImgList = data => ({
     type: actionTypes.INIT_IMG_LIST,
-    data:fromJS(data)
+    data: fromJS(data),
+    isshow: false
 })
 
 export const getImgListData = () => ({
     type: actionTypes.GET_IMGLIST_DATA
 })
 
+
+
+export const textTwo = () => ({
+    type: actionTypes.TEXT_TWO
+})
+
+export const getTextTwo = () => ({
+    type:actionTypes.GET_TEXT_TWO
+})

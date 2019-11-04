@@ -53,6 +53,7 @@ export default StyleSheet.create({
         shadowOffset: { width: 0, height: 5 },
         shadowOpacity: .1,
         shadowRadius: 3,
+        elevation: 5,
 
         position: 'absolute',
         top: 64,
@@ -61,6 +62,7 @@ export default StyleSheet.create({
     },
     boxTopMiddleUp: {
         width: '100%',
+        // backgroundColor:'red',
         padding: 12,
         flexDirection: 'row'
     },

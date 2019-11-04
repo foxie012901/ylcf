@@ -11,6 +11,7 @@ import Home from './app/components/Home/Home'
 import ShangJia from './app/components/ShangJia/ShangJia'
 import Order from './app/components/Order/Order'
 import My from './app/components/My/My'
+import Login from "./app/components/Login/Login";
 //react-redux
 import { Provider } from "react-redux";
 import store from './app/store'
@@ -87,6 +88,7 @@ export default class Main extends Component {
                         <Scene key='shangjia' component={ShangJia} title='' hideNavBar={true} />
                         <Scene key='order' component={Order} title='' hideNavBar={true} />
                         <Scene key='my' component={My} title='' hideNavBar={true} />
+                        <Scene key='login' component={Login} title='登录' hideNavBar={false} />
                     </Stack>
                 </Router>
             </Provider>

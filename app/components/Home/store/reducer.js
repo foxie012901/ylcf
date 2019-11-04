@@ -40,8 +40,17 @@ export default (state = defaultState, action) => {
         console.log('reducer')
     }
 
-    if(action.type === actionTypes.INIT_IMG_LIST){
-        return state.set('imgList', action.data)
+    if (action.type === actionTypes.INIT_IMG_LIST) {
+        const set1 = state.set('imgList', action.data)
+        const set2 = state.set('isShow', false)
+        return state.merge({
+            'imgList': action.data,
+            'isShow': false
+        })
+    }
+
+    if(action.type === actionTypes.GET_TEXT_TWO){
+        console.warn('gettexttwo')
     }
 
 

@@ -24,7 +24,7 @@ import { actionCreators } from "./store";
 
 import { connect } from "react-redux";
 
-// import { toJs } from "immutable";
+import { Actions } from "react-native-router-flux";
 
 class Home extends Component {
   constructor(props) {
@@ -40,7 +40,8 @@ class Home extends Component {
   render() {
 
     let {
-      imgList
+      imgList,
+      isShow
     } = this.props
 
     let newImgList = []
@@ -97,9 +98,11 @@ class Home extends Component {
                 <Text style={styles.boxTopMiddleUpTxtText}>吉 BMP999</Text>
               </View>
               <View style={styles.boxTopMiddleUpBtn}>
-                <View style={styles.boxTopMiddleUpBtnBotton}>
+                <TouchableHighlight
+                  onPress={() => { Actions.login() }}
+                  style={styles.boxTopMiddleUpBtnBotton}>
                   <Text style={styles.boxTopMiddleUpBtnBottonText}>查违章</Text>
-                </View>
+                </TouchableHighlight>
               </View>
             </View>
             {/* 温馨提示 */}
@@ -126,7 +129,7 @@ class Home extends Component {
                   <View style={styles.HomeIconBtnButton} key={index}>
                     <View style={styles.HomeIconBtnButtonContent}>
                       <View>
-                        <Image source={{uri:item.url}}  style={styles.HomeIconBtnImg} />
+                        <Image source={{ uri: item.url }} style={styles.HomeIconBtnImg} />
                       </View>
                       <Text style={styles.HomeIconBtnText}>{item.name}</Text>
                     </View>
