@@ -45,4 +45,11 @@ export default class DeviceStorage {
   static delete(key) {
     return AsyncStorage.removeItem(key);
   }
+  /**
+   * 清除
+   */
+  static clean(){
+    return AsyncStorage.clear();
+  }
+  
 }

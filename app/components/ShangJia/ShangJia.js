@@ -62,22 +62,22 @@ class ShangJia extends Component {
       style: { alignSelf: 'center', marginTop: 24 }
     }
     let {
-      isShow,
+      isShow,//是否显示页面
       text,
-      videoIsError,
-      videoIsShow,
-      videoLoadStart,
+      videoIsError,//视频错误标识
+      videoIsShow,//视频是否显示标识
+      videoLoadStart,//视频开始加载标识
       _addText,
       videoIsPlay,//视频是否正在播放
-      _videoLoadStart,
+      _videoLoadStart,//视频开始加载方法
       showVideoCover,//显示视频封面
       showVideoControl,//显示视频控件
       isFullScreen,//当前是否全屏显示
       currentTime,//视频当前时间
       duration,//视频总时长
-      _videoOnLoad,
-      response,
-      _isRun,
+      _videoOnLoad,//视频加载方法
+      response,//返回数据
+      _isRun,//视频是否进行
       _onControlShrinkPress,//点击全屏按钮
       _onLayout,
       videoEnd,//视频播放结束

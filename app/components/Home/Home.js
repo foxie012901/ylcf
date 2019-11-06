@@ -19,9 +19,11 @@ import {
   ClippingRectangle, // 剪辑
 } from '@react-native-community/art'
 
+import DeviceStorageUtil  from '../../util/DeviceStorageUtil';
 import IconFont from 'react-native-vector-icons/Ionicons'
 
 import { actionCreators } from "./store";
+import { actionCreators as lo} from '../Login/store';
 
 import { connect } from "react-redux";
 
@@ -38,14 +40,14 @@ class Home extends Component {
     };
   }
 
-  componentDidMount() {
-    console.log(1)
+  componentDidMount(){
     this.props._getHomeData(width)
   }
 
   render() {
 
     let {
+
       imgList,  //icon 按钮数据
       isShow,  // 加载logo转圈开关
       brand,   //车品牌
@@ -53,6 +55,7 @@ class Home extends Component {
       plate, //车牌号
       wxts, // 温馨提示
       HomePath, //js代码绘制复杂矩形
+      _toLogin,//判断token跳转到login页
     } = this.props
 
     // let newImgList = []
@@ -88,7 +91,7 @@ class Home extends Component {
           >
             <Shape
               d={HomePath}
-              // stroke="#f00"  // 描边 
+              // stroke="#f00"  // 描边
               strokeWidth={1}
               visible={true}
               opacity={1.0}
@@ -97,7 +100,9 @@ class Home extends Component {
 
           {/* 头部标题 和 换一辆 */}
           <View style={styles.titleTopMiddle}>
+            <TouchableHighlight onPress={()=>{alert("清除");DeviceStorageUtil.clean();}}>
             <Text style={styles.titleTopMiddleText}>优辆车服</Text>
+            </TouchableHighlight>
           </View>
           <View style={styles.titleTopRight}>
             <IconFont name={'ios-sync'} size={11} color={'#fff'} /><Text style={styles.titleTopRightText}>换一辆</Text>
@@ -116,7 +121,7 @@ class Home extends Component {
               </View>
               <View style={styles.boxTopMiddleUpBtn}>
                 <TouchableHighlight
-                  onPress={() => { Actions.login() }}
+                  onPress={() => { this.props._toLogin()}}
                   style={styles.boxTopMiddleUpBtnBotton}>
                   <Text style={styles.boxTopMiddleUpBtnBottonText}>查违章</Text>
                 </TouchableHighlight>
@@ -207,6 +212,19 @@ const mapDispatchToProps = dispatch => {
       console.log(2)
       dispatch(actionCreators.getHomeData())
       dispatch(actionCreators.beginPainting(width))
+    },
+    async  _toLogin(){
+    
+      let token = ''
+     await   DeviceStorageUtil.get('token').then(val =>{
+         console.log('token=='+token)
+      token = val
+     });
+     if(token===null||token===''){
+       Actions.login();
+     }else{
+       alert(token);
+     }
     }
   }
 }
