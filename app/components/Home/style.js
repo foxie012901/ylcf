@@ -21,6 +21,7 @@ export default StyleSheet.create({
     },
     titleTopMiddle: {
         position: 'absolute',
+        // backgroundColor:'lightblue',
         top: 31,
     },
     titleTopMiddleText: {
@@ -43,6 +44,7 @@ export default StyleSheet.create({
     },
     boxTopMiddle: {
         width: width - 32,
+        // width: width - (width * 0.05),
         height: 107,
         backgroundColor: '#fff',
         borderTopLeftRadius: 8,
@@ -57,7 +59,7 @@ export default StyleSheet.create({
 
         position: 'absolute',
         top: 64,
-        left: 16,
+        
 
     },
     boxTopMiddleUp: {
@@ -67,10 +69,13 @@ export default StyleSheet.create({
         flexDirection: 'row'
     },
     boxTopMiddleUpLogo: {
-        width: '15%',
+        flex:2,
+        // backgroundColor:'#f00'
     },
     boxTopMiddleUpTxt: {
-        width: '60%',
+        flex:5,
+        // backgroundColor:"#0f0",
+
         justifyContent: 'center',
         paddingLeft: 10
     },
@@ -80,7 +85,9 @@ export default StyleSheet.create({
         fontWeight: '600'
     },
     boxTopMiddleUpBtn: {
-        width: "25%",
+        flex:3,
+        // backgroundColor:'#00f',
+
         alignItems: 'flex-end',
         justifyContent: 'center',
     },

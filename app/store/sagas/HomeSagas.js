@@ -3,13 +3,43 @@ import axios from 'axios'
 
 
 //引入各组件redux拦截Creators
-import { initImgList } from "../../components/Home/store/actionCreators";
+import { initImgList, initTopData} from "../../components/Home/store/actionCreators";
 
-function* getAxios(url, data) {
+function* getHomeIconBtn(url, da) {
+    console.log(4)
+    try {
+        // console.log('getHomeData')
+        const res = yield call(axios.get, url)
+        let { status, msg, data } = res
+        if (status === 200) {
+            yield put(initImgList(data.imgList))
+        }
+    } catch (error) {
+        console.log('error', error)
+    }
+}
+
+function* getHomeTopData(url, da) {
+    console.log(6)
+    try {
+        // console.log('getHomeTopData')
+        const res = yield call(axios.get, url)
+        let{status, msg, data} = res
+        // console.log(status)
+        // console.log(data.data)
+        if(status === 200){
+            yield put(initTopData(data.data))
+        }
+    } catch (error) {
+        console.log('err')
+    }
+}
+
+function* getAxios(url, da) {
     console.log('sagashome')
     try {
-        console.log('homesagas')
-        console.log(url)
+        // console.log('homesagas')
+        // console.log(url)
         const res = yield call(axios.get, url)
         let { status, msg, data } = res
         if (status === 200) {
@@ -35,5 +65,7 @@ function* getAxios(url, data) {
 }
 
 export {
-    getAxios
+    getAxios,
+    getHomeIconBtn,
+    getHomeTopData
 }

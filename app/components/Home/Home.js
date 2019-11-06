@@ -5,7 +5,8 @@ import {
   Dimensions,
   Image,
   TouchableHighlight,
-  ScrollView
+  ScrollView,
+  ActivityIndicator
 } from 'react-native';
 import styles from "./style.js";
 import {
@@ -26,51 +27,67 @@ import { connect } from "react-redux";
 
 import { Actions } from "react-native-router-flux";
 
+const { height, width } = Dimensions.get('window');
+
+
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isShow: true
     };
   }
 
   componentDidMount() {
-    this.props._getImgListData()
+    console.log(1)
+    this.props._getHomeData(width)
   }
 
   render() {
 
     let {
-      imgList,
-      isShow
+      imgList,  //icon 按钮数据
+      isShow,  // 加载logo转圈开关
+      brand,   //车品牌
+      logo,  //车品牌logo
+      plate, //车牌号
+      wxts, // 温馨提示
+      HomePath, //js代码绘制复杂矩形
     } = this.props
 
-    let newImgList = []
-    imgList.map((item) => {
-      newImgList.push(item.toJS());
-    })
-    console.log(imgList)
-    console.log(newImgList)
+    // let newImgList = []
+    // imgList.map((item) => {
+    //   newImgList.push(item.toJS());
+    // })
+
+    // console.log(topData)
+    // console.log(brand, logo, plate)
+    // console.log(imgList)
+    // console.log(newImgList)
     // console.log(t)
 
-    let { height, width } = Dimensions.get('window');
+    // let { height, width } = Dimensions.get('window');
 
-    let path = new Path();
-    path.moveTo(0, 0)
-      .lineTo(width, 0)
-      .lineTo(width, 120)
-      // .lineTo(0,200)
-      .arc(-width, 0, 1500)
-      .lineTo(0, 0)
-      .close()
+    // let path = new Path();
+    // path.moveTo(0, 0)
+    //   .lineTo(width, 0)
+    //   .lineTo(width, 120)
+    //   // .lineTo(0,200)
+    //   .arc(-width, 0, 1500)
+    //   .lineTo(0, 0)
+    //   .close()
 
-    return (
-      <View style={styles.content}>
+    let Loading = (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}><ActivityIndicator animating={this.state.isShow} /></View>
+    )
+    let PageHome = (
+      <View>
         <View style={styles.topBox}>
           <Surface width={width} height={139}
             style={styles.conART}
           >
             <Shape
-              d={path}
+              d={HomePath}
               // stroke="#f00"  // 描边 
               strokeWidth={1}
               visible={true}
@@ -90,12 +107,12 @@ class Home extends Component {
             <View style={styles.boxTopMiddleUp}>
               <View style={styles.boxTopMiddleUpLogo}>
                 <Image
-                  source={require('../../images/BZlogo.png')}
+                  source={{ uri: logo }}
                   style={styles.boxLogo}
                 />
               </View>
               <View style={styles.boxTopMiddleUpTxt}>
-                <Text style={styles.boxTopMiddleUpTxtText}>吉 BMP999</Text>
+                <Text style={styles.boxTopMiddleUpTxtText}>{plate}</Text>
               </View>
               <View style={styles.boxTopMiddleUpBtn}>
                 <TouchableHighlight
@@ -108,7 +125,7 @@ class Home extends Component {
             {/* 温馨提示 */}
             <View style={styles.boxTopMiddleDown}>
               <View style={styles.boxTopMiddleDownDian}></View>
-              <Text style={styles.boxTopMiddleDownText}>温馨提示:交管数据升级,暂不可用!</Text>
+              <Text style={styles.boxTopMiddleDownText}>温馨提示:{wxts}</Text>
             </View>
           </View>
         </View>
@@ -123,8 +140,7 @@ class Home extends Component {
 
           <View style={styles.HomeIconBtnContent}>
             {
-              newImgList.map((item, index) => {
-                console.log(item.url)
+              imgList.map((item, index) => {
                 return (
                   <View style={styles.HomeIconBtnButton} key={index}>
                     <View style={styles.HomeIconBtnButtonContent}>
@@ -159,19 +175,38 @@ class Home extends Component {
           </View>
         </ScrollView>
       </View>
+
+    )
+
+    return (
+      <View style={styles.content}>
+        {
+          this.props.isShow ? Loading : PageHome
+        }
+      </View>
     );
   }
 }
 const mapStateToProps = state => {
   return {
     isShow: state.getIn(['home', 'isShow']),
-    imgList: state.getIn(['home', 'imgList'])
+    imgList: state.getIn(['home', 'imgList']),
+    brand: state.getIn(['home', 'brand']),
+    logo: state.getIn(['home', 'logo']),
+    plate: state.getIn(['home', 'plate']),
+    wxts: state.getIn(['home', 'wxts']),
+    HomePath: state.getIn(['home', 'HomePath'])
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
-    _getImgListData() {
-      dispatch(actionCreators.getImgListData())
+    // _beginPainting(){
+    //   dispatch(actionCreators.beginPainting())
+    // },
+    _getHomeData(width) {
+      console.log(2)
+      dispatch(actionCreators.getHomeData())
+      dispatch(actionCreators.beginPainting(width))
     }
   }
 }

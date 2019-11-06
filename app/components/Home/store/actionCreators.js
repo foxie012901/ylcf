@@ -11,40 +11,40 @@ export const getIsShow = changedata => ({
     type: actionTypes.GET_IS_SHOW,
     changedata
 })
-
-export const getChangeInputValue = value => ({
-    type: actionTypes.CHANGE_INPUT_VALUE,
-    value,
+//获取首页需要的渲染数据
+export const getHomeData = () => ({
+    type: actionTypes.GET_HOME_DATA
 })
 
-export const InitList = () => ({
-    type: actionTypes.INIT_LIST,
-})
-
-export const delInitListIndex = index => ({
-    type: actionTypes.DELETE_LIST_INDEX,
-    index
-})
-
-export const getData = data => ({
-    type: actionTypes.GET_DATA,
-    data: fromJS(data)
-})
-
-export const putDataToList = () => ({
-    type: actionTypes.PUT_DATA_TO_LIST
-})
-
-export const initImgList = data => ({
-    type: actionTypes.INIT_IMG_LIST,
-    data: fromJS(data),
-    isshow: false
-})
-
+//获取首页icon按钮数据并添加
 export const getImgListData = () => ({
     type: actionTypes.GET_IMGLIST_DATA
 })
+export const initImgList = data => ({
+    type: actionTypes.INIT_IMG_LIST,
+    data: fromJS(data)
+})
 
+//获取首页顶部页面数据
+export const getTopData = () => ({
+    type: actionTypes.GET_TOP_DATA
+})
+export const initTopData = data => ({
+    type: actionTypes.INIT_TOP_DATA,
+    data: fromJS(data)
+})
+
+//获取首页绘制复杂矩形的数据
+export const beginPainting = width => ({
+    type: actionTypes.BEGIN_PAINTING,
+    width
+})
+
+//首页加载开关HOME_ISSHOW_CHANGE
+export const homeIsshowChange = tOf => ({
+    type: actionTypes.HOME_ISSHOW_CHANGE,
+    tOf,
+})
 
 
 export const textTwo = () => ({
@@ -52,5 +52,34 @@ export const textTwo = () => ({
 })
 
 export const getTextTwo = () => ({
-    type:actionTypes.GET_TEXT_TWO
+    type: actionTypes.GET_TEXT_TWO
 })
+
+
+
+
+
+
+
+// export const getChangeInputValue = value => ({
+//     type: actionTypes.CHANGE_INPUT_VALUE,
+//     value,
+// })
+
+// export const InitList = () => ({
+//     type: actionTypes.INIT_LIST,
+// })
+
+// export const delInitListIndex = index => ({
+//     type: actionTypes.DELETE_LIST_INDEX,
+//     index
+// })
+
+// export const getData = data => ({
+//     type: actionTypes.GET_DATA,
+//     data: fromJS(data)
+// })
+
+// export const putDataToList = () => ({
+//     type: actionTypes.PUT_DATA_TO_LIST
+// })
