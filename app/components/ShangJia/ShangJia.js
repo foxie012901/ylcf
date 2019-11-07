@@ -18,7 +18,6 @@ import Orientation from 'react-native-orientation';
 import Carousel from 'react-native-snap-carousel';
 //安卓阴影保留
 // import {BoxShadow} from 'react-native-shadow';
-import Swiper from 'react-native-swiper';
 import { connect } from "react-redux";
 import { actionCreators } from "./store";
 import DateUtil from '../../util/DateUtil';
@@ -43,7 +42,7 @@ class ShangJia extends Component {
   }
   renderSwiperImgs(imgs){
     console.log(imgs);
-   
+
   }
   _renderCarousel({item,index}){
     console.log(this);
@@ -71,7 +70,7 @@ class ShangJia extends Component {
                     <TouchableOpacity style={{ width:mWidth,
                       height:"100%"}}   onPress={()=>{alert("点了海报");this.props._changeVideoStatus(this.props.videoIsPlay)}}>
                       {<Image
-        
+
                         style={{
                           position:'absolute',
                           top: 0,
@@ -86,7 +85,7 @@ class ShangJia extends Component {
                     <View
                       style={{
                         position: 'absolute',
-        
+
                         backgroundColor:this.props.videoIsPlay ? 'transparent' : 'rgba(0, 0, 0, 0.2)',
                         alignSelf:'center',
                         justifyContent:'center'
@@ -98,16 +97,16 @@ class ShangJia extends Component {
                               onPress={()=>{alert("点了支");this.props._changeVideoStatus(this.props.videoIsPlay)}}
                               style={{flex:1,width:50,height:50,zIndex:999,resizeMode:'stretch'}}
                               source={require('../../images/videoStop.png')}
-        
+
                             />
-        
+
                           </TouchableWithoutFeedback>
                       }
                     </View>
                     <View
                       style={{
                         position: 'absolute',
-        
+
                         backgroundColor: this.props.videoIsPlay ? 'transparent' : 'rgba(0, 0, 0, 0.2)',
                         alignSelf:'center',
                         justifyContent:'center'
@@ -116,12 +115,12 @@ class ShangJia extends Component {
                         this.props.videoEnd ?
                           <TouchableWithoutFeedback onPress={()=>{alert("点了重播"+this.props.videoIsPlay);this.props._changeVideoStatus(this.props.videoIsPlay)}}>
                              <Image
-                            
+
                               style={{flex:1,width:50,height:50,zIndex:999,resizeMode:'stretch'}}
                               source={require('../../images/chongbo.png')}
-        
+
                             />
-        
+
                           </TouchableWithoutFeedback>:null
                       }
                     </View>
@@ -207,7 +206,7 @@ class ShangJia extends Component {
     let Loading =(<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
     <ActivityIndicator animating={this.props.isShow} />
   </View>);
-  
+
     let ShangJiaPage = (
     <View style={styles.content}>
       <View style={{ flexDirection: 'row' }}>
@@ -220,7 +219,7 @@ class ShangJia extends Component {
       <Swiper ref={(ref) => {
                        this.Swiper = ref
                                       }} style={{flex:1}} autoplay = {false} loop={true} key={swiperImgs.length} loadMinimal={true}>
-      
+
           {
            swiperImgs.map((item,index) =>{
              console.log(item,index);
@@ -248,7 +247,7 @@ class ShangJia extends Component {
                    <TouchableOpacity style={{ width:mWidth,
                      height:"100%"}}   onPress={()=>{alert("点了海报");_changeVideoStatus(videoIsPlay)}}>
                      {<Image
-       
+
                        style={{
                          position:'absolute',
                          top: 0,
@@ -263,7 +262,7 @@ class ShangJia extends Component {
                    <View
                      style={{
                        position: 'absolute',
-       
+
                        backgroundColor: videoIsPlay ? 'transparent' : 'rgba(0, 0, 0, 0.2)',
                        alignSelf:'center',
                        justifyContent:'center'
@@ -275,16 +274,16 @@ class ShangJia extends Component {
                              onPress={()=>{alert("点了支");_changeVideoStatus(videoIsPlay)}}
                              style={{flex:1,width:50,height:50,zIndex:999,resizeMode:'stretch'}}
                              source={require('../../images/videoStop.png')}
-       
+
                            />
-       
+
                          </TouchableWithoutFeedback>
                      }
                    </View>
                    <View
                      style={{
                        position: 'absolute',
-       
+
                        backgroundColor: videoIsPlay ? 'transparent' : 'rgba(0, 0, 0, 0.2)',
                        alignSelf:'center',
                        justifyContent:'center'
@@ -293,12 +292,12 @@ class ShangJia extends Component {
                        videoEnd ?
                          <TouchableWithoutFeedback onPress={()=>{alert("点了重播"+videoIsPlay);_changeVideoStatus(videoIsPlay)}}>
                             <Image
-                           
+
                              style={{flex:1,width:50,height:50,zIndex:999,resizeMode:'stretch'}}
                              source={require('../../images/chongbo.png')}
-       
+
                            />
-       
+
                          </TouchableWithoutFeedback>:null
                      }
                    </View>
@@ -349,7 +348,7 @@ class ShangJia extends Component {
               firstItem={0}
               loop={true}
               autoplay={true}
-              
+
             />
     <ScrollView alwaysBounceVertical={true}>
     <View style={styles.storeMessageView}>
@@ -383,7 +382,7 @@ class ShangJia extends Component {
       />
       </ScrollView>
   </View>);
-       
+
     return (
       <View style={{ width: '100%', height: '100%' }}>
       {
@@ -392,7 +391,7 @@ class ShangJia extends Component {
     </View >
 
     );
-   
+
   }
 }
 const mapStateToProps = state => {
@@ -597,7 +596,7 @@ const styles = StyleSheet.create({
     padding: mHeight * 0.01,
     flex: 2,
   },
- 
+
       untAndtImage: {
           height: mHeight * 0.06,
           width: mWidth * 0.14,
@@ -640,7 +639,7 @@ const styles = StyleSheet.create({
       },
       wrapper: {
       },
-  
+
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShangJia)
