@@ -31,7 +31,8 @@ const defaultState = fromJS({
     videoHeight:'25%',//视频高度
     videoWidth:mWidth,//视频宽度
     videoEnd:false,//视频是否结束标识
-    swiperImgs:[]
+    swiperImgs:[],//轮播列表
+    swiperIs:false,//是否正在轮播
 })
 
 export default (state = defaultState, action) => {
@@ -54,7 +55,8 @@ export default (state = defaultState, action) => {
      if(action.type ===actionTypes.VIDEO_ON_LOAD){
         return state.merge({
             videoLoadStart:false,
-            showVideoCover:true
+            showVideoCover:true,
+            swiperIs:true
         })
     }
      if(action.type ===actionTypes.VIDEO_LOAD_START){
