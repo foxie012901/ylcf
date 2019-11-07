@@ -30,7 +30,8 @@ const defaultState = fromJS({
     isFullScreen:false,//是否全屏
     videoHeight:'25%',//视频高度
     videoWidth:mWidth,//视频宽度
-    videoEnd:false//视频是否结束标识
+    videoEnd:false,//视频是否结束标识
+    swiperImgs:[]
 })
 
 export default (state = defaultState, action) => {
@@ -63,7 +64,15 @@ export default (state = defaultState, action) => {
         })
      }
      if(action.type ===actionTypes.JSON_DATA){
-        return state.set('response' ,JSON.parse(action.data).data);  
+         let data = JSON.parse(action.data).data;
+         let swiperImgsList = []
+         swiperImgsList.push({'video':data.video})
+         data.imgs.map((item)=>{
+             swiperImgsList.push({'img':item})
+         })
+        return state.merge({'response':data,
+                'swiperImgs':swiperImgsList
+    });  
      }
      if(action.type ===actionTypes.CHANGE_VIDEO_STATUS){
          if(state.get('videoIsPlay')==true){
