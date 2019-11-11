@@ -15,11 +15,10 @@ import {
 } from 'react-native';
 import Video from 'react-native-video';
 import Orientation from 'react-native-orientation';
-
+import   Carousel       from 'react-native-looped-carousel';
 //安卓阴影保留
 // import {BoxShadow} from 'react-native-shadow';
-
-import Swiper from 'react-native-swiper';
+import  BetterBanner    from 'react-native-better-banner';
 import { connect } from "react-redux";
 import { actionCreators } from "./store";
 import DateUtil from '../../util/DateUtil';
@@ -42,8 +41,9 @@ class ShangJia extends Component {
     })
 
   }
-  renderSwiperImgs(imgs){
-    console.log(imgs);
+  renderSwiperImgs =(elevation) =>{
+    console.log(elevation)
+  
    
   }
   renderItem =({item})=>  {
@@ -90,7 +90,7 @@ class ShangJia extends Component {
       _changeVideoStatus,//修改视频属性
       swiperImgs,//轮播图片
     } = this.props
-
+console.log(swiperImgs)
 
     let Loading =(<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
     <ActivityIndicator animating={this.props.isShow} />
@@ -107,126 +107,134 @@ class ShangJia extends Component {
       </View>
      
       <View style={{width:mWidth,height:mHeight*0.25}}>
-      <Swiper style={{flex:1}} autoplay = {false} loop={true} >
+      <Carousel  style={{width: mWidth, height:mHeight*0.25,background:"#FFFFF"}}
+       bullets={true}
+     
+      >
+      {
+          swiperImgs.map((item,index) =>{
+            console.log(item,index);
+            if(item.video!==undefined){
+               return(<View style={styles.videoView}>
+              <TouchableOpacity style={{flex:1}} onPress={()=>{alert("点了视频");_changeVideoStatus(videoIsPlay);}}>
+             <Video   style={{ width: mWidth, height: '100%', backgroundColor:'#000000'}}
+                      ref={(ref) => {
+                      this.player = ref
+                                     }}
+                      rate={1}                          // 控制暂停/播放，0 代表暂停paused, 1代表播放normal.
+                      paused={!videoIsPlay}
+                      volume={1}                   // 声音的放大倍数，0 代表没有声音，就是静音muted, 1 代表正常音量 normal，更大的数字表示放大的倍数
+                      muted={false}
+                      repeat={false}                  // true代表静音，默认为false.
+                      resizeMode='stretch'       // 视频的自适应伸缩铺放行为，
+                      onLoad={_videoOnLoad}                       // 当视频加载完毕时的回调函数
+                      onEnd={()=>{_videoEnd(videoIsPlay)}}
+                      fullscreen={true}
+                      fullscreenAutorotate={true}
+            source={{uri:response.video}} />
+            </TouchableOpacity>
+            {
+                  showVideoCover ?
+                  <TouchableOpacity style={{ width:mWidth,
+                    height:"100%"}}   onPress={()=>{alert("点了海报");_changeVideoStatus(videoIsPlay)}}>
+                    {<Image
+      
+                      style={{
+                        position:'absolute',
+                        top: 0,
+                        left: 0,
+                        width:mWidth,
+                        height:"100%"
+                      }}
+                      resizeMode={'cover'}
+                      source={{uri: 'http://124.129.157.208:8889/data/uploads/kecheng/2018/01/18/5a600b2c99836.png@0o_0l_220w.png'}}
+                    /> }</TouchableOpacity>: null
+                }
+                  <View
+                    style={{
+                      position: 'absolute',
+      
+                      backgroundColor: videoIsPlay ? 'transparent' : 'rgba(0, 0, 0, 0.2)',
+                      alignSelf:'center',
+                      justifyContent:'center'
+                    }}>
+                    {
+                      videoIsPlay||videoLoadStart ? null :
+                        <TouchableWithoutFeedback onPress={()=>{alert("点了支");_changeVideoStatus(videoIsPlay)}}>
+                           <Image
+                            onPress={()=>{alert("点了支");_changeVideoStatus(videoIsPlay)}}
+                            style={{flex:1,width:50,height:50,zIndex:999,resizeMode:'stretch'}}
+                            source={require('../../images/videoStop.png')}
+      
+                          />
+      
+                        </TouchableWithoutFeedback>
+                    }
+                  </View>
+                  <View
+                    style={{
+                      position: 'absolute',
+      
+                      backgroundColor: videoIsPlay ? 'transparent' : 'rgba(0, 0, 0, 0.2)',
+                      alignSelf:'center',
+                      justifyContent:'center'
+                    }}>
+                    {
+                      videoEnd ?
+                        <TouchableWithoutFeedback onPress={()=>{alert("点了重播"+videoIsPlay);_changeVideoStatus(videoIsPlay)}}>
+                           <Image
+                          
+                            style={{flex:1,width:50,height:50,zIndex:999,resizeMode:'stretch'}}
+                            source={require('../../images/chongbo.png')}
+      
+                          />
+      
+                        </TouchableWithoutFeedback>:null
+                    }
+                  </View>
+                {
+                  showVideoControl ?
+                    <View style={[styles.control, {width: mWidth}]}>
+                      <TouchableOpacity style={{flex:1}}  onPress={() => { alert("showVideoControl="+showVideoControl+"videoIsPlay="+videoIsPlay+"videoLoadStart"+videoLoadStart) }}>
+                        <Image
+                          style={styles.playControl}
+                          source={ videoIsPlay? require('../../images/bjpq.png'):require('../../images/btn_down_arrow.png') }
+                        />
+                      </TouchableOpacity>
+                      <Slider
+                        style={{width:mWidth*0.8}}
+                        maximumTrackTintColor={'#999999'}
+                        minimumTrackTintColor={'#00c06d'}
+                        value={currentTime}
+                        minimumValue={0}
+                        maximumValue={duration}
+                        onValueChange={(currentTime) => { this.onSliderValueChanged(currentTime) }}
+                      />
+                       <TouchableOpacity activeOpacity={0.3} >
+                        <Image
+                          style={styles.shrinkControl}
+                          source={isFullScreen ? require('../../images/unselect.png') : require('../../images/select.png')}
+                        />
+                      </TouchableOpacity>
+                    </View> :  null
+                }
+          <ActivityIndicator style={{position:'absolute',alignSelf:'center'}} animating={videoLoadStart} color='red'/>
+          </View>)
+            }else if (item.img!==undefined){
+              console.log("imgs",item.imgs);
+              return (<View style={{flex:1}}><Image style={{flex:1,resizeMode:'stretch'}} source={{uri:item.img}}></Image></View>)
+            }else{
+              return null;
+            }
+         })
+      }
+
+      </Carousel>
       
           {
-           swiperImgs.map((item,index) =>{
-             console.log(item,index);
-             if(item.video!==undefined){
-               return (response.video===""||response.video===null||response.video===undefined?null:<View style={styles.videoView}>
-               <TouchableOpacity style={{flex:1}} onPress={()=>{alert("点了视频");_changeVideoStatus(videoIsPlay);}}>
-              <Video   style={{ width: mWidth, height: '100%', backgroundColor:'#000000'}}
-                       ref={(ref) => {
-                       this.player = ref
-                                      }}
-                       rate={1}                          // 控制暂停/播放，0 代表暂停paused, 1代表播放normal.
-                       paused={!videoIsPlay}
-                       volume={1}                   // 声音的放大倍数，0 代表没有声音，就是静音muted, 1 代表正常音量 normal，更大的数字表示放大的倍数
-                       muted={false}
-                       repeat={false}                  // true代表静音，默认为false.
-                       resizeMode='stretch'       // 视频的自适应伸缩铺放行为，
-                       onLoad={_videoOnLoad}                       // 当视频加载完毕时的回调函数
-                       onEnd={()=>{_videoEnd(videoIsPlay)}}
-                       fullscreen={true}
-                       fullscreenAutorotate={true}
-             source={{uri:response.video}} />
-             </TouchableOpacity>
-             {
-                   showVideoCover ?
-                   <TouchableOpacity style={{ width:mWidth,
-                     height:"100%"}}   onPress={()=>{alert("点了海报");_changeVideoStatus(videoIsPlay)}}>
-                     {<Image
-       
-                       style={{
-                         position:'absolute',
-                         top: 0,
-                         left: 0,
-                         width:mWidth,
-                         height:"100%"
-                       }}
-                       resizeMode={'cover'}
-                       source={{uri: 'http://124.129.157.208:8889/data/uploads/kecheng/2018/01/18/5a600b2c99836.png@0o_0l_220w.png'}}
-                     /> }</TouchableOpacity>: null
-                 }
-                   <View
-                     style={{
-                       position: 'absolute',
-       
-                       backgroundColor: videoIsPlay ? 'transparent' : 'rgba(0, 0, 0, 0.2)',
-                       alignSelf:'center',
-                       justifyContent:'center'
-                     }}>
-                     {
-                       videoIsPlay||videoLoadStart ? null :
-                         <TouchableWithoutFeedback onPress={()=>{alert("点了支");_changeVideoStatus(videoIsPlay)}}>
-                            <Image
-                             onPress={()=>{alert("点了支");_changeVideoStatus(videoIsPlay)}}
-                             style={{flex:1,width:50,height:50,zIndex:999,resizeMode:'stretch'}}
-                             source={require('../../images/videoStop.png')}
-       
-                           />
-       
-                         </TouchableWithoutFeedback>
-                     }
-                   </View>
-                   <View
-                     style={{
-                       position: 'absolute',
-       
-                       backgroundColor: videoIsPlay ? 'transparent' : 'rgba(0, 0, 0, 0.2)',
-                       alignSelf:'center',
-                       justifyContent:'center'
-                     }}>
-                     {
-                       videoEnd ?
-                         <TouchableWithoutFeedback onPress={()=>{alert("点了重播"+videoIsPlay);_changeVideoStatus(videoIsPlay)}}>
-                            <Image
-                           
-                             style={{flex:1,width:50,height:50,zIndex:999,resizeMode:'stretch'}}
-                             source={require('../../images/chongbo.png')}
-       
-                           />
-       
-                         </TouchableWithoutFeedback>:null
-                     }
-                   </View>
-                 {
-                   showVideoControl ?
-                     <View style={[styles.control, {width: mWidth}]}>
-                       <TouchableOpacity style={{flex:1}}  onPress={() => { alert("showVideoControl="+showVideoControl+"videoIsPlay="+videoIsPlay+"videoLoadStart"+videoLoadStart) }}>
-                         <Image
-                           style={styles.playControl}
-                           source={ videoIsPlay? require('../../images/bjpq.png'):require('../../images/btn_down_arrow.png') }
-                         />
-                       </TouchableOpacity>
-                       <Slider
-                         style={{width:mWidth*0.8}}
-                         maximumTrackTintColor={'#999999'}
-                         minimumTrackTintColor={'#00c06d'}
-                         value={currentTime}
-                         minimumValue={0}
-                         maximumValue={duration}
-                         onValueChange={(currentTime) => { this.onSliderValueChanged(currentTime) }}
-                       />
-                        <TouchableOpacity activeOpacity={0.3} >
-                         <Image
-                           style={styles.shrinkControl}
-                           source={isFullScreen ? require('../../images/unselect.png') : require('../../images/select.png')}
-                         />
-                       </TouchableOpacity>
-                     </View> :  null
-                 }
-           <ActivityIndicator style={{position:'absolute',alignSelf:'center'}} animating={videoLoadStart} color='red'/>
-           </View>)
-             }else if (item.img!==undefined){
-               console.log("imgs",item.imgs);
-               return (<View style={{flex:1}}><Image style={{flex:1,resizeMode:'stretch'}} source={{uri:item.img}}></Image></View>)
-             }else{
-               return null;
-             }
-          })
+           
           }
-      </Swiper>
+      
       </View>
       
       
