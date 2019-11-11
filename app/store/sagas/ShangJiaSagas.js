@@ -16,6 +16,7 @@ import { getIsShow as shangjiaGetIsShow, shangjiaJsonData as getShangJia } from 
     console.log(api + "请求开始", fetchOptions);
     let res = yield fetch(url, fetchOptions); 
     let response = yield res.text();
+    alert("旗舰店页面请求成功",response);
     yield put(getShangJia(response));
     yield put(shangjiaGetIsShow(false));
 }
