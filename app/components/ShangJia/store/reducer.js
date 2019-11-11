@@ -81,7 +81,6 @@ export default (state = defaultState, action) => {
          }
      }
      if(action.type===actionTypes.CHANGE_SCREEN_STATUS){
-         alert('进料')
          return state.merge(action.data);
      
      }
