@@ -19,15 +19,21 @@ import {
   ClippingRectangle, // 剪辑
 } from '@react-native-community/art'
 
-import DeviceStorageUtil  from '../../util/DeviceStorageUtil';
+//封装活动格式
+import ActiveStyle from './ActiveStyle'
+
+import DeviceStorageUtil from '../../util/DeviceStorageUtil';
 import IconFont from 'react-native-vector-icons/Ionicons'
 
 import { actionCreators } from "./store";
-import { actionCreators as lo} from '../Login/store';
+import { actionCreators as lo } from '../Login/store';
 
 import { connect } from "react-redux";
 
 import { Actions } from "react-native-router-flux";
+
+//图片轮播
+import Swiper from 'react-native-swiper'
 
 const { height, width } = Dimensions.get('window');
 
@@ -35,20 +41,25 @@ const { height, width } = Dimensions.get('window');
 class Home extends Component {
   constructor(props) {
     super(props);
+    // props._getHomeData(width)
     this.state = {
-      isShow: true
+      isShow: true,
     };
   }
 
-  componentDidMount(){
+  componentWillMount() {
     this.props._getHomeData(width)
   }
 
   render() {
 
     let {
+      homeFunctionAreaList, // 可配置功能区域
+      bannerV180ResponseList, // banner 轮播
+      creditV192ResponseList,// 玩转积分
+      activityStyleV180ResponseList, // 活动设置
 
-      imgList,  //icon 按钮数据
+      iconList, // icon 按钮数据 6个
       isShow,  // 加载logo转圈开关
       brand,   //车品牌
       logo,  //车品牌logo
@@ -58,6 +69,9 @@ class Home extends Component {
       _toLogin,//判断token跳转到login页
     } = this.props
 
+    // console.log('活动设置:', activityStyleV180ResponseList)
+    // console.log('homeFunctionAreaList', homeFunctionAreaList)
+    // console.log('imgList', imgList)
     // let newImgList = []
     // imgList.map((item) => {
     //   newImgList.push(item.toJS());
@@ -100,8 +114,8 @@ class Home extends Component {
 
           {/* 头部标题 和 换一辆 */}
           <View style={styles.titleTopMiddle}>
-            <TouchableHighlight onPress={()=>{alert("清除");DeviceStorageUtil.clean();}}>
-            <Text style={styles.titleTopMiddleText}>优辆车服</Text>
+            <TouchableHighlight onPress={() => { alert("清除"); DeviceStorageUtil.clean(); }}>
+              <Text style={styles.titleTopMiddleText}>优辆车服</Text>
             </TouchableHighlight>
           </View>
           <View style={styles.titleTopRight}>
@@ -121,7 +135,7 @@ class Home extends Component {
               </View>
               <View style={styles.boxTopMiddleUpBtn}>
                 <TouchableHighlight
-                  onPress={() => { this.props._toLogin()}}
+                  onPress={() => { this.props._toLogin() }}
                   style={styles.boxTopMiddleUpBtnBotton}>
                   <Text style={styles.boxTopMiddleUpBtnBottonText}>查违章</Text>
                 </TouchableHighlight>
@@ -143,7 +157,7 @@ class Home extends Component {
           </View>
           {/* 8个button */}
 
-          <View style={styles.HomeIconBtnContent}>
+          {/* <View style={styles.HomeIconBtnContent}>
             {
               imgList.map((item, index) => {
                 return (
@@ -158,29 +172,131 @@ class Home extends Component {
                 )
               })
             }
+          </View> */}
+
+          <View style={styles.HomeIconBtnContent}>
+            {
+              // console.log('homeFunctionAreaList',homeFunctionAreaList)
+
+              homeFunctionAreaList === undefined || homeFunctionAreaList.size === 0 ? null :
+                homeFunctionAreaList.map((item, index) => {
+                  return (
+                    <View style={styles.HomeIconBtnButton} key={index}>
+                      <View style={styles.HomeIconBtnButtonContent}>
+                        <View>
+                          <Image source={{ uri: item.pic }} style={styles.HomeIconBtnImg} />
+                        </View>
+                        <Text style={styles.HomeIconBtnText}>{item.title}</Text>
+                      </View>
+                    </View>
+                  )
+                })
+            }
           </View>
-          {/* banner */}
+
+
+
+          {/* banner 轮播图 */}
           <View style={styles.HomeBanner}>
+            <View style={{ width: '100%', height: 90, borderRadius: 8, overflow: 'hidden' }}>
+              {
+                bannerV180ResponseList === undefined || bannerV180ResponseList.size === 0 ? null :
+
+
+                  bannerV180ResponseList.length ?
+                    <Swiper
+                      showsButtons={false}
+                      loop={true}
+                      autoplay={true}
+                      horizontal={true}
+                      automaticallyAdjustContentInsets={true}
+                      paginationStyle={{
+                        bottom: 5
+                      }}
+                    >
+                      {
+                        bannerV180ResponseList.map((item, i) => {
+                          return <View key={i}>
+                            <Image source={{ uri: item.pic }} style={styles.HomeBannerBg}></Image>
+                          </View>
+                        })
+                      }
+                    </Swiper> : null
+              }
+            </View>
+          </View>
+          {/* <BasePicPlay duration={2000} ImageData={this.state.ImageData} /> */}
+
+
+
+          {/* 玩转积分 */}
+          <View style={styles.HomeWZJF}>
+            <View style={styles.HomeWZJFTitle}>
+              <View style={styles.HomeWZJFTitleLeft}>
+                <View style={styles.HomeWZJFTitleLeftGray}></View>
+
+              </View>
+              <View style={styles.HomeWZJFTitleMiddle}>
+                <Text style={styles.HomeWZJFTitleMiddleText}>玩转积分</Text>
+
+              </View>
+              <View style={styles.HomeWZJFTitleRight}>
+                <Text style={styles.HomeWZJFTitleRightText}>更多积分商品</Text>
+
+              </View>
+            </View>
+            <View style={styles.HomeWZJFBody}>
+              {
+                creditV192ResponseList === undefined || creditV192ResponseList.size === 0 ? null :
+                  creditV192ResponseList.map((item, index) => {
+                    return (
+                      <View style={styles.HomeWZJFIconBtn} key={index}>
+                        <View style={styles.HomeWZJFIconBtnContent}>
+                          <View>
+                            <Image source={{ uri: item.icon }} style={styles.HomeWZJFIconBtnImg} />
+                          </View>
+                          <Text style={styles.HomeWZJFIconBtnText}>{item.title}</Text>
+                        </View>
+                      </View>
+                    )
+                  })
+              }
+            </View>
+          </View>
+
+          <View>
+
+
+
+          </View>
+          <View>
+            {
+              activityStyleV180ResponseList === undefined || activityStyleV180ResponseList.size === 0 ? null :
+                activityStyleV180ResponseList.map((item, index) => {
+
+                  return (
+                    <ActiveStyle
+                      key={index}
+                      styleType={item.styleType}
+                      activityStyleOneV180Response={item.activityStyleOneV180Response === null ? null : item.activityStyleOneV180Response}
+                      activityStyleTwoV180Response={item.activityStyleTwoV180Response === null ? null : item.activityStyleTwoV180Response}
+                    />
+                  )
+                })
+            }
+          </View>
+
+
+
+
+          {/* <View style={styles.HomeBanner}>
             <View style={styles.HomeBannerContent}>
               <Image source={require('../../images/homeBanner.jpeg')}
                 style={styles.HomeBannerBg} />
             </View>
-          </View>
-          <View style={styles.HomeBanner}>
-            <View style={styles.HomeBannerContent}>
-              <Image source={require('../../images/homeBanner.jpeg')}
-                style={styles.HomeBannerBg} />
-            </View>
-          </View>
-          <View style={styles.HomeBanner}>
-            <View style={styles.HomeBannerContent}>
-              <Image source={require('../../images/homeBanner.jpeg')}
-                style={styles.HomeBannerBg} />
-            </View>
-          </View>
+          </View> */}
         </ScrollView>
       </View>
-
     )
 
     return (
@@ -195,7 +311,14 @@ class Home extends Component {
 const mapStateToProps = state => {
   return {
     isShow: state.getIn(['home', 'isShow']),
-    imgList: state.getIn(['home', 'imgList']),
+    homeFunctionAreaList: state.getIn(['home', 'homeFunctionAreaList']),
+    bannerV180ResponseList: state.getIn(['home', 'bannerV180ResponseList']),
+    creditV192ResponseList: state.getIn(['home', 'creditV192ResponseList']),
+    activityStyleV180ResponseList: state.getIn(['home', 'activityStyleV180ResponseList']),
+
+
+
+    iconList: state.getIn(['home', 'iconList']),
     brand: state.getIn(['home', 'brand']),
     logo: state.getIn(['home', 'logo']),
     plate: state.getIn(['home', 'plate']),
@@ -213,18 +336,18 @@ const mapDispatchToProps = dispatch => {
       dispatch(actionCreators.getHomeData())
       dispatch(actionCreators.beginPainting(width))
     },
-    async  _toLogin(){
-    
+    async  _toLogin() {
+
       let token = ''
-     await   DeviceStorageUtil.get('token').then(val =>{
-         console.log('token=='+token)
-      token = val
-     });
-     if(token===null||token===''){
-       Actions.login();
-     }else{
-       alert(token);
-     }
+      await DeviceStorageUtil.get('token').then(val => {
+        console.log('token==' + token)
+        token = val
+      });
+      if (token === null || token === '') {
+        Actions.login();
+      } else {
+        console.log(token);
+      }
     }
   }
 }

@@ -3,7 +3,8 @@
     "msg":"请求成功",
     "data": {
         "brand":"奔驰",
-        "logo":"http://192.168.34.102:8081/app/images/car.png",
-        "plate":"吉 BMP999"
+        "logo":"http://192.168.34.102:8081/app/images/BZlogo.png",
+        "plate":"吉 BMP999",
+        "wxts":"交管数据升级,暂不可用!"
     }
 }

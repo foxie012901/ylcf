@@ -3,37 +3,63 @@ import axios from 'axios'
 
 
 //引入各组件redux拦截Creators
-import { initImgList, initTopData} from "../../components/Home/store/actionCreators";
+import { initHomeData, initImgList, initTopData, initIconList } from "../../components/Home/store/actionCreators";
 
-function* getHomeIconBtn(url, da) {
-    console.log(4)
+function* getHomeIconImgBtn(url, da) {
+    // console.log(4)
     try {
         // console.log('getHomeData')
         const res = yield call(axios.get, url)
         let { status, msg, data } = res
         if (status === 200) {
-            yield put(initImgList(data.imgList))
+            yield put(initIconList(data.imgList))
         }
     } catch (error) {
         console.log('error', error)
     }
 }
-
 function* getHomeTopData(url, da) {
     console.log(6)
     try {
         // console.log('getHomeTopData')
         const res = yield call(axios.get, url)
-        let{status, msg, data} = res
+        let { status, msg, data } = res
         // console.log(status)
         // console.log(data.data)
-        if(status === 200){
+        if (status === 200) {
             yield put(initTopData(data.data))
         }
     } catch (error) {
         console.log('err')
     }
 }
+
+function* getHome(url, header, body) {
+    try {
+        const res = yield call(axios.post, url, body, header)
+        let { status } = res
+        let { ret, message, data } = res.data
+        // console.log('status', status)
+        // console.log('message', message)
+        console.log('sagadata console', data)
+
+        if (status === 200) {
+            if (ret === 1) {
+                // console.log(message)
+                yield put(initHomeData(data))
+            } else if (ret === 0) {
+                alert(message)
+            }
+        } else {
+
+        }
+    } catch (error) {
+        console.log('error:', error)
+    }
+}
+
+
+
 
 function* getAxios(url, da) {
     console.log('sagashome')
@@ -65,7 +91,10 @@ function* getAxios(url, da) {
 }
 
 export {
+    getHome,
+
+
     getAxios,
-    getHomeIconBtn,
-    getHomeTopData
+    getHomeTopData,
+    getHomeIconImgBtn
 }

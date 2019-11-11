@@ -122,9 +122,7 @@ const mapStateToProps = state => {
           }else{
               os=1
           }
-         dispatch(actionCreators.getLogIn(phone,password,os,deviceId,function(e){
-             console.log(e);
-         }));
+         dispatch(actionCreators.getLogIn(phone,password,os,deviceId));
        
       },
       _changeLoginPhone(phone){

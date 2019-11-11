@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from "react-native";
+import { redBright } from "colorette";
 const { height, width } = Dimensions.get('window');
 
 
@@ -9,6 +10,7 @@ export default StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'flex-start',
         alignItems: "center",
+        backgroundColor:'white'
 
     },
     conART: {
@@ -17,7 +19,7 @@ export default StyleSheet.create({
     topBox: {
         position: 'relative',
         alignItems: 'center',
-        zIndex:9999
+        zIndex: 9999
     },
     titleTopMiddle: {
         position: 'absolute',
@@ -49,8 +51,8 @@ export default StyleSheet.create({
         backgroundColor: '#fff',
         borderTopLeftRadius: 8,
         borderTopRightRadius: 8,
-        borderBottomLeftRadius:8,
-        borderBottomRightRadius:8,
+        borderBottomLeftRadius: 8,
+        borderBottomRightRadius: 8,
         shadowColor: "#000",
         shadowOffset: { width: 0, height: 5 },
         shadowOpacity: .1,
@@ -59,7 +61,7 @@ export default StyleSheet.create({
 
         position: 'absolute',
         top: 64,
-        
+
 
     },
     boxTopMiddleUp: {
@@ -69,11 +71,11 @@ export default StyleSheet.create({
         flexDirection: 'row'
     },
     boxTopMiddleUpLogo: {
-        flex:2,
+        flex: 2,
         // backgroundColor:'#f00'
     },
     boxTopMiddleUpTxt: {
-        flex:5,
+        flex: 5,
         // backgroundColor:"#0f0",
 
         justifyContent: 'center',
@@ -85,7 +87,7 @@ export default StyleSheet.create({
         fontWeight: '600'
     },
     boxTopMiddleUpBtn: {
-        flex:3,
+        flex: 3,
         // backgroundColor:'#00f',
 
         alignItems: 'flex-end',
@@ -128,74 +130,366 @@ export default StyleSheet.create({
         fontSize: 14,
         color: "rgb(74,74,74)"
     },
-    znxxContent:{
-        marginTop:71,
-        height:17,
-        width:'100%',
-        flexDirection:'row',
-        paddingLeft:19,
-        alignItems:'center'
+    znxxContent: {
+        marginTop: 71,
+        height: 17,
+        width: '100%',
+        flexDirection: 'row',
+        paddingLeft: 19,
+        alignItems: 'center'
     },
-    znxxText:{
-        fontSize:12,
-        color:'rgb(101,101,101)',
-        marginLeft:5
+    znxxText: {
+        fontSize: 12,
+        color: 'rgb(101,101,101)',
+        marginLeft: 5
     },
-    HomeIconBtnContent:{
-        width:'100%',
-        height:190,
+    HomeIconBtnContent: {
+        width: '100%',
+        height: 190,
         // backgroundColor:'lightblue',
-        marginTop:25,
-        flexDirection:'row',
-        justifyContent:'space-around',
-        alignItems:'center',
-        flexWrap:'wrap'
+        marginTop: 25,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        flexWrap: 'wrap'
 
     },
-    HomeIconBtnButton:{
-        width:'25%',
-        height:83,
+    HomeIconBtnButton: {
+        width: '25%',
+        height: 83,
         // backgroundColor:'blue',
-        marginTop:11, 
-        justifyContent:'center',
-        alignItems:'center'
+        marginTop: 11,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
-    HomeIconBtnButtonContent:{
-        width:50,
-        justifyContent:'center',
-        alignItems:'center',
+    HomeIconBtnButtonContent: {
+        width: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
         // backgroundColor:'yellow'
     },
-    HomeIconBtnImg:{
-        width:36,
-        height:36
+    HomeIconBtnImg: {
+        width: 36,
+        height: 36,
     },
-    HomeIconBtnText:{
+    HomeIconBtnText: {
+        fontSize: 12,
+        color: "rgb(74,74,74)",
+        paddingTop: 8
+    },
+    HomeBanner: {
+        // overflow:'scroll',
+        width: '100%',
+        height: 90,
+        marginTop: 23,
+        paddingLeft: 16,
+        paddingRight: 16,
+    },
+    HomeBannerContent: {
+        width: '100%',
+        height: 90,
+        borderTopLeftRadius: 8,
+        borderTopRightRadius: 8,
+        borderBottomLeftRadius: 8,
+        borderBottomRightRadius: 8
+    },
+    HomeBannerBg: {
+        width: '100%',
+        height: 90,
+        // borderTopLeftRadius: 8,
+        // borderTopRightRadius: 8,
+        // borderBottomLeftRadius: 8,
+        // borderBottomRightRadius: 8
+    },
+    HomeWZJF: {
+        // backgroundColor: 'lightblue',
+        height: 220,
+        marginTop: 19,
+        flex: 1,
+        flexDirection: 'column',
+    },
+    HomeWZJFTitle: {
+        width: '100%',
+        flex: 2,
+        // backgroundColor: 'red',
+        flexDirection: 'row'
+    },
+    HomeWZJFTitleLeft: {
+        flex: 0.5,
+        // backgroundColor: 'red',
+        alignItems: 'flex-end',
+        justifyContent: 'center'
+
+    },
+    HomeWZJFTitleLeftGray: {
+        width: 4,
+        height: 18,
+        backgroundColor: 'rgb(101,101,101)',
+        borderTopLeftRadius: 5,
+        borderTopRightRadius: 5,
+        borderBottomRightRadius: 5,
+        borderBottomLeftRadius: 5,
+    },
+    HomeWZJFTitleMiddle: {
+        flex: 6,
+        // backgroundColor: 'yellow',
+        alignItems: 'flex-start',
+        justifyContent: 'center',
+        paddingLeft: 8,
+    },
+    HomeWZJFTitleMiddleText: {
+        fontSize: 15,
+        color: 'rgb(154,154,154)',
+        fontWeight: '500',
+    },
+    HomeWZJFTitleRight: {
+        flex: 3.5,
+        // backgroundColor: 'blue',
+        alignItems: 'flex-end',
+        justifyContent: 'center',
+        paddingRight: 16,
+    },
+    HomeWZJFTitleRightText: {
+        fontSize: 12,
+        color: 'rgb(0,96,190)',
+        fontWeight: '500',
+    },
+    HomeWZJFBodyText: {
+    },
+
+    HomeWZJFBody: {
+        flex: 8,
+        // backgroundColor: 'yellow',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        flexWrap: 'wrap'
+    },
+    HomeWZJFIconBtn: {
+        // flex:6,
+        // backgroundColor:'red',
+        alignItems: 'center',
+        width: '33.33%',
+        paddingTop: 13,
+    },
+    HomeWZJFIconBtnContent: {
+        alignItems: 'center'
+    },
+    HomeWZJFIconBtnImg: {
+        width: 69,
+        height: 51,
+    },
+    HomeWZJFIconBtnText: {
+        marginTop: 4,
+        fontSize: 12,
+        color: 'rgb(74,74,74)'
+
+    },
+    ActiveStyleContent: {
+        width: '100%',
+        backgroundColor:'red',
+        // height: 250,
+        backgroundColor: 'white',
+        marginBottom: 8,
+        paddingLeft:16,
+        paddingRight:16,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    ActiveStyleContentTop: {
+        flex: 1.5,
+        marginBottom: 6,
+        marginTop: 6,
+        paddingBottom:3,
+        // backgroundColor: 'red',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderBottomWidth: 3,
+        borderBottomColor: '#cccccc'
+    },
+    ActiveStyleContentTopText: {
+        fontSize: 15,
+        fontWeight: '500',
+        color: 'rgb(74,74,74)',
+    },
+    ActiveStyleContentMiddle: {
+        flex: 7,
+        width: '100%',
+        // backgroundColor: 'yellow'
+    },
+    ActiveStyleContentBottom:{
+        flex:1.5,
+        paddingBottom: 6,
+        paddingTop: 6,
+        // backgroundColor:'blue',
+        alignItems:'center',
+        justifyContent:'center'
+    },
+    ActiveStyleContentBottomText:{
         fontSize:12,
-        color:"rgb(74,74,74)",
-        paddingTop:8
+        color: '#ccc',
     },
-    HomeBanner:{
-       width:'100%',
-       height:90,
-       marginTop:23,
-       paddingLeft:16,
-       paddingRight:16
+    ActiveStyleContainer: {
+        backgroundColor: '#f1f1f1',
     },
-    HomeBannerContent:{
-        width:'100%',
-        height:90,
-        borderTopLeftRadius:8,
-        borderTopRightRadius:8,
-        borderBottomLeftRadius:8,
-        borderBottomRightRadius:8
+    //活动1样式
+    ActiveStyleB1: {
+        width: '100%',
+        height: 90
     },
-    HomeBannerBg:{
-        width:'100%',
-        height:90,
-        borderTopLeftRadius:8,
-        borderTopRightRadius:8,
-        borderBottomLeftRadius:8,
-        borderBottomRightRadius:8
+    ActiveStyleB1Img: {
+        width: '100%',
+        height: 90,
+    },
+    //活动2样式
+    ActiveStyleB2: {
+        height: 90,
+        width: '100%',
+        flexDirection: 'row'
+    },
+    ActiveStyleB2Img: {
+        width: '100%',
+        height: 90
+    },
+    ActiveStyleB2ImgConLeft: {
+        flex: 5,
+        height: 90,
+
+        borderRightWidth: 1,
+        borderRightColor: '#fff'
+    },
+    ActiveStyleB2ImgConRight: {
+        flex: 5,
+        height: 90,
+    },
+
+
+    ActiveStyleB4: {
+        height: 180,
+        width: '100%',
+        flexDirection: 'row'
+    },
+    ActiveStyleB4LeftImg: {
+        width: '100%',
+        height: 180
+    },
+    ActiveStyleB4RightImg: {
+        width: '100%',
+        height: 90
+    },
+    ActiveStyleB4ImgConLeft: {
+        flex: 5,
+        height: 180,
+
+        borderRightWidth: 1,
+        borderRightColor: '#fff'
+    },
+    ActiveStyleB4ImgConRight: {
+        flex: 5,
+        height: 180,
+    },
+    ActiveStyleB4ImgConRightTop: {
+        flex: 5,
+        height: 90,
+        borderBottomWidth: 1,
+        borderBottomColor: '#fff'
+    },
+    ActiveStyleB4ImgConRightBottom: {
+        flex: 5,
+        height: 90,
+        flexDirection: 'row'
+    },
+    ActiveStyleB4ImgConRightBottomLeft: {
+        flex: 5,
+        height: 90,
+        borderRightWidth: 1,
+        borderRightColor: '#fff'
+    },
+    ActiveStyleB4ImgConRightBottomRight: {
+        flex: 5,
+        height: 90
     }
+
 })
+
+// // 活动3个样式
+// ActiveStyleB3: {
+//     height: 180,
+//     width: '100%',
+//     flexDirection: 'row'
+// },
+// ActiveStyleB3LeftImg: {
+//     width: '100%',
+//     height: 180
+// },
+// ActiveStyleB3RightImg: {
+//     width: '100%',
+//     height: 90
+// },
+// ActiveStyleB3ImgConLeft: {
+//     flex: 5,
+//     height: 180,
+
+//     borderRightWidth: 1,
+//     borderRightColor: '#fff'
+// },
+// ActiveStyleB3ImgConRight: {
+//     flex: 5,
+//     height: 180,
+// },
+// ActiveStyleB3ImgConRightTop: {
+//     flex: 5,
+//     height: 90,
+//     borderBottomWidth: 1,
+//     borderBottomColor: '#fff'
+// },
+// ActiveStyleB3ImgConRightBottom: {
+//     flex: 5,
+//     height: 90
+// },
+// // 活动4个样式
+// ActiveStyleB4: {
+//     height: 180,
+//     width: '100%',
+//     flexDirection: 'row'
+// },
+// ActiveStyleB4LeftImg: {
+//     width: '100%',
+//     height: 180
+// },
+// ActiveStyleB4RightImg: {
+//     width: '100%',
+//     height: 90
+// },
+// ActiveStyleB4ImgConLeft: {
+//     flex: 5,
+//     height: 180,
+
+//     borderRightWidth: 1,
+//     borderRightColor: '#fff'
+// },
+// ActiveStyleB4ImgConRight: {
+//     flex: 5,
+//     height: 180,
+// },
+// ActiveStyleB4ImgConRightTop: {
+//     flex: 5,
+//     height: 90,
+//     borderBottomWidth: 1,
+//     borderBottomColor: '#fff'
+// },
+// ActiveStyleB4ImgConRightBottom: {
+//     flex: 5,
+//     height: 90,
+//     flexDirection:'row'
+// },
+// ActiveStyleB4ImgConRightBottomLeft: {
+//     flex:5,
+//     height:90,
+//     borderRightWidth:1,
+//     borderRightColor:'#fff'
+// },
+// ActiveStyleB4ImgConRightBottomRight: {
+//     flex:5,
+//     height:90
+// }

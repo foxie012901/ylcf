@@ -28,7 +28,8 @@ export default class Main extends Component {
             'Warning: componentWillUpdate is deprecated',
             'Warning: ViewPagerAndroid has been extracted from react-native',
             // 'Warning: componentWillReceiveProps has been',
-            'Warning: componentWillReceiveProps has been'
+            'Warning: componentWillReceiveProps has been',
+            'Warning: Async Storage has been extracted from'
 
         ])
         this.state = {

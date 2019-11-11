@@ -1,32 +1,60 @@
 import { takeEvery, put } from "redux-saga/effects";
-import {fetchPost} from './ShangJiaSagas';
-import{loginFetchPost} from "./LoginSagas";
-import { getAxios, getHomeIconBtn, getHomeTopData } from "./HomeSagas.js";
+import { fetchPost } from './ShangJiaSagas';
+import { loginFetchPost } from "./LoginSagas";
+import { getAxios, getHomeIconBtn, getHomeTopData, getHomeIconImgBtn, getHome } from "./HomeSagas.js";
 //日期类工具
 import DateUtil from '../../util/DateUtil';
 import DevicesStorageUtil from '../../util/DeviceStorageUtil';//持久化工具
 
 //引入各组件redux派发的creators
-import { homeIsshowChange } from "../../components/Home/store/actionCreators";
-import { GET_IMGLIST_DATA, GET_HOME_DATA } from "../../components/Home/store/actionTypes";
-import {TEST_JSON} from '../../components/ShangJia/store/actionTypes';
-import {GET_LOGIN} from '../../components/Login/store/actionTypes';
+import { homeIsshowChange, beginPainting } from "../../components/Home/store/actionCreators";
 
+//引入各组件redux派发的TYPES
+import { GET_IMGLIST_DATA, GET_HOME_DATA, BEGIN_PAINTING } from "../../components/Home/store/actionTypes";
+import { TEST_JSON } from '../../components/ShangJia/store/actionTypes';
+import { GET_LOGIN } from '../../components/Login/store/actionTypes';
+
+//全局请求地址
+// const hostUrl = 'https://mapp.jlcxtx.com/'
+// const hostUrl = 'https://dev.jlcxtx.com/'
+const hostUrl = 'https://cs.jlcxtx.com/'
+
+// const tok =async DevicesStorageUtil.get('token').then(e=>{
+//     await return e
+// }
+// );
+// console.log('tok',tok)
 
 //拦截
 function* mySaga() {
-    yield takeEvery(GET_HOME_DATA, GetHomeData) // 获取home组件默认数据
+    yield takeEvery(GET_HOME_DATA, getHomeData) // 获取home组件默认数据
     yield takeEvery(TEST_JSON, getShangJiaJSON);//shangjia组件
-    yield takeEvery(GET_LOGIN,getLoginJSON);
+    yield takeEvery(GET_LOGIN, getLoginJSON); //login 组件
 
 }
 
-function* GetHomeData() {
-    console.log(3)
-    yield getHomeIconBtn('http://192.168.34.102:8081/public/home/img.json', null)
-    yield getHomeTopData('http://192.168.34.102:8081/public/home/cars.json', null)
 
-    yield put (homeIsshowChange(false))
+function* getHomeData() {
+
+    let token = yield DevicesStorageUtil.get('token');
+    let lastPullTime = DateUtil.formatDate(DateUtil.getBeforeDayDate(2).getTime(), 'yyyy-MM-dd hh:mm:ss');
+    //body数据
+    let formData = new FormData();
+    formData.append('lastPullTime', lastPullTime)
+    //token格式
+    let tk = {
+        headers: { token: token }
+    }
+    console.log('11111111', token)
+    console.log(3)
+
+
+    yield getHome(hostUrl + 'index/homeV192', tk, formData)
+    yield getHomeTopData('http://192.168.34.102:8081/public/home/cars.json', null)
+    yield getHomeIconImgBtn('http://192.168.34.102:8081/public/home/wzjf.json', null)
+
+
+    yield put(homeIsshowChange(false))
 
 }
 
@@ -46,15 +74,15 @@ function* getShangJiaJSON(action) {
     DevicesStorageUtil.save("lastPullTime", yield DateUtil.formatDate(new Date().getTime(), 'yyyy-MM-dd hh:mm:ss'));
 }
 //登录
-function* getLoginJSON(action){
+function* getLoginJSON(action) {
 
     console.log(JSON.stringify(action));
     let formData = new FormData();
-    formData.append('phone',action.phone);
-    formData.append('passwd',action.password);
-    formData.append("deviceType",action.os);
-    formData.append('deviceId',action.deviceId);
-    yield loginFetchPost("/appuser/login",formData,null);
+    formData.append('phone', action.phone);
+    formData.append('passwd', action.password);
+    formData.append("deviceType", action.os);
+    formData.append('deviceId', action.deviceId);
+    yield loginFetchPost("/appuser/login", formData, null);
 
 }
 export default mySaga

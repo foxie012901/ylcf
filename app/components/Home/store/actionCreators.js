@@ -15,15 +15,20 @@ export const getIsShow = changedata => ({
 export const getHomeData = () => ({
     type: actionTypes.GET_HOME_DATA
 })
-
-//获取首页icon按钮数据并添加
-export const getImgListData = () => ({
-    type: actionTypes.GET_IMGLIST_DATA
-})
-export const initImgList = data => ({
-    type: actionTypes.INIT_IMG_LIST,
+//添加获取到首页的数据 
+export const initHomeData = data => ({
+    type: actionTypes.INIT_HOME_DATA,
     data: fromJS(data)
 })
+
+// //获取首页icon按钮数据并添加
+// export const getImgListData = () => ({
+//     type: actionTypes.GET_IMGLIST_DATA
+// })
+// export const initImgList = data => ({
+//     type: actionTypes.INIT_IMG_LIST,
+//     data: fromJS(data)
+// })
 
 //获取首页顶部页面数据
 export const getTopData = () => ({
@@ -31,6 +36,15 @@ export const getTopData = () => ({
 })
 export const initTopData = data => ({
     type: actionTypes.INIT_TOP_DATA,
+    data: fromJS(data)
+})
+
+//获取首页图标按钮数据并添加
+export const getIconListData = () => ({
+    type: actionTypes.GET_ICONLIST_DATA
+})
+export const initIconList = data => ({
+    type: actionTypes.INIT_ICON_LIST,
     data: fromJS(data)
 })
 
@@ -56,7 +70,8 @@ export const getTextTwo = () => ({
 })
 
 
-
+//获取1.92 真实接口
+// export const 
 
 
 

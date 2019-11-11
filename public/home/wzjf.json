@@ -1,0 +1,12 @@
+{
+    "status": 200,
+    "msg":"请求成功",
+    "imgList": [
+        {"name":"车载汽车香水","url":"http://192.168.34.102:8081/app/images/home_jy.png"},
+        {"name":"车载香薰摆件","url":"http://192.168.34.102:8081/app/images/home_jgfw.png"},
+        {"name":"真皮汽车枕头","url":"http://192.168.34.102:8081/app/images/home_jyfw.png"},
+        {"name":"车载汽车香水","url":"http://192.168.34.102:8081/app/images/home_jzcx.png"},
+        {"name":"车载香薰摆件","url":"http://192.168.34.102:8081/app/images/home_cxfw.png"},
+        {"name":"招财猫摆件","url":"http://192.168.34.102:8081/app/images/home_cjfw.png"}
+    ]
+}
