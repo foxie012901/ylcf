@@ -18,7 +18,6 @@ import Orientation from 'react-native-orientation';
 import   Carousel       from 'react-native-looped-carousel';
 //安卓阴影保留
 // import {BoxShadow} from 'react-native-shadow';
-import  BetterBanner    from 'react-native-better-banner';
 import { connect } from "react-redux";
 import { actionCreators } from "./store";
 import DateUtil from '../../util/DateUtil';
@@ -43,8 +42,8 @@ class ShangJia extends Component {
   }
   renderSwiperImgs =(elevation) =>{
     console.log(elevation)
-  
-   
+
+
   }
   renderItem =({item})=>  {
     return (<TouchableOpacity onPress={ ()=>(alert(JSON.stringify(item))) } style={styles.aaa}>
@@ -96,7 +95,7 @@ console.log(swiperImgs)
     <ActivityIndicator animating={this.props.isShow} />
   </View>);
 
-  
+
     let ShangJiaPage = (
     <View style={styles.content}>
       <View style={{ flexDirection: 'row' }}>
@@ -105,11 +104,11 @@ console.log(swiperImgs)
           <Text style={styles.hdtext}>换店</Text>
         </TouchableOpacity>
       </View>
-     
+
       <View style={{width:mWidth,height:mHeight*0.25}}>
       <Carousel  style={{width: mWidth, height:mHeight*0.25,background:"#FFFFF"}}
        bullets={true}
-     
+
       >
       {
           swiperImgs.map((item,index) =>{
@@ -138,7 +137,7 @@ console.log(swiperImgs)
                   <TouchableOpacity style={{ width:mWidth,
                     height:"100%"}}   onPress={()=>{alert("点了海报");_changeVideoStatus(videoIsPlay)}}>
                     {<Image
-      
+
                       style={{
                         position:'absolute',
                         top: 0,
@@ -153,7 +152,7 @@ console.log(swiperImgs)
                   <View
                     style={{
                       position: 'absolute',
-      
+
                       backgroundColor: videoIsPlay ? 'transparent' : 'rgba(0, 0, 0, 0.2)',
                       alignSelf:'center',
                       justifyContent:'center'
@@ -165,16 +164,16 @@ console.log(swiperImgs)
                             onPress={()=>{alert("点了支");_changeVideoStatus(videoIsPlay)}}
                             style={{flex:1,width:50,height:50,zIndex:999,resizeMode:'stretch'}}
                             source={require('../../images/videoStop.png')}
-      
+
                           />
-      
+
                         </TouchableWithoutFeedback>
                     }
                   </View>
                   <View
                     style={{
                       position: 'absolute',
-      
+
                       backgroundColor: videoIsPlay ? 'transparent' : 'rgba(0, 0, 0, 0.2)',
                       alignSelf:'center',
                       justifyContent:'center'
@@ -183,12 +182,12 @@ console.log(swiperImgs)
                       videoEnd ?
                         <TouchableWithoutFeedback onPress={()=>{alert("点了重播"+videoIsPlay);_changeVideoStatus(videoIsPlay)}}>
                            <Image
-                          
+
                             style={{flex:1,width:50,height:50,zIndex:999,resizeMode:'stretch'}}
                             source={require('../../images/chongbo.png')}
-      
+
                           />
-      
+
                         </TouchableWithoutFeedback>:null
                     }
                   </View>
@@ -230,14 +229,14 @@ console.log(swiperImgs)
       }
 
       </Carousel>
-      
+
           {
-           
+
           }
-      
+
       </View>
-      
-      
+
+
     <ScrollView alwaysBounceVertical={true}>
     <View style={styles.storeMessageView}>
       <View style={styles.storeMessageViewChild1}>
@@ -270,7 +269,7 @@ console.log(swiperImgs)
       />
       </ScrollView>
   </View>);
-       
+
     return (
       <View style={{ width: '100%', height: '100%' }}>
       {
@@ -279,7 +278,7 @@ console.log(swiperImgs)
     </View >
 
     );
-   
+
   }
 }
 const mapStateToProps = state => {
@@ -310,7 +309,6 @@ const mapDispatchToProps = dispatch => {
 
     _videoEnd(videoIsPlay){
       alert("视频结束");
-      console.log("videoIsPlay"+videoIsPlay)
 
       let map ={};
       map={videoEnd:true};
@@ -381,7 +379,6 @@ const mapDispatchToProps = dispatch => {
       dispatch(actionCreators.videoLoadStart());
     },
     _isRun(response) {
-      console.log((response.businessHours + '').split("-")[0])
       if (DateUtil.time_range((response.businessHours + '').split("-")[0], (response.businessHours + '').split("-")[1], DateUtil.formatDate(new Date().getTime(), 'hh:mm:ss'))) {
         return require("../../images/triangle.png");
       } else {
@@ -487,7 +484,7 @@ const styles = StyleSheet.create({
     padding: mHeight * 0.01,
     flex: 2,
   },
- 
+
       untAndtImage: {
           height: mHeight * 0.06,
           width: mWidth * 0.14,
@@ -527,11 +524,11 @@ const styles = StyleSheet.create({
           marginBottom: mHeight * 0.02,
           backgroundColor: '#ffffff',
           borderRadius: 8
-      
+
       },
       wrapper: {
       },
-  
+
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShangJia)
