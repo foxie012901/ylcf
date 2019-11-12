@@ -1,0 +1,1 @@
+export const ISWAIT = 'passwordreset/isrequest' //等待接口响应
