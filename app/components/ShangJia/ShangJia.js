@@ -14,13 +14,13 @@ import {
     ScrollView
 } from 'react-native';
 import Video from 'react-native-video';
-import Orientation from 'react-native-orientation';
 import   Carousel       from 'react-native-looped-carousel';
 //安卓阴影保留
 // import {BoxShadow} from 'react-native-shadow';
 import { connect } from "react-redux";
 import { actionCreators } from "./store";
 import DateUtil from '../../util/DateUtil';
+import {Actions} from 'react-native-router-flux';
 const mWidth = Dimensions.get('window').width;
 const mHeight = Dimensions.get('window').height;
 class ShangJia extends Component {
@@ -100,7 +100,7 @@ console.log(swiperImgs)
     <View style={styles.content}>
       <View style={{ flexDirection: 'row' }}>
         <Text style={styles.qjdfu}>旗舰店服务</Text>
-        <TouchableOpacity onPress={() => { alert("去换点") }} style={styles.hd}>
+        <TouchableOpacity onPress={() => { alert('换店')}} style={styles.hd}>
           <Text style={styles.hdtext}>换店</Text>
         </TouchableOpacity>
       </View>
@@ -192,30 +192,9 @@ console.log(swiperImgs)
                     }
                   </View>
                 {
-                  showVideoControl ?
-                    <View style={[styles.control, {width: mWidth}]}>
-                      <TouchableOpacity style={{flex:1}}  onPress={() => { alert("showVideoControl="+showVideoControl+"videoIsPlay="+videoIsPlay+"videoLoadStart"+videoLoadStart) }}>
-                        <Image
-                          style={styles.playControl}
-                          source={ videoIsPlay? require('../../images/bjpq.png'):require('../../images/btn_down_arrow.png') }
-                        />
-                      </TouchableOpacity>
-                      <Slider
-                        style={{width:mWidth*0.8}}
-                        maximumTrackTintColor={'#999999'}
-                        minimumTrackTintColor={'#00c06d'}
-                        value={currentTime}
-                        minimumValue={0}
-                        maximumValue={duration}
-                        onValueChange={(currentTime) => { this.onSliderValueChanged(currentTime) }}
-                      />
-                       <TouchableOpacity activeOpacity={0.3} >
-                        <Image
-                          style={styles.shrinkControl}
-                          source={isFullScreen ? require('../../images/unselect.png') : require('../../images/select.png')}
-                        />
-                      </TouchableOpacity>
-                    </View> :  null
+                 <TouchableOpacity style={{width:20,height:20,position:'absolute',top:mHeight*0.2,}} onPress={()=>{Actions.videoplayer({url:response.video})}}>
+                   <Image source={require('../../images/expand.png')} style={{flex:1,resizeMode:'stretch'}}/>
+                 </TouchableOpacity>
                 }
           <ActivityIndicator style={{position:'absolute',alignSelf:'center'}} animating={videoLoadStart} color='red'/>
           </View>)

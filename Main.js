@@ -12,10 +12,11 @@ import ShangJia from './app/components/ShangJia/ShangJia'
 import Order from './app/components/Order/Order'
 import My from './app/components/My/My'
 import Login from "./app/components/Login/Login";
+import PasswordReset from './app/components/PasswordReset/PasswordReset';
 //react-redux
 import { Provider } from "react-redux";
 import store from './app/store'
-
+import VPlayer from './app/components/VideoPlayer/VideoPlayer';
 import JPush from 'jpush-react-native';
 
 
@@ -90,6 +91,8 @@ export default class Main extends Component {
                         <Scene key='order' component={Order} title='' hideNavBar={true} />
                         <Scene key='my' component={My} title='' hideNavBar={true} />
                         <Scene key='login' component={Login} title='登录' hideNavBar={false} />
+                        <Scene key='passwordreset' component={PasswordReset} title='密码重置' hideNavBar={false}></Scene>
+                        <Scene key='videoplayer' component={VPlayer} hideNavBar={true}/>
                     </Stack>
                 </Router>
             </Provider>
