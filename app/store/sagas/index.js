@@ -1,16 +1,16 @@
 import { takeEvery, put } from "redux-saga/effects";
 import { fetchPost } from './ShangJiaSagas';
 import { loginFetchPost } from "./LoginSagas";
-import { getAxios, getHomeIconBtn, getHomeTopData, getHomeIconImgBtn, getHome,getHomeMail} from "./HomeSagas.js";
+import {getHome, getVioIndex,getHomeMail} from "./HomeSagas.js";
 //日期类工具
 import DateUtil from '../../util/DateUtil';
 import DevicesStorageUtil from '../../util/DeviceStorageUtil';//持久化工具
 
 //引入各组件redux派发的creators
-import { homeIsshowChange, beginPainting } from "../../components/Home/store/actionCreators";
+import { homeIsshowChange, noToken } from "../../components/Home/store/actionCreators";
 
 //引入各组件redux派发的TYPES
-import { GET_IMGLIST_DATA, GET_HOME_DATA, BEGIN_PAINTING } from "../../components/Home/store/actionTypes";
+import { GET_HOME_DATA, GET_VIOINDEX } from "../../components/Home/store/actionTypes";
 import { TEST_JSON } from '../../components/ShangJia/store/actionTypes';
 import { GET_LOGIN } from '../../components/Login/store/actionTypes';
 
@@ -37,6 +37,7 @@ function* mySaga() {
 function* getHomeData() {
 
     let token = yield DevicesStorageUtil.get('token');
+    console.log('saga token', token)
     let lastPullTime = DateUtil.formatDate(DateUtil.getBeforeDayDate(2).getTime(), 'yyyy-MM-dd hh:mm:ss');
     //body数据
     let formData = new FormData();
@@ -45,24 +46,32 @@ function* getHomeData() {
     let tk = {
         headers: { token: token }
     }
+    //carid
+    let vioIndexBody = new FormData()
+    vioIndexBody.append('carid', '')
+
+
+    yield getHome(hostUrl + 'index/homeV192', tk, formData)
+    if (token !== null) {
+        yield put(noToken({ noToken: true }))
+        yield getVioIndex(hostUrl + 'peccancy/getVioIndex192', tk, vioIndexBody)
+    } else {
+        yield put(noToken({ noToken: false }))
+    }
     console.log('11111111', token)
     console.log(3)
-   
+
     yield getHome(hostUrl + 'index/homeV192', tk, formData);
     if(token!==null){
     let mailFormData = new FormData();
     mailFormData.append('pageno',0);
     mailFormData.append('pagesize',5);
-    yield getHomeMail(hostUrl+'/appmail/getMailsV180',tk,mailFormData);}
-    yield getHomeTopData('http://192.168.34.201:8081/public/home/cars.json', null)
-    yield getHomeIconImgBtn('http://192.168.34.201:8081/public/home/wzjf.json', null)
-    
-
+    yield getHomeMail(hostUrl+'/appmail/getMailsV180',tk,mailFormData);
+    }
 
     yield put(homeIsshowChange(false))
 
 }
-
 
 
 //加载旗舰店页面数据
@@ -82,7 +91,7 @@ function* getShangJiaJSON(action) {
 //登录
 function* getLoginJSON(action) {
 
-    console.log(JSON.stringify(action));
+    // console.log(JSON.stringify(action));
     let formData = new FormData();
     formData.append('phone', action.phone);
     formData.append('passwd', action.password);

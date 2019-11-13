@@ -21,6 +21,8 @@ import {
 import NoticesBar from 'react-native-noticesbar'
 //封装活动格式
 import ActiveStyle from './ActiveStyle'
+//封装顶部绑车信息
+import BindCarInformation from "./BindCarInformation";
 
 import DeviceStorageUtil from '../../util/DeviceStorageUtil';
 import IconFont from 'react-native-vector-icons/Ionicons'
@@ -58,43 +60,73 @@ class Home extends Component {
       bannerV180ResponseList, // banner 轮播
       creditV192ResponseList,// 玩转积分
       activityStyleV180ResponseList, // 活动设置
-
-      iconList, // icon 按钮数据 6个
-      isShow,  // 加载logo转圈开关
-      brand,   //车品牌
-      logo,  //车品牌logo
-      plate, //车牌号
-      wxts, // 温馨提示
+      InitVioIndex, //头部绑车信息
       HomePath, //js代码绘制复杂矩形
+      noToken,
+
       mailList,//站内新
       _toLogin,//判断token跳转到login页
+      _isLogin,
     } = this.props
-   console.log(mailList)
-  
-    // console.log('活动设置:', activityStyleV180ResponseList)
-    // console.log('homeFunctionAreaList', homeFunctionAreaList)
-    // console.log('imgList', imgList)
-    // let newImgList = []
-    // imgList.map((item) => {
-    //   newImgList.push(item.toJS());
-    // })
 
-    // console.log(topData)
-    // console.log(brand, logo, plate)
-    // console.log(imgList)
-    // console.log(newImgList)
-    // console.log(t)
+    _isLogin()  // 验证是否登录
 
-    // let { height, width } = Dimensions.get('window');
 
-    // let path = new Path();
-    // path.moveTo(0, 0)
-    //   .lineTo(width, 0)
-    //   .lineTo(width, 120)
-    //   // .lineTo(0,200)
-    //   .arc(-width, 0, 1500)
-    //   .lineTo(0, 0)
-    //   .close()
+    console.log('home no token', noToken)
+    console.log('home', InitVioIndex)
+
+
+    let HasBandCar = (
+      InitVioIndex === null ? null :
+        <View style={styles.boxTopMiddle}>
+          <View style={styles.boxTopMiddleUp}>
+            <View style={styles.boxTopMiddleUpLogo}>
+              <Image
+                source={
+                  InitVioIndex.pic === null ? require('../../images/invalidName.png') : { uri: InitVioIndex.pic }
+                }
+                style={styles.boxLogo}
+              />
+            </View>
+            <View style={styles.boxTopMiddleUpTxt}>
+              <Text style={styles.boxTopMiddleUpTxtText}>{InitVioIndex.hphm}</Text>
+            </View>
+            <View style={styles.boxTopMiddleUpBtn}>
+              <TouchableHighlight
+                style={styles.boxTopMiddleUpBtnBotton}>
+                <Text style={styles.boxTopMiddleUpBtnBottonText}>查违章</Text>
+              </TouchableHighlight>
+            </View>
+          </View>
+
+          {/* <View style={styles.boxTopMiddleDown}>
+            <View style={styles.boxTopMiddleDownContent}>
+              <View style={styles.boxTopMiddleDownDian}></View>
+              <Text style={styles.boxTopMiddleDownText}>温馨提示:提示提示呗</Text>
+            </View>
+          </View> */}
+
+          {/* <View style={styles.boxTopMiddleDown}>
+            <View style={styles.boxTopMiddleDownADD}></View>
+            <View style={styles.boxTopMiddleDownContentLeft}>
+              <View style={styles.boxTopMiddleDownDian}></View>
+              <Text style={styles.boxTopMiddleDownText}>共计3分</Text>
+            </View>
+
+            <View style={styles.boxTopMiddleDownContentMiddle}>
+              <View style={styles.boxTopMiddleDownDian}></View>
+              <Text style={styles.boxTopMiddleDownText}>罚款1000元</Text>
+            </View>
+
+            <View style={styles.boxTopMiddleDownContentRight}>
+              <View style={styles.boxTopMiddleDownDian}></View>
+              <Text style={styles.boxTopMiddleDownText}>1条交通违法行为</Text>
+            </View>
+            <View style={styles.boxTopMiddleDownADD}></View>
+          </View> */}
+        </View>
+    )
+
 
     let Loading = (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}><ActivityIndicator animating={this.state.isShow} /></View>
@@ -125,29 +157,33 @@ class Home extends Component {
           </View>
           {/* 车牌号 */}
           <View style={styles.boxTopMiddle}>
-            <View style={styles.boxTopMiddleUp}>
-              <View style={styles.boxTopMiddleUpLogo}>
-                <Image
-                  source={{ uri: logo }}
-                  style={styles.boxLogo}
-                />
-              </View>
-              <View style={styles.boxTopMiddleUpTxt}>
-                <Text style={styles.boxTopMiddleUpTxtText}>{plate}</Text>
-              </View>
-              <View style={styles.boxTopMiddleUpBtn}>
-                <TouchableHighlight
-                  onPress={() => { this.props._toLogin() }}
-                  style={styles.boxTopMiddleUpBtnBotton}>
-                  <Text style={styles.boxTopMiddleUpBtnBottonText}>查违章</Text>
-                </TouchableHighlight>
-              </View>
-            </View>
-            {/* 温馨提示 */}
-            <View style={styles.boxTopMiddleDown}>
-              <View style={styles.boxTopMiddleDownDian}></View>
-              <Text style={styles.boxTopMiddleDownText}>温馨提示:{wxts}</Text>
-            </View>
+
+            {
+              noToken === false
+                ?
+                (
+                  <View style={{ width: '100%', height: 107 }}>
+                    <View style={styles.boxTopMiddleUpNoLogin}>
+                      <IconFont name={'ios-add-circle'} size={22} color={'rgb(204,204,204)'} />
+                      <TouchableHighlight
+                        onPress={() => { this.props._toLogin() }}>
+                        <Text style={styles.boxTopMiddleUpNoLoginText}>添加车辆</Text>
+                      </TouchableHighlight>
+                    </View>
+
+                    <View style={styles.boxTopMiddleDown}>
+                      <View style={styles.boxTopMiddleDownContent}>
+                        <Text style={styles.boxTopMiddleDownText}>绑定车辆可查询违章、办理年检、优惠洗车等</Text>
+                      </View>
+                    </View>
+                  </View>
+                )
+                :
+                InitVioIndex === null ? null :
+                  <BindCarInformation
+                    InitVioIndex={InitVioIndex}
+                  />
+            }
           </View>
         </View>
 
@@ -161,24 +197,6 @@ class Home extends Component {
               :<Text style={styles.znxxText}>暂无消息</Text>}
           </View>
           {/* 8个button */}
-
-          {/* <View style={styles.HomeIconBtnContent}>
-            {
-              imgList.map((item, index) => {
-                return (
-                  <View style={styles.HomeIconBtnButton} key={index}>
-                    <View style={styles.HomeIconBtnButtonContent}>
-                      <View>
-                        <Image source={{ uri: item.url }} style={styles.HomeIconBtnImg} />
-                      </View>
-                      <Text style={styles.HomeIconBtnText}>{item.name}</Text>
-                    </View>
-                  </View>
-                )
-              })
-            }
-          </View> */}
-
           <View style={styles.HomeIconBtnContent}>
             {
               // console.log('homeFunctionAreaList',homeFunctionAreaList)
@@ -198,8 +216,6 @@ class Home extends Component {
                 })
             }
           </View>
-
-
 
           {/* banner 轮播图 */}
           <View style={styles.HomeBanner}>
@@ -291,15 +307,6 @@ class Home extends Component {
             }
           </View>
 
-
-
-
-          {/* <View style={styles.HomeBanner}>
-            <View style={styles.HomeBannerContent}>
-              <Image source={require('../../images/homeBanner.jpeg')}
-                style={styles.HomeBannerBg} />
-            </View>
-          </View> */}
         </ScrollView>
       </View>
     )
@@ -320,14 +327,8 @@ const mapStateToProps = state => {
     bannerV180ResponseList: state.getIn(['home', 'bannerV180ResponseList']),
     creditV192ResponseList: state.getIn(['home', 'creditV192ResponseList']),
     activityStyleV180ResponseList: state.getIn(['home', 'activityStyleV180ResponseList']),
-
-
-
-    iconList: state.getIn(['home', 'iconList']),
-    brand: state.getIn(['home', 'brand']),
-    logo: state.getIn(['home', 'logo']),
-    plate: state.getIn(['home', 'plate']),
-    wxts: state.getIn(['home', 'wxts']),
+    InitVioIndex: state.getIn(['home', 'InitVioIndex']),
+    noToken: state.getIn(['home','noToken']),
     HomePath: state.getIn(['home', 'HomePath']),
     mailList:state.getIn(['home','mailList']),
   }
@@ -340,6 +341,7 @@ const mapDispatchToProps = dispatch => {
     _getHomeData(width) {
       console.log(2)
       dispatch(actionCreators.getHomeData())
+      dispatch(actionCreators.getVioIndex())
       dispatch(actionCreators.beginPainting(width))
     },
     async  _toLogin() {
@@ -351,6 +353,25 @@ const mapDispatchToProps = dispatch => {
       });
       if (token === null || token === '') {
         Actions.login();
+        // alert('未登录')
+        // alert(islogin)
+      } else {
+        console.log(token);
+      }
+    },
+
+    async  _isLogin() {
+
+      let token = ''
+      await DeviceStorageUtil.get('token').then(val => {
+        console.log('token==' + token)
+        islogin = 1
+        token = val
+      });
+      if (token === null || token === '') {
+        islogin = 0
+        // alert('未登录')
+        // alert(islogin)
       } else {
         console.log(token);
       }
@@ -358,3 +379,30 @@ const mapDispatchToProps = dispatch => {
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Home)
+
+
+
+  // console.log('活动设置:', activityStyleV180ResponseList)
+    // console.log('homeFunctionAreaList', homeFunctionAreaList)
+    // console.log('imgList', imgList)
+    // let newImgList = []
+    // imgList.map((item) => {
+    //   newImgList.push(item.toJS());
+    // })
+
+    // console.log(topData)
+    // console.log(brand, logo, plate)
+    // console.log(imgList)
+    // console.log(newImgList)
+    // console.log(t)
+
+    // let { height, width } = Dimensions.get('window');
+
+    // let path = new Path();
+    // path.moveTo(0, 0)
+    //   .lineTo(width, 0)
+    //   .lineTo(width, 120)
+    //   // .lineTo(0,200)
+    //   .arc(-width, 0, 1500)
+    //   .lineTo(0, 0)
+    //   .close()

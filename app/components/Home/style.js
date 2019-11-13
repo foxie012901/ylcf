@@ -10,7 +10,7 @@ export default StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'flex-start',
         alignItems: "center",
-        backgroundColor:'white'
+        backgroundColor: 'white'
 
     },
     conART: {
@@ -64,9 +64,33 @@ export default StyleSheet.create({
 
 
     },
-    boxTopMiddleUp: {
+    boxTopMiddleUpNoLogin: {
+        flex: 6,
         width: '100%',
-        // backgroundColor:'red',
+        padding: 12,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row'
+    },
+    boxTopMiddleUpNoLoginText: {
+        fontSize: 22,
+        fontWeight: '600',
+        color: "rgb(74,74,74)",
+        marginLeft: 7
+    },
+    boxTopMiddleUpNoLoginBox: {
+        width: 20,
+        height: 20,
+        backgroundColor: 'rgb(204,204,204 )',
+        borderRadius: 100
+    },
+
+
+    boxTopMiddleUp: {
+        flex: 5,
+        width: '100%',
+        // backgroundColor: 'yellow',
         padding: 12,
         flexDirection: 'row'
     },
@@ -110,14 +134,48 @@ export default StyleSheet.create({
         height: 46,
     },
     boxTopMiddleDown: {
+        flex: 5,
+        // backgroundColor: 'blue',
         width: "100%",
-        height: 22,
         flexDirection: 'row',
         alignItems: 'center',
-        paddingLeft: 30,
-        position: "absolute",
-        bottom: 8,
         left: 0
+    },
+    boxTopMiddleDownADD: {
+        flex: .5
+    },
+    boxTopMiddleDownContent: {
+        paddingLeft: 22,
+        width: '100%',
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    boxTopMiddleDownContentLeft: {
+        width: '100%',
+        flex: 2.5,
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderTopWidth: 1,
+        borderColor: 'rgb(248,248,248)',
+        paddingTop: 5,
+    },
+    boxTopMiddleDownContentMiddle: {
+        width: '100%',
+        flex: 3,
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderTopWidth: 1,
+        borderColor: 'rgb(248,248,248)',
+        paddingTop: 5
+    },
+    boxTopMiddleDownContentRight: {
+        width: '100%',
+        flex: 3.5,
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderTopWidth: 1,
+        borderColor: 'rgb(248,248,248)',
+        paddingTop: 5,
     },
     boxTopMiddleDownDian: {
         width: 4,
@@ -128,7 +186,7 @@ export default StyleSheet.create({
     },
     boxTopMiddleDownText: {
         fontSize: 14,
-        color: "rgb(74,74,74)"
+        color: "rgb(204,204,204)"
     },
     znxxContent: {
         marginTop: 71,
@@ -287,12 +345,12 @@ export default StyleSheet.create({
     },
     ActiveStyleContent: {
         width: '100%',
-        backgroundColor:'red',
+        backgroundColor: 'red',
         // height: 250,
         backgroundColor: 'white',
         marginBottom: 8,
-        paddingLeft:16,
-        paddingRight:16,
+        paddingLeft: 16,
+        paddingRight: 16,
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -300,7 +358,7 @@ export default StyleSheet.create({
         flex: 1.5,
         marginBottom: 6,
         marginTop: 6,
-        paddingBottom:3,
+        paddingBottom: 3,
         // backgroundColor: 'red',
         justifyContent: 'center',
         alignItems: 'center',
@@ -317,16 +375,16 @@ export default StyleSheet.create({
         width: '100%',
         // backgroundColor: 'yellow'
     },
-    ActiveStyleContentBottom:{
-        flex:1.5,
+    ActiveStyleContentBottom: {
+        flex: 1.5,
         paddingBottom: 6,
         paddingTop: 6,
         // backgroundColor:'blue',
-        alignItems:'center',
-        justifyContent:'center'
+        alignItems: 'center',
+        justifyContent: 'center'
     },
-    ActiveStyleContentBottomText:{
-        fontSize:12,
+    ActiveStyleContentBottomText: {
+        fontSize: 12,
         color: '#ccc',
     },
     ActiveStyleContainer: {

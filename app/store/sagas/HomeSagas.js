@@ -1,39 +1,43 @@
 import { call, put } from "redux-saga/effects";
 import axios from 'axios'
+import DeviceStorageUtil from "../../util/DeviceStorageUtil";
 
 
 //引入各组件redux拦截Creators
-import { initHomeData, initImgList, initTopData, initIconList,getHomeMailData } from "../../components/Home/store/actionCreators";
+import { initHomeData, initVioIndex ,noToken,getHomeMailData } from "../../components/Home/store/actionCreators";
 
-function* getHomeIconImgBtn(url, da) {
-    // console.log(4)
+
+//获取首页头部绑车信息  /peccancy/getVioIndex192
+function* getVioIndex(url, header, body) {
     try {
-        // console.log('getHomeData')
-        const res = yield call(axios.get, url)
-        let { status, msg, data } = res
+        const res = yield call(axios.post, url, body, header)
+        console.log(res)
+        let { status } = res
+        let { ret, message, data } = res.data
         if (status === 200) {
-            yield put(initIconList(data.imgList))
+            if (ret === 1) {
+                if (data === null) {
+                    // console.log('null')
+                    yield put(initVioIndex({ hphm: '添加车辆', wxts: '绑定车辆可查询违章、办理年检、优惠洗车等' }))
+                } else {
+                    yield put(initVioIndex(data))
+                }
+            } else if (ret === 0) {
+                alert(message)
+            } else if (ret === 3) {
+                DeviceStorageUtil.clean()
+                console.log('未登录token失效')
+                // yield put(initVioIndex({ hphm: '添加车辆', wxts: '绑定车辆可查询违章、办理年检、优惠洗车等' }))
+                yield put(noToken({ noToken: false }))
+
+            }
         }
     } catch (error) {
-        console.log('error', error)
-    }
-}
-function* getHomeTopData(url, da) {
-    console.log(6)
-    try {
-        // console.log('getHomeTopData')
-        const res = yield call(axios.get, url)
-        let { status, msg, data } = res
-        // console.log(status)
-        // console.log(data.data)
-        if (status === 200) {
-            yield put(initTopData(data.data))
-        }
-    } catch (error) {
-        console.log('err')
+        console.log('getVioIndex error', error)
     }
 }
 
+//获取首页相关数据  /index/homeV192
 function* getHome(url, header, body) {
     try {
         const res = yield call(axios.post, url, body, header)
@@ -82,7 +86,7 @@ function* getHomeMail(url, header, body) {
 
 
 
-
+// 参考样本 一起请求多个接口
 function* getAxios(url, da) {
     console.log('sagashome')
     try {
@@ -114,9 +118,7 @@ function* getAxios(url, da) {
 
 export {
     getHome,
+    getVioIndex,
 
     getHomeMail,
-    getAxios,
-    getHomeTopData,
-    getHomeIconImgBtn
 }

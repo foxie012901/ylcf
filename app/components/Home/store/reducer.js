@@ -11,14 +11,9 @@ import { Path } from '@react-native-community/art'
 import { fromJS } from "immutable";
 
 const defaultState = fromJS({
-    imgList: [], // 首页icon按钮列表   
-    iconList: [], // 首页图标按钮2 
     HomePath: null, // 首页绘制复杂矩形参数
     isShow: true, // 首页加载开关
-    brand: null, // 首页车辆品牌
-    logo: null, // 首页车辆品牌logo
-    plate: null, //首页车牌号 
-    wxts: null, //首页顶部温馨提示
+    InitVioIndex: null, //首页顶部绑车信息
     mailList:[],//首页站内信
 
 })
@@ -26,6 +21,11 @@ const defaultState = fromJS({
 export default (state = defaultState, action) => {
 
     switch (action.type) {
+        case actionTypes.NO_TOKEN:
+            // console.log('reducer no token', action.data)
+            return state.set('noToken',action.data.noToken)
+
+
         case actionTypes.INIT_HOME_DATA:
             const {
                 homeFunctionAreaList, //可配置功能区域
@@ -51,26 +51,17 @@ export default (state = defaultState, action) => {
                 neverRead,
                 neverReadNum
             })
+        case actionTypes.INIT_VIOINDEX:
+            // console.log('initvioindex reducer ', action.data)
+            // let InitVioIndex = null
+            // if (action.data === null) {
+            //     InitVioIndex = action.data
+            // } else {
 
-
-
-        // case actionTypes.INIT_IMG_LIST:
-        //     console.log(5)
-        //     const imgList = action.data.toJS()
-        //     // console.log(111, imgList)
-        //     return state.set('imgList', imgList)
-        case actionTypes.INIT_TOP_DATA:
-            console.log(7)
-            const { brand, logo, plate, wxts } = action.data.toJS()
-
-            // console.log(111)
-            // console.log(brand, logo)
-            return state.merge({
-                'brand': brand,
-                'logo': logo,
-                'plate': plate,
-                'wxts': wxts
-            })
+            // }
+            let InitVioIndex = action.data.toJS()
+            console.log('reducer initvioindex', InitVioIndex)
+            return state.set('InitVioIndex', InitVioIndex)
 
         case actionTypes.BEGIN_PAINTING:
             let path = new Path();
@@ -89,12 +80,8 @@ export default (state = defaultState, action) => {
 
             return state.set('isShow', action.tOf)
 
-        case actionTypes.INIT_ICON_LIST:
-            const iconList = action.data.toJS()
-            // console.log(111, imgList)
-            return state.set('iconList', iconList)
         case actionTypes.GET_MAIL_LIST:
-           
+
             return state.set('mailList',action.data.toJS())
     }
 
@@ -102,9 +89,9 @@ export default (state = defaultState, action) => {
 
 
 
-    if (action.type === actionTypes.GET_TEXT_TWO) {
-        console.warn('gettexttwo')
-    }
+    // if (action.type === actionTypes.GET_TEXT_TWO) {
+    //     console.warn('gettexttwo')
+    // }
 
 
     return state
@@ -112,6 +99,29 @@ export default (state = defaultState, action) => {
 
 
 
+
+
+    // case actionTypes.INIT_ICON_LIST:
+    //         const iconList = action.data.toJS()
+    //         // console.log(111, imgList)
+    //         return state.set('iconList', iconList)
+    // case actionTypes.INIT_IMG_LIST:
+    //     console.log(5)
+    //     const imgList = action.data.toJS()
+    //     // console.log(111, imgList)
+    //     return state.set('imgList', imgList)
+    // case actionTypes.INIT_TOP_DATA:
+    //     console.log(7)
+    //     const { brand, logo, plate, wxts } = action.data.toJS()
+
+    //     // console.log(111)
+    //     // console.log(brand, logo)
+    //     return state.merge({
+    //         'brand': brand,
+    //         'logo': logo,
+    //         'plate': plate,
+    //         'wxts': wxts
+    //     })
 
     // if (action.type === actionTypes.INIT_IMG_LIST) {
     //     return state.merge({
