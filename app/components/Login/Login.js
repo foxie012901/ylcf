@@ -71,11 +71,11 @@ const deviceId = DeviceInfo.getUniqueId();
                                }}
                         />
 
-                        <View style={styles.textForgetSN}>
+                        <TouchableHighlight style={styles.textForgetSN} onPress={()=>{Actions.passwordreset()}}>
                             <Text style={styles.textForgetSNText}>
                                 忘记密码?
                             </Text>
-                        </View>
+                        </TouchableHighlight>
                     </View>
                     {/* 按钮 */}
                     <View style={styles.btnDetermineBox}>

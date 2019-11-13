@@ -3,7 +3,7 @@ import axios from 'axios'
 
 
 //引入各组件redux拦截Creators
-import { initHomeData, initImgList, initTopData, initIconList } from "../../components/Home/store/actionCreators";
+import { initHomeData, initImgList, initTopData, initIconList,getHomeMailData } from "../../components/Home/store/actionCreators";
 
 function* getHomeIconImgBtn(url, da) {
     // console.log(4)
@@ -58,6 +58,28 @@ function* getHome(url, header, body) {
     }
 }
 
+function* getHomeMail(url, header, body) {
+    try {
+        const res = yield call(axios.post, url, body, header)
+        let { status } = res
+        let { ret, message, data } = res.data
+       console.log(res);
+
+        if (status === 200) {
+            if (ret === 1) {
+                console.log(data.list)
+                yield put(getHomeMailData(data.list));
+            } else if (ret === 0) {
+                alert(message);
+            }
+        } else {
+
+        }
+    } catch (error) {
+        console.log('error:', error)
+    }
+}
+
 
 
 
@@ -93,7 +115,7 @@ function* getAxios(url, da) {
 export {
     getHome,
 
-
+    getHomeMail,
     getAxios,
     getHomeTopData,
     getHomeIconImgBtn

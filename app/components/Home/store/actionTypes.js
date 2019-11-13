@@ -16,7 +16,7 @@ export const HOME_ISSHOW_CHANGE = 'home/home_isshow_change' // 首页加载logo�
 export const GET_ICONLIST_DATA = 'home/get_iconlist_data' // 获取玩转积分 图标按钮数据
 export const INIT_ICON_LIST = 'home/init_icon_list'// 添加获取到的图片数据
 
-
+export const GET_MAIL_LIST = 'home/get_mail_list'
 
 
 export const TEXT_TWO = 'home/text_two'

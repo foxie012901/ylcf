@@ -18,13 +18,13 @@ import {
   Pattern, // 填充图片
   ClippingRectangle, // 剪辑
 } from '@react-native-community/art'
-
+import NoticesBar from 'react-native-noticesbar'
 //封装活动格式
 import ActiveStyle from './ActiveStyle'
 
 import DeviceStorageUtil from '../../util/DeviceStorageUtil';
 import IconFont from 'react-native-vector-icons/Ionicons'
-
+import  MarqueeVertical      from './MarqueeVertical';
 import { actionCreators } from "./store";
 import { actionCreators as lo } from '../Login/store';
 
@@ -66,9 +66,11 @@ class Home extends Component {
       plate, //车牌号
       wxts, // 温馨提示
       HomePath, //js代码绘制复杂矩形
+      mailList,//站内新
       _toLogin,//判断token跳转到login页
     } = this.props
-
+   console.log(mailList)
+  
     // console.log('活动设置:', activityStyleV180ResponseList)
     // console.log('homeFunctionAreaList', homeFunctionAreaList)
     // console.log('imgList', imgList)
@@ -153,7 +155,10 @@ class Home extends Component {
           {/* 站内信息  */}
           <View style={styles.znxxContent}>
             <IconFont name={'ios-notifications'} size={16} color={'rgb(58,151,237)'} />
-            <Text style={styles.znxxText}>站内消息:今日油价92#汽油6.78元/L,95#汽油惊喜价......</Text>
+            <Text style={styles.znxxText}>站内消息:</Text>
+            {mailList.length>0?
+              <MarqueeVertical textList={mailList} width={width*0.8} height={20}></MarqueeVertical>
+              :<Text style={styles.znxxText}>暂无消息</Text>}
           </View>
           {/* 8个button */}
 
@@ -323,7 +328,8 @@ const mapStateToProps = state => {
     logo: state.getIn(['home', 'logo']),
     plate: state.getIn(['home', 'plate']),
     wxts: state.getIn(['home', 'wxts']),
-    HomePath: state.getIn(['home', 'HomePath'])
+    HomePath: state.getIn(['home', 'HomePath']),
+    mailList:state.getIn(['home','mailList']),
   }
 }
 const mapDispatchToProps = dispatch => {

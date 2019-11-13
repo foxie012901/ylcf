@@ -20,6 +20,11 @@ export const initHomeData = data => ({
     type: actionTypes.INIT_HOME_DATA,
     data: fromJS(data)
 })
+//获取首页站内信数据
+export const getHomeMailData = data =>({
+    type:actionTypes.GET_MAIL_LIST,
+    data:fromJS(data)
+})
 
 // //获取首页icon按钮数据并添加
 // export const getImgListData = () => ({

@@ -19,6 +19,8 @@ const defaultState = fromJS({
     logo: null, // 首页车辆品牌logo
     plate: null, //首页车牌号 
     wxts: null, //首页顶部温馨提示
+    mailList:[],//首页站内信
+
 })
 
 export default (state = defaultState, action) => {
@@ -91,6 +93,9 @@ export default (state = defaultState, action) => {
             const iconList = action.data.toJS()
             // console.log(111, imgList)
             return state.set('iconList', iconList)
+        case actionTypes.GET_MAIL_LIST:
+           
+            return state.set('mailList',action.data.toJS())
     }
 
 

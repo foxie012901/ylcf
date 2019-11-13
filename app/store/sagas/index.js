@@ -1,7 +1,7 @@
 import { takeEvery, put } from "redux-saga/effects";
 import { fetchPost } from './ShangJiaSagas';
 import { loginFetchPost } from "./LoginSagas";
-import { getAxios, getHomeIconBtn, getHomeTopData, getHomeIconImgBtn, getHome } from "./HomeSagas.js";
+import { getAxios, getHomeIconBtn, getHomeTopData, getHomeIconImgBtn, getHome,getHomeMail} from "./HomeSagas.js";
 //日期类工具
 import DateUtil from '../../util/DateUtil';
 import DevicesStorageUtil from '../../util/DeviceStorageUtil';//持久化工具
@@ -47,16 +47,22 @@ function* getHomeData() {
     }
     console.log('11111111', token)
     console.log(3)
-
-
-    yield getHome(hostUrl + 'index/homeV192', tk, formData)
-    yield getHomeTopData('http://192.168.34.102:8081/public/home/cars.json', null)
-    yield getHomeIconImgBtn('http://192.168.34.102:8081/public/home/wzjf.json', null)
+   
+    yield getHome(hostUrl + 'index/homeV192', tk, formData);
+    if(token!==null){
+    let mailFormData = new FormData();
+    mailFormData.append('pageno',0);
+    mailFormData.append('pagesize',5);
+    yield getHomeMail(hostUrl+'/appmail/getMailsV180',tk,mailFormData);}
+    yield getHomeTopData('http://192.168.34.201:8081/public/home/cars.json', null)
+    yield getHomeIconImgBtn('http://192.168.34.201:8081/public/home/wzjf.json', null)
+    
 
 
     yield put(homeIsshowChange(false))
 
 }
+
 
 
 //加载旗舰店页面数据
@@ -67,7 +73,7 @@ function* getShangJiaJSON(action) {
         lastPullTime = DateUtil.formatDate(DateUtil.getBeforeDayDate(2).getTime(), 'yyyy-MM-dd hh:mm:ss');
     }
     let map = {};
-    formData.append('lastPullTime', lastPullTime)
+    formData.append('lastPullTime', lastPullTime);
     map = { Accept: 'application/json, text/plain,*/*' };
     yield fetchPost("/store/home", formData, map);
 
