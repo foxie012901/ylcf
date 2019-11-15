@@ -121,7 +121,9 @@ def enableHermes = project.ext.react.get("enableHermes", false);
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-
+    lintOptions {
+        abortOnError false
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -137,6 +139,11 @@ android {
                 JPUSH_APPKEY: "ebc9c8882549aaef7108bd28",         //在此替换你的APPKey
                 JPUSH_CHANNEL: "default"        //在此替换你的channel
         ]
+    }
+	  sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
     }
     splits {
         abi {
@@ -196,6 +203,7 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation project(':jpush-react-native')  // 添加 jpush 依赖
     implementation project(':jcore-react-native') 
+	implementation "com.google.code.gson:gson:2.7"
     if (enableHermes) {
       def hermesPath = "../../node_modules/hermesvm/android/";
       debugImplementation files(hermesPath + "hermes-debug.aar")
