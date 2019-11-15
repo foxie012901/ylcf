@@ -21,6 +21,7 @@ import { connect } from "react-redux";
 import { actionCreators } from "./store";
 import DateUtil from '../../util/DateUtil';
 import {Actions} from 'react-native-router-flux';
+import MyLBS from '../../androidModules/BaiduLBS';
 const mWidth = Dimensions.get('window').width;
 const mHeight = Dimensions.get('window').height;
 class ShangJia extends Component {
@@ -32,7 +33,12 @@ class ShangJia extends Component {
   }
 
   componentDidMount() {
-    this.props._getData()
+    this.props._getData();
+    if(Platform.OS ==='android'){
+    //开始定位
+    MyLBS.startLocation((location)=> {  alert(location)
+  });
+    }
     console.log(this.props.isShow)
     this.setState({
       isShow: false,
