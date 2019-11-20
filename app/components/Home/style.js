@@ -86,6 +86,66 @@ export default StyleSheet.create({
         borderRadius: 100
     },
 
+    boxTopMiddleDownNoLogin: {
+        flex: 5,
+        // backgroundColor: 'blue',
+        width: "100%",
+        flexDirection: 'row',
+        alignItems: 'center',
+        left: 0
+    },
+    boxTopMiddleDownNoLoginADD: {
+        flex: .5
+    },
+    boxTopMiddleDownNoLoginContent: {
+        paddingLeft: 22,
+        width: '100%',
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    boxTopMiddleDownNoLoginContentLeft: {
+        width: '100%',
+        flex: 2.5,
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderTopWidth: 1,
+        borderColor: 'rgb(248,248,248)',
+        paddingTop: 5,
+    },
+    boxTopMiddleDownNoLoginContentMiddle: {
+        width: '100%',
+        flex: 3,
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderTopWidth: 1,
+        borderColor: 'rgb(248,248,248)',
+        paddingTop: 5
+    },
+    boxTopMiddleDownNoLoginContentRight: {
+        width: '100%',
+        flex: 3.5,
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderTopWidth: 1,
+        borderColor: 'rgb(248,248,248)',
+        paddingTop: 5,
+    },
+    boxTopMiddleDownNoLoginDian: {
+        width: 4,
+        height: 4,
+        backgroundColor: 'rgb(216,216,216)',
+        borderRadius: 100,
+        marginRight: 4,
+    },
+    boxTopMiddleDownNoLoginText: {
+        fontSize: 14,
+        color: "rgb(204,204,204)"
+    },
+
+
+
+
+
 
     boxTopMiddleUp: {
         flex: 5,

@@ -7,12 +7,6 @@
 import { actionTypes } from "./";
 import { fromJS } from "immutable";
 
-//验证token,和token是否已过期
-export const noToken = data => ({
-    type: actionTypes.NO_TOKEN,
-    data
-})
-
 //获取首页需要的渲染数据
 export const getHomeData = () => ({
     type: actionTypes.GET_HOME_DATA
@@ -20,12 +14,7 @@ export const getHomeData = () => ({
 //添加获取到首页的数据 
 export const initHomeData = data => ({
     type: actionTypes.INIT_HOME_DATA,
-    data: fromJS(data)
-})
-//获取首页站内信数据
-export const getHomeMailData = data =>({
-    type:actionTypes.GET_MAIL_LIST,
-    data:fromJS(data)
+    data: fromJS(data),
 })
 
 //获取首页绘制复杂矩形的数据
@@ -44,14 +33,12 @@ export const homeIsshowChange = tOf => ({
     tOf,
 })
 
-
-
-export const getVioIndex = () => ({
-    type:actionTypes.GET_VIOINDEX
+// 首页scrollview 下拉刷新控制
+export const showRefreshing = () => ({
+    type:actionTypes.SHOW_REFRESHING
 })
-export const initVioIndex = data => ({
-    type: actionTypes.INIT_VIOINDEX,
-    data: fromJS(data)
+export const hideRefreshing = () => ({
+    type:actionTypes.HIDE_REFRESHING
 })
 
 

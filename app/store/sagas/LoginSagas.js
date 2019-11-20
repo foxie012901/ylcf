@@ -3,7 +3,6 @@ import axios from 'axios'
 import DevicesStorageUtil from '../../util/DeviceStorageUtil';
 import DateUtil from '../../util/DateUtil';
 import { getLogInResponse, changeIsLogin } from '../../components/Login/store/actionCreators';
-import { noToken } from "../../components/Home/store/actionCreators";
 
 function* loginFetchPost(api, params, headers) {
 
@@ -18,7 +17,6 @@ function* loginFetchPost(api, params, headers) {
     let response = yield res.text();
     yield put(getLogInResponse(JSON.parse(response)));
     yield put(changeIsLogin(false))
-    yield put(noToken({ noToken: true }))
 
 }
 

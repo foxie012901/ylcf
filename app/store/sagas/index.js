@@ -1,19 +1,23 @@
 import { takeEvery, put } from "redux-saga/effects";
 import { fetchPost,getShopList } from './ShangJiaSagas';
 import { loginFetchPost } from "./LoginSagas";
-import {getHome, getVioIndex,getHomeMail} from "./HomeSagas.js";
+import { getHome } from "./HomeSagas";
+import { getVioIndex as getVio } from "./BindCarSagas";
+import { getMailRoll } from './MailRollSagas'
 //日期类工具
 import DateUtil from '../../util/DateUtil';
 import DevicesStorageUtil from '../../util/DeviceStorageUtil';//持久化工具
 import  MyLBS     from '../../androidModules/BaiduLBS'; //安卓获取地理位置信息原生
 
 //引入各组件redux派发的creators
-import { homeIsshowChange, noToken } from "../../components/Home/store/actionCreators";
+import { homeIsshowChange } from "../../components/Home/store/actionCreators";
 
 //引入各组件redux派发的TYPES
-import { GET_HOME_DATA, GET_VIOINDEX } from "../../components/Home/store/actionTypes";
 import { TEST_JSON ,CHANGE_SHOPS } from '../../components/ShangJia/store/actionTypes';
+import { GET_HOME_DATA } from "../../components/Home/store/actionTypes";
+import { GET_VIOINDEX } from "../../components/BindCar/store/actionTypes";
 import { GET_LOGIN } from '../../components/Login/store/actionTypes';
+import { GET_MAIL_LIST } from "../../components/MailRoll/store/actionTypes";
 
 //全局请求地址
 // const hostUrl = 'https://mapp.jlcxtx.com/'
@@ -29,47 +33,71 @@ const hostUrl = 'https://cs.jlcxtx.com/'
 //拦截
 function* mySaga() {
     yield takeEvery(GET_HOME_DATA, getHomeData) // 获取home组件默认数据
+    yield takeEvery(GET_VIOINDEX, getVioIndex)  // 获取首页顶部绑车信息
     yield takeEvery(TEST_JSON, getShangJiaJSON);//shangjia组件
     yield takeEvery(CHANGE_SHOPS,changeShop);
     yield takeEvery(GET_LOGIN, getLoginJSON); //login 组件
+    yield takeEvery(GET_MAIL_LIST, getMailList);
+
+}
+function* getMailList() {
+    let token = yield DevicesStorageUtil.get('token')
+    //token格式
+    let tk = {
+        headers: { token: yield DevicesStorageUtil.get('token') }
+    }
+    if (token !== null) {
+        let mailFormData = new FormData();
+        mailFormData.append('pageno', 0);
+        mailFormData.append('pagesize', 5);
+        yield getMailRoll(hostUrl + '/appmail/getMailsV180', tk, mailFormData);
+    }
+}
+
+function* getVioIndex() {
+    let hasToken = null
+    if (yield DevicesStorageUtil.get('token')) {
+        hasToken = yield DevicesStorageUtil.get('token')
+    } else {
+        hasToken = null
+    }
+
+
+    let token = yield DevicesStorageUtil.get('token');
+
+    //token格式
+    let tk = {
+        headers: { token: yield DevicesStorageUtil.get('token') }
+    }
+
+    console.log('有hasToken index', hasToken)
+    console.log('有Token index', token)
+    //carid
+    let vioIndexBody = new FormData()
+    vioIndexBody.append('carid', '')
+
+
+    yield getVio(hostUrl + 'peccancy/getVioIndex192', tk, vioIndexBody, hasToken)
+
 
 }
 
-
 function* getHomeData() {
 
-    let token = yield DevicesStorageUtil.get('token');
-    console.log('saga token', token)
+
+    let token = yield DevicesStorageUtil.get('token')
     let lastPullTime = DateUtil.formatDate(DateUtil.getBeforeDayDate(2).getTime(), 'yyyy-MM-dd hh:mm:ss');
     //body数据
     let formData = new FormData();
     formData.append('lastPullTime', lastPullTime)
     //token格式
     let tk = {
-        headers: { token: token }
+        headers: { token: yield DevicesStorageUtil.get('token') }
     }
-    //carid
-    let vioIndexBody = new FormData()
-    vioIndexBody.append('carid', '')
+
 
 
     yield getHome(hostUrl + 'index/homeV192', tk, formData)
-    if (token !== null) {
-        yield put(noToken({ noToken: true }))
-        yield getVioIndex(hostUrl + 'peccancy/getVioIndex192', tk, vioIndexBody)
-    } else {
-        yield put(noToken({ noToken: false }))
-    }
-    console.log('11111111', token)
-    console.log(3)
-
-    yield getHome(hostUrl + 'index/homeV192', tk, formData);
-    if(token!==null){
-    let mailFormData = new FormData();
-    mailFormData.append('pageno',0);
-    mailFormData.append('pagesize',5);
-    yield getHomeMail(hostUrl+'/appmail/getMailsV180',tk,mailFormData);
-    }
 
     yield put(homeIsshowChange(false))
 

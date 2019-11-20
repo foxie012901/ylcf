@@ -3,14 +3,16 @@ import {
   View,
   Text,
   StyleSheet,
-  StatusBar, Platform, NativeModules
+  StatusBar, 
+  Platform, 
+  NativeModules
 } from 'react-native';
 
 import TabNavigator from "react-native-tab-navigator";
 import IconFont from 'react-native-vector-icons/Ionicons'
 
 import Home from "./app/components/Home/Home";
-import My from './app/components/My/My'
+import My from './app/components/MailRoll/MailRoll'
 import Order from './app/components/Order/Order'
 import ShangJia from './app/components/ShangJia/ShangJia'
 //获取信息栏高度,并在样式设置padding-top等于信息栏高度
@@ -40,8 +42,8 @@ export default class App extends Component {
     // }
     return (
       <View style={styles.container}>
-        <StatusBar hidden={false} barStyle={'light-content'} />
-        <TabNavigator>
+        <StatusBar hidden={false} barStyle={'dark-content'} />
+        <TabNavigator style={{marginTop: STATUSBAR_HEIGHT,}}>
           <TabNavigator.Item
             selected={this.state.selectedTab === 'home'}
             title='home'

@@ -33,7 +33,8 @@ class Login extends Component {
             // console.log("actopn222=", this.props.actionTo);
 
             this.props._cleanAction();
-            Actions.app();
+            // Actions.app();
+            Actions.push('reset')
         }
     }
     render() {

@@ -11,57 +11,29 @@ import { Path } from '@react-native-community/art'
 import { fromJS } from "immutable";
 
 const defaultState = fromJS({
-    HomePath: null, // 首页绘制复杂矩形参数
-    isShow: true, // 首页加载开关
-    InitVioIndex: null, //首页顶部绑车信息
-    mailList:[],//首页站内信
+    // HomePath: null, // 首页绘制复杂矩形参数
+    // isShow: true, // 首页加载开关
+    // InitVioIndex: null, //首页顶部绑车信息
+    // homeFunctionAreaList, //可配置功能区域
+    //     bannerV180ResponseList, //焦点区域
+    //     creditV192ResponseList, //积分区域
+    //     activityStyleV180ResponseList, //活动区域
+    //     needPay, //积分余额
+    //     integralBalance, //是否有待支付信息 0 无 1有 【商家服务、非标准收费处于延时支付 的 待支付订单】
+    //     neverRead, //是否有新消息 0 无 1有
+    //     neverReadNum //未读消息数 根据上次查询站内信时间开始到当前时间 V188新增
+    refreshing: false
 
 })
 
 export default (state = defaultState, action) => {
 
     switch (action.type) {
-        case actionTypes.NO_TOKEN:
-            // console.log('reducer no token', action.data)
-            return state.set('noToken',action.data.noToken)
-
-
         case actionTypes.INIT_HOME_DATA:
-            const {
-                homeFunctionAreaList, //可配置功能区域
-                bannerV180ResponseList, //焦点区域
-                creditV192ResponseList, //积分区域
-                activityStyleV180ResponseList, //活动区域
-                needPay, //积分余额
-                integralBalance, //是否有待支付信息 0 无 1有 【商家服务、非标准收费处于延时支付 的 待支付订单】
-                neverRead, //是否有新消息 0 无 1有
-                neverReadNum //未读消息数 根据上次查询站内信时间开始到当前时间 V188新增
-            } = action.data.toJS()
-
-            // console.log('size',action.data.size)
-
-            // console.log('bigdata', bigData)
             return state.merge({
-                homeFunctionAreaList,
-                bannerV180ResponseList,
-                creditV192ResponseList,
-                activityStyleV180ResponseList,
-                needPay,
-                integralBalance,
-                neverRead,
-                neverReadNum
+                HomeData: action.data
             })
-        case actionTypes.INIT_VIOINDEX:
-            // console.log('initvioindex reducer ', action.data)
-            // let InitVioIndex = null
-            // if (action.data === null) {
-            //     InitVioIndex = action.data
-            // } else {
 
-            // }
-            let InitVioIndex = action.data.toJS()
-            console.log('reducer initvioindex', InitVioIndex)
-            return state.set('InitVioIndex', InitVioIndex)
 
         case actionTypes.BEGIN_PAINTING:
             let path = new Path();
@@ -80,9 +52,13 @@ export default (state = defaultState, action) => {
 
             return state.set('isShow', action.tOf)
 
-        case actionTypes.GET_MAIL_LIST:
+        case actionTypes.SHOW_REFRESHING:
+            console.log('show refreshing')
+            return state.set('refreshing', true)
 
-            return state.set('mailList',action.data.toJS())
+        case actionTypes.HIDE_REFRESHING:
+            console.log('hide refreshing')
+            return state.set('refreshing', false)
     }
 
 

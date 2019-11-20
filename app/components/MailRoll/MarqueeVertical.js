@@ -14,7 +14,6 @@ const mHeight = Dimensions.get('window').height;
 const styles = {
   bgContainerStyle: {
     justifyContent: 'flex-start',
-    backgroundColor: '#FFFFFF',
    
     overflow: 'hidden',
    
@@ -22,7 +21,6 @@ const styles = {
   },
   viewStyle: {
     flexDirection: 'row',
-      
     alignItems: 'center',
   },
   textStyle: {

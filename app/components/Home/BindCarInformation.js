@@ -28,9 +28,9 @@ export default class BindCarInformation extends Component {
                         </TouchableHighlight>
                     </View>
 
-                    <View style={styles.boxTopMiddleDown}>
-                        <View style={styles.boxTopMiddleDownContent}>
-                            <Text style={styles.boxTopMiddleDownText}>{InitVioIndex.wxts}</Text>
+                    <View style={styles.boxTopMiddleDownNoLogin}>
+                        <View style={styles.boxTopMiddleDownNoLoginContent}>
+                            <Text style={styles.boxTopMiddleDownNoLoginText}>{InitVioIndex.wxts}</Text>
                         </View>
                     </View>
                 </View>
@@ -59,32 +59,39 @@ export default class BindCarInformation extends Component {
                             </TouchableHighlight>
                         </View>
                     </View>
+                    {
+                        InitVioIndex.wfsl === null || InitVioIndex.fqje === null || InitVioIndex.wzfs === null
+                            ?
+                            <View style={styles.boxTopMiddleDown}>
+                                <View style={styles.boxTopMiddleDownADD}></View>
+                                <View style={styles.boxTopMiddleDownContentMiddle}>
+                                    <View style={styles.boxTopMiddleDownDian}></View>
+                                    <Text style={styles.boxTopMiddleDownText}>温馨提示:没有违章信息</Text>
+                                </View>
+                                <View style={styles.boxTopMiddleDownADD}></View>
 
-                    <View style={styles.boxTopMiddleDown}>
-                        <View style={styles.boxTopMÎiddleDownContent}>
-                            <View style={styles.boxTopMiddleDownDian}></View>
-                            <Text style={styles.boxTopMiddleDownText}>温馨提示:提示提示呗</Text>
-                        </View>
-                    </View>
+                            </View>
+                            :
+                            <View style={styles.boxTopMiddleDown}>
+                                <View style={styles.boxTopMiddleDownADD}></View>
+                                <View style={styles.boxTopMiddleDownContentLeft}>
+                                    <View style={styles.boxTopMiddleDownDian}></View>
+                                    <Text style={styles.boxTopMiddleDownText}>共计{InitVioIndex.wzfs}分</Text>
+                                </View>
 
-                    {/* <View style={styles.boxTopMiddleDown}>
-            <View style={styles.boxTopMiddleDownADD}></View>
-            <View style={styles.boxTopMiddleDownContentLeft}>
-              <View style={styles.boxTopMiddleDownDian}></View>
-              <Text style={styles.boxTopMiddleDownText}>共计3分</Text>
-            </View>
+                                <View style={styles.boxTopMiddleDownContentMiddle}>
+                                    <View style={styles.boxTopMiddleDownDian}></View>
+                                    <Text style={styles.boxTopMiddleDownText}>罚款{InitVioIndex.fqje}元</Text>
+                                </View>
 
-            <View style={styles.boxTopMiddleDownContentMiddle}>
-              <View style={styles.boxTopMiddleDownDian}></View>
-              <Text style={styles.boxTopMiddleDownText}>罚款1000元</Text>
-            </View>
+                                <View style={styles.boxTopMiddleDownContentRight}>
+                                    <View style={styles.boxTopMiddleDownDian}></View>
+                                    <Text style={styles.boxTopMiddleDownText}>{InitVioIndex.wfsl}条交通违法行为</Text>
+                                </View>
+                                <View style={styles.boxTopMiddleDownADD}></View>
+                            </View>
+                    }
 
-            <View style={styles.boxTopMiddleDownContentRight}>
-              <View style={styles.boxTopMiddleDownDian}></View>
-              <Text style={styles.boxTopMiddleDownText}>1条交通违法行为</Text>
-            </View>
-            <View style={styles.boxTopMiddleDownADD}></View>
-          </View> */}
                 </View>
         )
 
