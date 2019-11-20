@@ -1,17 +1,18 @@
 import { takeEvery, put } from "redux-saga/effects";
-import { fetchPost } from './ShangJiaSagas';
+import { fetchPost,getShopList } from './ShangJiaSagas';
 import { loginFetchPost } from "./LoginSagas";
 import {getHome, getVioIndex,getHomeMail} from "./HomeSagas.js";
 //日期类工具
 import DateUtil from '../../util/DateUtil';
 import DevicesStorageUtil from '../../util/DeviceStorageUtil';//持久化工具
+import  MyLBS     from '../../androidModules/BaiduLBS'; //安卓获取地理位置信息原生
 
 //引入各组件redux派发的creators
 import { homeIsshowChange, noToken } from "../../components/Home/store/actionCreators";
 
 //引入各组件redux派发的TYPES
 import { GET_HOME_DATA, GET_VIOINDEX } from "../../components/Home/store/actionTypes";
-import { TEST_JSON } from '../../components/ShangJia/store/actionTypes';
+import { TEST_JSON ,CHANGE_SHOPS } from '../../components/ShangJia/store/actionTypes';
 import { GET_LOGIN } from '../../components/Login/store/actionTypes';
 
 //全局请求地址
@@ -29,6 +30,7 @@ const hostUrl = 'https://cs.jlcxtx.com/'
 function* mySaga() {
     yield takeEvery(GET_HOME_DATA, getHomeData) // 获取home组件默认数据
     yield takeEvery(TEST_JSON, getShangJiaJSON);//shangjia组件
+    yield takeEvery(CHANGE_SHOPS,changeShop);
     yield takeEvery(GET_LOGIN, getLoginJSON); //login 组件
 
 }
@@ -98,6 +100,20 @@ function* getLoginJSON(action) {
     formData.append("deviceType", action.os);
     formData.append('deviceId', action.deviceId);
     yield loginFetchPost("/appuser/login", formData, null);
+
+}
+//去换店
+function* changeShop(action){
+    let lng ='';
+    let lat ='';
+  let gps = yield MyLBS.startLocation();
+  lng=JSON.parse(gps).d;
+  lat=JSON.parse(gps).c;
+
+  let formData = new FormData();
+  formData.append('lat', lat);
+  formData.append('lng', lng);
+    yield getShopList('/store/storeList',formData,null);
 
 }
 export default mySaga

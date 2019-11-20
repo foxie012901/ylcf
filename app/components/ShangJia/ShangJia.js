@@ -32,13 +32,9 @@ class ShangJia extends Component {
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.props._getData();
-    if(Platform.OS ==='android'){
-    //开始定位
-    MyLBS.startLocation((location)=> {  alert(location)
-  });
-    }
+    
     console.log(this.props.isShow)
     this.setState({
       isShow: false,
@@ -94,6 +90,8 @@ class ShangJia extends Component {
       _videoEnd,//视频播放结束
       _changeVideoStatus,//修改视频属性
       swiperImgs,//轮播图片
+      shangjiaPhone,//商家电话
+      _changeShops
     } = this.props
 console.log(swiperImgs)
 
@@ -106,20 +104,20 @@ console.log(swiperImgs)
     <View style={styles.content}>
       <View style={{ flexDirection: 'row' }}>
         <Text style={styles.qjdfu}>旗舰店服务</Text>
-        <TouchableOpacity onPress={() => { alert('换店')}} style={styles.hd}>
+        <TouchableOpacity onPress={() => { alert('换店');_changeShops();Actions.shoplist()}} style={styles.hd}>
           <Text style={styles.hdtext}>换店</Text>
         </TouchableOpacity>
       </View>
 
       <View style={{width:mWidth,height:mHeight*0.25}}>
-      <Carousel  style={{width: mWidth, height:mHeight*0.25,background:"#FFFFF"}}
+      <Carousel  style={{width: mWidth, height:mHeight*0.25}}
        bullets={true}
-
+       delay={6000}
       >
       {
           swiperImgs.map((item,index) =>{
-            console.log(item,index);
-            if(item.video!==undefined){
+            console.log(swiperImgs);
+            if((!item.video===undefined)||(!item.video==="")){
                return(<View style={styles.videoView}>
               <TouchableOpacity style={{flex:1}} onPress={()=>{alert("点了视频");_changeVideoStatus(videoIsPlay);}}>
              <Video   style={{ width: mWidth, height: '100%', backgroundColor:'#000000'}}
@@ -208,11 +206,10 @@ console.log(swiperImgs)
               console.log("imgs",item.imgs);
               return (<View style={{flex:1}}><Image style={{flex:1,resizeMode:'stretch'}} source={{uri:item.img}}></Image></View>)
             }else{
-              return null;
+              return ;
             }
          })
       }
-
       </Carousel>
 
           {
@@ -284,7 +281,7 @@ const mapStateToProps = state => {
     videoWidth:state.getIn(['shangjia','videoWidth']),
     videoEnd:state.getIn(['shangjia','videoEnd']),
     swiperImgs:state.getIn(['shangjia','swiperImgs']),
-
+    shangjiaPhone:state.getIn(['shangjia','shangjiaPhone']),
   }
 }
 
@@ -369,6 +366,9 @@ const mapDispatchToProps = dispatch => {
       } else {
         return require("../../images/unt.png");
       }
+    },
+    _changeShops(){
+      dispatch(actionCreators.changeShops());       
     }
   }
 }

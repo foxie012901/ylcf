@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, YellowBox, StyleSheet,Platform } from 'react-native';
+import { View, Text, YellowBox, StyleSheet,Platform,Dimensions } from 'react-native';
 import {
     Router,
     Stack,
@@ -7,19 +7,21 @@ import {
 } from "react-native-router-flux";
 
 import App from "./App";
-import Home from './app/components/Home/Home'
-import ShangJia from './app/components/ShangJia/ShangJia'
-import Order from './app/components/Order/Order'
-import My from './app/components/My/My'
-import Login from "./app/components/Login/Login";
-import PasswordReset from './app/components/PasswordReset/PasswordReset';
+import Home from './app/components/Home/Home'//首页
+import ShangJia from './app/components/ShangJia/ShangJia'//旗舰店
+import Order from './app/components/Order/Order'//其他
+import My from './app/components/My/My'//我的
+import Login from "./app/components/Login/Login";//登录
+import PasswordReset from './app/components/PasswordReset/PasswordReset';//忘记密码
+import ShangjiaList from './app/components/ShangjiaList/ShangjiaList'; //门店列表
 //react-redux
 import { Provider } from "react-redux";
 import store from './app/store'
 import VPlayer from './app/components/VideoPlayer/VideoPlayer';
 import JPush from 'jpush-react-native';
 
-
+const mWidth = Dimensions.get('window').width;
+const mHeight = Dimensions.get('window').height;
 export default class Main extends Component {
     constructor(props) {
         super(props);
@@ -93,6 +95,7 @@ export default class Main extends Component {
                         <Scene key='login' component={Login} title='登录' hideNavBar={false} />
                         <Scene key='passwordreset' component={PasswordReset} title='密码重置' hideNavBar={false}></Scene>
                         <Scene key='videoplayer' component={VPlayer} hideNavBar={true}/>
+                        <Scene key='shoplist' component={ShangjiaList} hideNavBar={false} title='门店列表' titleStyle={{marginLeft:mWidth*0.25}}/>
                     </Stack>
                 </Router>
             </Provider>
