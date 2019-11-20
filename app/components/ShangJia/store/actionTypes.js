@@ -10,3 +10,4 @@ export const TEST_JSON ='shanhjia/test_json'
 
 export const CHANGE_DATA ='shangjia/change_data'
 export const JSON_DATA='shangjia/json_data'
+export const CHANGE_SHOPS='shangjia/change_shop'

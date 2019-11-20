@@ -29,6 +29,7 @@ const defaultState = fromJS({
     videoEnd:false,//视频是否结束标识
     swiperImgs:[],//轮播列表
     swiperIs:false,//是否正在轮播
+    shangjiaPhone:963333
 })
 
 export default (state = defaultState, action) => {
@@ -64,7 +65,10 @@ export default (state = defaultState, action) => {
      if(action.type ===actionTypes.JSON_DATA){
          let data = JSON.parse(action.data).data;
          let swiperImgsList = []
+         console.log(action.data);
+         if(data.video!==""&&data.video!==undefined){
          swiperImgsList.push({'video':data.video})
+        }
          data.imgs.map((item)=>{
              swiperImgsList.push({'img':item})
          })
@@ -83,6 +87,9 @@ export default (state = defaultState, action) => {
      if(action.type===actionTypes.CHANGE_SCREEN_STATUS){
          return state.merge(action.data);
      
+     }
+     if(action.type===actionTypes.CHANGE_SHOPS){
+         
      }
     
 

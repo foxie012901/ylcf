@@ -44,4 +44,8 @@ export const changeShangjiaScreenStatus =data =>({
     type:actionTypes.CHANGE_SCREEN_STATUS,
     data
 })
+export const changeShops = data =>({
+    type:actionTypes.CHANGE_SHOPS,
+    data
+})
 
