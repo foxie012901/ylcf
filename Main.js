@@ -105,7 +105,7 @@ export default class Main extends Component {
               <Scene key='login' component={Login} title='登录' hideNavBar={false} />
               <Scene key='passwordreset' component={PasswordReset} title='密码重置' hideNavBar={false}></Scene>
               <Scene key='videoplayer' component={VPlayer} hideNavBar={true} />
-                <Scene key='shoplist' component={ShangjiaList} hideNavBar={false} title='门店列表' titleStyle={{marginLeft:mWidth*0.25}}/>
+                <Scene key='shoplist' component={ShangjiaList} hideNavBar={false} title='门店列表' titleStyle={{marginLeft:mWidth*0.25}} navigationBarStyle={{height:mHeight*0.1}}/>
             </Stack>
           </Router>
 

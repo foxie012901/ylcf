@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {StyleSheet, View, Text,Picker,Dimensions,TextInput , PixelRatio,TouchableHighlight,Platform} from 'react-native';
+import {StyleSheet, View, Text,Picker,Dimensions,TextInput , PixelRatio,TouchableHighlight,Platform,NativeModules} from 'react-native';
 import { actionCreators } from "./store";
 import {actionCreators as shangJiaListActionCreators} from "../ShangjiaList/store";
 import { connect } from "react-redux";
@@ -13,7 +13,7 @@ import {
   ClippingRectangle, // 剪辑
 } from '@react-native-community/art'
 import { FlatList } from 'react-native-gesture-handler';
-
+const { StatusBarManager } = NativeModules;
 const mWidth = Dimensions.get('window').width;
 const mHeight = Dimensions.get('window').height;
 const T_WIDTH = 10;
@@ -120,17 +120,17 @@ const mapDispatchToProps = dispatch => {
       let style= {};
       
        if(isSelect){
-        style={backgroundColor:'rgba(244,244,244,0)'};
+        style={backgroundColor:'rgba(244,244,244,0)',height:mHeight*0.83-(Platform.OS === 'ios' ? 20 :StatusBarManager.HEIGHT)};
          dispatch(actionCreators.changeIsSelect(false));
          dispatch(shangJiaListActionCreators.changeShangJiaListViewStyle(style));
        }else{
-        style={backgroundColor:'rgba(244,244,244,0.8)'};
+        style={backgroundColor:'rgba(244,244,244,0.8)',height:mHeight*0.83-(Platform.OS === 'ios' ? 20 :StatusBarManager.HEIGHT)};
         dispatch(actionCreators.changeIsSelect(true));
         dispatch(shangJiaListActionCreators.changeShangJiaListViewStyle(style));
        }
      },
      _changeIsSelectData(index,name,isSelect){
-      let style= {backgroundColor:'rgba(244,244,244,0)'};
+      let style= {backgroundColor:'rgba(244,244,244,0)',height:mHeight*0.83-(Platform.OS === 'ios' ? 20 :StatusBarManager.HEIGHT)};
        dispatch(actionCreators.changeIsSelectData(index,name,isSelect));
        dispatch(shangJiaListActionCreators.changeShangJiaListViewStyle(style));
 
@@ -144,7 +144,7 @@ const mapDispatchToProps = dispatch => {
 
 const styles = StyleSheet.create({
   picker:{  
-    justifyContent:'center',   
+    justifyContent:'center',  
   },  
   itempicker:{  
     color:'#e6454a',  
