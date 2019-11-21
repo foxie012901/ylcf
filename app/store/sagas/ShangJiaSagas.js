@@ -21,7 +21,7 @@ import {getIsShow as ShangjiaListGetIsShow,getShangJiaListJson } from"../../comp
     if(json.ret===0){
         alert(json.message);
     }else{
-    alert("旗舰店页面请求成功",response);
+   
     yield put(getShangJia(response));
     yield put(shangjiaGetIsShow(false));
     }
@@ -42,7 +42,7 @@ function* getShopList  (api, params, headers)  {
     if(json.ret===0){
         alert(json.message);
     }else if(json.ret===1){
-        alert("旗舰店列表成功");
+       
         yield put(getShangJiaListJson(json.data));
     } 
     else {
