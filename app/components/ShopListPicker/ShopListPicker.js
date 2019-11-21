@@ -51,7 +51,12 @@ const se = new Path().moveTo(T_WIDTH/3,T_HEIGHT/3).lineTo(T_WIDTH/2, T_HEIGHT/2)
   render() {
     let path;
     let fill;
-    let {isSelect,dataList,isSelectIndex,isSelectItemName,_changeIsSelect,_changeIsSelectData,_changeShangJiaListViewStyle}=this.props
+    let {
+      isSelect,//是否被拉起
+      dataList,//数据集合
+      isSelectIndex,//选中的下标
+      isSelectItemName,//选中的名称
+      _changeIsSelect,_changeIsSelectData,_changeShangJiaListViewStyle}=this.props
     console.log(this.props)
     if (isSelect) {
         fill = COLOR_HIGH;
@@ -86,7 +91,7 @@ const se = new Path().moveTo(T_WIDTH/3,T_HEIGHT/3).lineTo(T_WIDTH/2, T_HEIGHT/2)
         </View>
       {this.props.isSelect?
       
-      <FlatList style={{width:mWidth,height:mHeight*0.25,backgroundColor:'#ffffff', position:'absolute',top:mHeight*0.07,zIndex:99}} data={this.props.dataList.toJS()} renderItem={this._renderDataList.bind(this)}></FlatList>
+      <FlatList style={styles.flatListStyle} data={this.props.dataList.toJS()} renderItem={this._renderDataList.bind(this)}></FlatList>
        
    
       :null}
@@ -165,9 +170,10 @@ const styles = StyleSheet.create({
   },
   selectItem:{
     flexDirection:'row',justifyContent:'space-between',width:mWidth*0.92,height:mHeight*0.0625,borderBottomWidth:1,alignSelf:'center',borderBottomColor:'#e5e5e5',backgroundColor:'#ffffff',
-    
-   
-  }  
+  },
+  flatListStyle:{
+    width:mWidth,height:mHeight*0.25,backgroundColor:'#ffffff', position:'absolute',top:mHeight*0.07,zIndex:99
+  },  
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShopListPicker)

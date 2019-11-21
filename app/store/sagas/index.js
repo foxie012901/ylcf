@@ -8,7 +8,7 @@ import { getMailRoll } from './MailRollSagas'
 import DateUtil from '../../util/DateUtil';
 import DevicesStorageUtil from '../../util/DeviceStorageUtil';//持久化工具
 import  MyLBS     from '../../androidModules/BaiduLBS'; //安卓获取地理位置信息原生
-
+import {Platform} from 'react-native';
 //引入各组件redux派发的creators
 import { homeIsshowChange } from "../../components/Home/store/actionCreators";
 
@@ -134,10 +134,14 @@ function* getLoginJSON(action) {
 function* changeShop(action){
     let lng ='';
     let lat ='';
+   if(Platform.OS==='android'){
   let gps = yield MyLBS.startLocation();
   lng=JSON.parse(gps).d;
   lat=JSON.parse(gps).c;
-
+   }else{
+    lng=0;
+    lat=0;
+   }
   let formData = new FormData();
   formData.append('lat', lat);
   formData.append('lng', lng);

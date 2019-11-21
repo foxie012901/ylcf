@@ -27,9 +27,9 @@ class ShangjiaList extends Component {
     
     return (
       <View>
-       
-       <ShopListPicker >
-        </ShopListPicker>
+       <View style={{zIndex:999}}>
+       <ShopListPicker />
+       </View>
       
         
         <ScrollView style={this.props.scrollViewStyle} scrollEnabled={!this.props.shopListPickerIsSelect} contentContainerStyle={{  paddingVertical:20}} onTouchEnd={()=>{this.props._changeIsSelect()}}>
