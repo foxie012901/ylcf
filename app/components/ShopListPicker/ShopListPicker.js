@@ -37,8 +37,8 @@ const se = new Path().moveTo(T_WIDTH/3,T_HEIGHT/3).lineTo(T_WIDTH/2, T_HEIGHT/2)
         selectItemTextStyle={lineHeight:mHeight*0.0625,fontSize:17};
       }
     return  (
-      <TouchableHighlight onPress={()=>{this.props._changeIsSelectData(item.index,item.item,false)}}>
-      <View style={styles.selectItem}><Text style={selectItemTextStyle}>{item.item}</Text>
+      <TouchableHighlight style={styles.selectItem} onPress={()=>{this.props._changeIsSelectData(item.index,item.item,false)}}>
+      <View ><Text style={selectItemTextStyle}>{item.item}</Text>
          {this.props.isSelectIndex===item.index? <View style={{paddingRight:20,paddingTop:2}}>
             <Surface  width={T_WIDTH} height={T_HEIGHT}>
               <Shape d={se} stroke="#000000" strokeWidth={1}/>
@@ -169,10 +169,10 @@ const styles = StyleSheet.create({
     flexDirection:'row',backgroundColor:'#ffffff',width:mWidth,height:mHeight*0.07,
   },
   selectItem:{
-    flexDirection:'row',justifyContent:'space-between',width:mWidth*0.92,height:mHeight*0.0625,borderBottomWidth:1,alignSelf:'center',borderBottomColor:'#e5e5e5',backgroundColor:'#ffffff',
+    flexDirection:'row',justifyContent:'space-between',width:mWidth*0.92,height:mHeight*0.0625,borderBottomWidth:1,alignSelf:'center',borderBottomColor:'#e5e5e5',backgroundColor:'#ffffff',zIndex:99,
   },
   flatListStyle:{
-    width:mWidth,height:mHeight*0.25,backgroundColor:'#ffffff', position:'absolute',top:mHeight*0.07,zIndex:99
+    width:mWidth,height:mHeight*0.25,backgroundColor:'#ffffff',zIndex:99,position:'absolute',marginTop:mHeight*0.07
   },  
 })
 
