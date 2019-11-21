@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {StyleSheet, View, Text,Picker,Dimensions,TextInput , PixelRatio,TouchableHighlight,Animated,Modal} from 'react-native';
+import {StyleSheet, View, Text,Picker,Dimensions,TextInput , PixelRatio,TouchableHighlight,Platform} from 'react-native';
 import { actionCreators } from "./store";
 import {actionCreators as shangJiaListActionCreators} from "../ShangjiaList/store";
 import { connect } from "react-redux";
@@ -72,8 +72,12 @@ const se = new Path().moveTo(T_WIDTH/3,T_HEIGHT/3).lineTo(T_WIDTH/2, T_HEIGHT/2)
           .lineTo(T_WIDTH/2, T_HEIGHT/2 )
           .lineTo(T_WIDTH,0 )        
     }
+    let viewStyle={};
+    if(Platform.OS==='ios'){
+      viewStyle={zIndex:99}
+    }
     return (
-      <View>
+      <View style={viewStyle}>
        
         <View style={styles.isSelectRow}>
       <TouchableHighlight onPress={()=>{this.props._changeIsSelect(this.props.isSelect),this.props._changeShangJiaListViewStyle}}>
