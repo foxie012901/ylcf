@@ -29,7 +29,8 @@ class DateUtil {
           'm+': this.getMinutes(), //分
           's+': this.getSeconds(), //秒
           'q+': Math.floor((this.getMonth() + 3) / 3), //季度
-          S: this.getMilliseconds(), //毫秒
+          'S': this.getMilliseconds(), //毫秒
+          'w':this.getUTCDay(),
         };
   
         if (/(y+)/.test(fmt)) {

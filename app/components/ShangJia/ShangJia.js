@@ -24,7 +24,7 @@ import DateUtil from '../../util/DateUtil';
 import {Actions} from 'react-native-router-flux';
 import MyLBS from '../../androidModules/BaiduLBS';
 import LoadingUtil from "../../util/LoadingUtil";
-
+import ReserveProject  from '../ReserveProject/ReserveProject';
 const mWidth = Dimensions.get('window').width;
 const mHeight = Dimensions.get('window').height;
 const unIcon = require('../../images/unphoto.png');
@@ -64,9 +64,9 @@ class ShangJia extends Component {
     if(item.icon===""||item.icon===null){
       iconUri=unIcon
     }else{iconUri={uri:item.icon}}
-    return (<TouchableOpacity onPress={ ()=>(alert(JSON.stringify(item))) } style={styles.aaa}>
+    return (<TouchableOpacity onPress={ ()=>{Actions.reserveproject({title:'预约'+item.itemName})} } style={styles.aaa}>
   <Image source={iconUri} style={{ width: mWidth * 0.15, height: mHeight * 0.08, resizeMode: 'stretch', alignSelf: 'center', marginLeft: mWidth * 0.02 }} />
-        <Text style={{ width: mWidth * 0.1, height: mHeight * 0.15, alignSelf: 'center', textAlign: 'center', lineHeight: mHeight * 0.15, fontSize: 18, marginLeft: mWidth * 0.04 }}>{item.itemName}</Text>
+        <Text style={{ width: mWidth * 0.1, height: mHeight * 0.15, alignSelf: 'center', textAlign: 'center', lineHeight: mHeight * 0.15, fontSize: 12, marginLeft: mWidth * 0.04 }}>{item.itemName}</Text>
     </TouchableOpacity>)
   }
   render() {

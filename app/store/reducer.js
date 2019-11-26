@@ -9,6 +9,7 @@ import {shoplistpicker} from "../components/ShopListPicker/store";
 import { bindcar } from "../components/BindCar/store";
 import { mailroll } from '../components/MailRoll/store';
 import {shangjiamessage} from "../components/ShangJiaMessage/store";
+import {reseverproject} from "../components/ReserveProject/store";
 const reducer = combineReducers({
     home,
     todolist,
@@ -18,7 +19,8 @@ const reducer = combineReducers({
     shoplistpicker,
     bindcar,
     mailroll,
-    shangjiamessage
+    shangjiamessage,
+    reseverproject
 })
 
 export default reducer

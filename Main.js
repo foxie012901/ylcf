@@ -14,7 +14,7 @@ import My from './app/components/My/My'//我的
 import Login from "./app/components/Login/Login";//登录
 import PasswordReset from './app/components/PasswordReset/PasswordReset';//忘记密码
 import ShangjiaList from './app/components/ShangjiaList/ShangjiaList'; //门店列表
-
+import ReserveProject from './app/components/ReserveProject/ReserveProject';//预约项目
 //loading
 import MyLoading from "./app/MyLoading";
 //react-redux
@@ -99,7 +99,8 @@ export default class Main extends Component {
               <Scene key='login' component={Login} title='登录' hideNavBar={false} />
               <Scene key='passwordreset' component={PasswordReset} title='密码重置' hideNavBar={false}></Scene>
               <Scene key='videoplayer' component={VPlayer} hideNavBar={true} />
-                <Scene key='shoplist' component={ShangjiaList} hideNavBar={false} title='门店列表' titleStyle={{marginLeft:mWidth*0.25}} navigationBarStyle={{height:mHeight*0.1}}/>
+              <Scene key='shoplist' component={ShangjiaList} hideNavBar={false} title='门店列表' titleStyle={{flex:1,textAlign:'center'}} navigationBarStyle={{height:mHeight*0.1}} rightButtonImage/>
+              <Scene key='reserveproject' component={ReserveProject} hideNavBar={false} title='' navigationBarStyle={{height:mHeight*0.1}} titleStyle={{flex:1,textAlign:'center'}} rightButtonImage/>
             </Stack>
           </Router>
 
