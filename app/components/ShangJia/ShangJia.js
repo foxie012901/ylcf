@@ -36,6 +36,7 @@ class ShangJia extends Component {
     };
     console.log(props)
     if(!this.props.isShow && this.props.isChangeLoding){
+     
     LoadingUtil.showLoading();
       }else{
       LoadingUtil.dismissLoading();
@@ -43,8 +44,10 @@ class ShangJia extends Component {
     this.props._getData(this.props.shangjiaId);
   }
  componentWillReceiveProps(nProps){
-   if(!this.props.isShow && nProps.isChangeLoding){
+
+   if(!this.props.isShow && nProps.isChangeLoding&&this.props.shangjiaId!==undefined){
     LoadingUtil.showLoading();
+    
    }else{      LoadingUtil.dismissLoading();
    }
  }
@@ -131,7 +134,7 @@ class ShangJia extends Component {
           swiperImgs.map((item,index) =>{
 
             if((item.video!==undefined)||(!item.video==="")){
-               return(<View style={styles.videoView}>
+               return(<View style={styles.videoView} key={index}>
               <TouchableOpacity style={{flex:1}} onPress={()=>{alert("点了视频");_changeVideoStatus(videoIsPlay);}}>
              <Video   style={{ width: mWidth, height: '100%', backgroundColor:'#000000'}}
                       ref={(ref) => {
