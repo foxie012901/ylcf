@@ -32,8 +32,8 @@ class Login extends Component {
             // console.log("actopn222=", this.props.actionTo);
 
             this.props._cleanAction();
-            // Actions.app();
-            Actions.push('reset')
+            Actions.app({selectedTab:'my'});
+            //Actions.push('home')
         }
     }
     render() {

@@ -249,7 +249,7 @@ export default StyleSheet.create({
         color: "rgb(204,204,204)"
     },
     znxxContent: {
-        marginTop: 71,
+        // marginTop: 71,
         height: 17,
         width: '100%',
         flexDirection: 'row',

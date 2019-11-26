@@ -1,13 +1,15 @@
 import { takeEvery, put } from "redux-saga/effects";
-import { fetchPost,getShopList } from './ShangJiaSagas';
+import { fetchPost, getShopList } from './ShangJiaSagas';
 import { loginFetchPost } from "./LoginSagas";
 import { getHome } from "./HomeSagas";
 import { getVioIndex as getVio } from "./BindCarSagas";
 import { getMailRoll } from './MailRollSagas'
+import { getMyData } from "./MySagas";
 //日期类工具
 import DateUtil from '../../util/DateUtil';
 import DevicesStorageUtil from '../../util/DeviceStorageUtil';//持久化工具
-import  MyLBS     from '../../androidModules/BaiduLBS'; //安卓获取地理位置信息原生
+import MyLBS from '../../androidModules/BaiduLBS'; //安卓获取地理位置信息原生
+
 import {Platform} from 'react-native';
 //引入各组件redux派发的creators
 import { homeIsshowChange } from "../../components/Home/store/actionCreators";
@@ -20,6 +22,7 @@ import { GET_HOME_DATA } from "../../components/Home/store/actionTypes";
 import { GET_VIOINDEX } from "../../components/BindCar/store/actionTypes";
 import { GET_LOGIN } from '../../components/Login/store/actionTypes';
 import { GET_MAIL_LIST } from "../../components/MailRoll/store/actionTypes";
+import { GET_IS_SHOW } from "../../components/My/store/actionTypes";
 
 //全局请求地址
 // const hostUrl = 'https://mapp.jlcxtx.com/'
@@ -40,7 +43,11 @@ function* mySaga() {
     yield takeEvery(CHANGE_SHOPS,changeShop);//换店
     yield takeEvery(GET_LOGIN, getLoginJSON); //login 组件
     yield takeEvery(GET_MAIL_LIST, getMailList);
+    yield takeEvery(GET_IS_SHOW, getMy);
 
+}
+function* getMy() {
+    yield getMyData(true)
 }
 function* getMailList() {
     let token = yield DevicesStorageUtil.get('token')
@@ -127,10 +134,10 @@ function* getShangJiaJSON(action) {
     yield fetchPost("/store/home", formData, map,action.e);
    // yield put(shangJiaRefreshing(false));
    // yield put(shangjiaGetIsShow(false));
-    
 
 
-    
+
+
 }
 //登录
 function* getLoginJSON(action) {
@@ -145,6 +152,7 @@ function* getLoginJSON(action) {
 
 }
 //去换店
+
 function* changeShop(action){
     let lng ='';
     let lat ='';
@@ -161,7 +169,6 @@ function* changeShop(action){
   formData.append('lng', lng);
     yield getShopList('/store/storeList',formData,null);
     action.data==false?yield put(changeLoading(false)): yield put(shangJiaListRefreshing(false));
-    
 
 }
 export default mySaga

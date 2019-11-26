@@ -12,7 +12,8 @@ import TabNavigator from "react-native-tab-navigator";
 import IconFont from 'react-native-vector-icons/Ionicons'
 
 import Home from "./app/components/Home/Home";
-import My from './app/components/MailRoll/MailRoll'
+// import My from './app/components/My/My'
+import My from './app/components/My/MyVideo'
 import Order from './app/components/Order/Order'
 import ShangJia from './app/components/ShangJia/ShangJia'
 //获取信息栏高度,并在样式设置padding-top等于信息栏高度
@@ -28,16 +29,12 @@ export default class App extends Component {
     this.state = {
       selectedTab: selectedTab // 默认选中的tab标签
     };
-   
   }
 
   componentDidMount() {
 
   }
-  componentWillUpdate(){
-   
-  }
- 
+
   render() {
 
     // let Platform = require('Platform');

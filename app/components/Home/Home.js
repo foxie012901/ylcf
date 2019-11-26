@@ -121,11 +121,15 @@ class Home extends Component {
             <BindCar />
           </View>
         </View>
-
+        <View style={{ height: 71 }}>
+          {/* 分割 */}
+        </View>
         <ScrollView
+          androidendFillColor={'red'}
           showsVerticalScrollIndicator={true}
           refreshControl={
             <RefreshControl
+            enabled={true}
               title={'下拉刷新'}
               refreshing={refreshing}
               colors={['rgb(255, 176, 0)', "#ffb100"]}
@@ -276,14 +280,14 @@ const mapStateToProps = state => {
     LoadingUtil.showLoading();
     return {
       isShow: true,
-      refreshing: state.getIn(['home','refreshing']),
+      refreshing: state.getIn(['home', 'refreshing']),
 
 
 
     }
   } else {
-    
-    
+
+
     const {
       homeFunctionAreaList,
       bannerV180ResponseList,
