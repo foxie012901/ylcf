@@ -27,7 +27,6 @@ class Login extends Component {
 
     }
     componentWillUpdate() {
-        console.log(this.props)
         // console.log("actopn1111=", this.props.actionTo);
         if (this.props.actionTo === 'home' && this.props.isLogin === true) {
             // console.log("actopn222=", this.props.actionTo);

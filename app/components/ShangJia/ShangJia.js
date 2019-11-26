@@ -11,7 +11,8 @@ import {
     TouchableWithoutFeedback,
     Slider,
     FlatList,
-    ScrollView
+    ScrollView,
+    RefreshControl
 } from 'react-native';
 import Video from 'react-native-video';
 import   Carousel       from 'react-native-looped-carousel';
@@ -22,35 +23,46 @@ import { actionCreators } from "./store";
 import DateUtil from '../../util/DateUtil';
 import {Actions} from 'react-native-router-flux';
 import MyLBS from '../../androidModules/BaiduLBS';
+import LoadingUtil from "../../util/LoadingUtil";
+
 const mWidth = Dimensions.get('window').width;
 const mHeight = Dimensions.get('window').height;
+const unIcon = require('../../images/unphoto.png');
 class ShangJia extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isShow: true,
     };
+    console.log(props)
+    if(!this.props.isShow && this.props.isChangeLoding){
+    LoadingUtil.showLoading();
+      }else{
+      LoadingUtil.dismissLoading();
+    }
+    this.props._getData(this.props.shangjiaId);
   }
-
+ componentWillReceiveProps(nProps){
+   if(!this.props.isShow && nProps.isChangeLoding){
+    LoadingUtil.showLoading();
+   }else{      LoadingUtil.dismissLoading();
+   }
+ }
+   
   componentWillMount() {
-    this.props._getData();
-    
-    console.log(this.props.isShow)
-    this.setState({
-      isShow: false,
-
-    })
-
+   
   }
-  renderSwiperImgs =(elevation) =>{
-    console.log(elevation)
-
-
+  componentWillUpdate(){
   }
+ 
   renderItem =({item})=>  {
+    let iconUri ="";
+  
+    if(item.icon===""||item.icon===null){
+      iconUri=unIcon
+    }else{iconUri={uri:item.icon}}
     return (<TouchableOpacity onPress={ ()=>(alert(JSON.stringify(item))) } style={styles.aaa}>
-
-  <Image source={{ uri: item.icon }} style={{ width: mWidth * 0.15, height: mHeight * 0.08, resizeMode: 'stretch', alignSelf: 'center', marginLeft: mWidth * 0.02 }} />
+  <Image source={iconUri} style={{ width: mWidth * 0.15, height: mHeight * 0.08, resizeMode: 'stretch', alignSelf: 'center', marginLeft: mWidth * 0.02 }} />
         <Text style={{ width: mWidth * 0.1, height: mHeight * 0.15, alignSelf: 'center', textAlign: 'center', lineHeight: mHeight * 0.15, fontSize: 18, marginLeft: mWidth * 0.04 }}>{item.itemName}</Text>
     </TouchableOpacity>)
   }
@@ -91,9 +103,10 @@ class ShangJia extends Component {
       _changeVideoStatus,//修改视频属性
       swiperImgs,//轮播图片
       shangjiaPhone,//商家电话
-      _changeShops
+      refreshing,//下拉刷新开关
+      isChangeLoding,//请稍后
+      _onRefresh
     } = this.props
-console.log(swiperImgs)
 
     let Loading =(<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
     <ActivityIndicator animating={this.props.isShow} />
@@ -104,7 +117,7 @@ console.log(swiperImgs)
     <View style={styles.content}>
       <View style={{ flexDirection: 'row' }}>
         <Text style={styles.qjdfu}>旗舰店服务</Text>
-        <TouchableOpacity onPress={() => { alert('换店');_changeShops();Actions.shoplist()}} style={styles.hd}>
+        <TouchableOpacity onPress={() => {Actions.shoplist()}} style={styles.hd}>
           <Text style={styles.hdtext}>换店</Text>
         </TouchableOpacity>
       </View>
@@ -116,24 +129,22 @@ console.log(swiperImgs)
       >
       {
           swiperImgs.map((item,index) =>{
-            console.log(swiperImgs);
-            if((!item.video===undefined)||(!item.video==="")){
+
+            if((item.video!==undefined)||(!item.video==="")){
                return(<View style={styles.videoView}>
               <TouchableOpacity style={{flex:1}} onPress={()=>{alert("点了视频");_changeVideoStatus(videoIsPlay);}}>
              <Video   style={{ width: mWidth, height: '100%', backgroundColor:'#000000'}}
                       ref={(ref) => {
                       this.player = ref
                                      }}
-                      rate={1}                          // 控制暂停/播放，0 代表暂停paused, 1代表播放normal.
+                      rate={1}                         
                       paused={!videoIsPlay}
-                      volume={1}                   // 声音的放大倍数，0 代表没有声音，就是静音muted, 1 代表正常音量 normal，更大的数字表示放大的倍数
+                      volume={1}                   
                       muted={false}
-                      repeat={false}                  // true代表静音，默认为false.
-                      resizeMode='stretch'       // 视频的自适应伸缩铺放行为，
-                      onLoad={_videoOnLoad}                       // 当视频加载完毕时的回调函数
+                      repeat={false}                 
+                      resizeMode='stretch'     
+                      onLoad={_videoOnLoad}                     
                       onEnd={()=>{_videoEnd(videoIsPlay)}}
-                      fullscreen={true}
-                      fullscreenAutorotate={true}
             source={{uri:response.video}} />
             </TouchableOpacity>
             {
@@ -203,8 +214,7 @@ console.log(swiperImgs)
           <ActivityIndicator style={{position:'absolute',alignSelf:'center'}} animating={videoLoadStart} color='red'/>
           </View>)
             }else if (item.img!==undefined){
-              console.log("imgs",item.imgs);
-              return (<View style={{flex:1}}><Image style={{flex:1,resizeMode:'stretch'}} source={{uri:item.img}}></Image></View>)
+              return (<View key={index} style={{flex:1}}><Image style={{flex:1,resizeMode:'stretch'}} source={{uri:item.img}}></Image></View>)
             }else{
               return ;
             }
@@ -219,13 +229,25 @@ console.log(swiperImgs)
       </View>
 
 
-    <ScrollView alwaysBounceVertical={true}>
+    <ScrollView alwaysBounceVertical={true}
+            refreshControl={
+              <RefreshControl
+                title={'下拉刷新'}
+                refreshing={refreshing}
+                colors={['rgb(255, 176, 0)', "#ffb100"]}
+                progressViewOffset={0}
+                onRefresh={() => {
+                 _onRefresh(this.props.shangjiaId)
+                }}
+              />
+            }
+    >
     <View style={styles.storeMessageView}>
       <View style={styles.storeMessageViewChild1}>
         <View style={styles.storeMessageViewChild1Storename}>
           <Text style={{alignSelf:'center',fontSize:16}}>{response.name}</Text>
           <Image style={styles.map_pointImg}source={require('../../images/map_point.png')}/>
-          <Text style={{alignSelf:'center',fontSize:10,color:'#067bed'}}>约 0.6km</Text>
+          <Text style={{alignSelf:'center',fontSize:10,color:'#067bed'}}>约 {response.distance}km</Text>
         </View>
       <Text style={styles.storeMessageViewAddressDetail}>{response.address}</Text>
       <TouchableOpacity  style={styles.storeMessageViewRunTime}>
@@ -282,6 +304,8 @@ const mapStateToProps = state => {
     videoEnd:state.getIn(['shangjia','videoEnd']),
     swiperImgs:state.getIn(['shangjia','swiperImgs']),
     shangjiaPhone:state.getIn(['shangjia','shangjiaPhone']),
+    refreshing:state.getIn(['shangjia','refreshing']),
+    isChangeLoding:state.getIn(['shangjia','isChangeLoding'])
   }
 }
 
@@ -345,11 +369,22 @@ const mapDispatchToProps = dispatch => {
       };
       return [zero(h), zero(i), zero(s)].join(":");
     },
+    _onRefresh(shangjiaId) {
+      dispatch(actionCreators.refreshing(true));
+      dispatch(actionCreators.getShangJia(shangjiaId,1));//0:init,1:refreshing,2:change
+    },
     _getIsShow(changedata) {
       dispatch(actionCreators.getIsShow(changedata))
     },
-    _getData() {
-      dispatch(actionCreators.getShangJia());
+    _getData(shangjiaId) {
+      console.log('shangjiaId',shangjiaId);
+      if(shangjiaId===undefined){
+        dispatch(actionCreators.getShangJia(shangjiaId,0))  //0:init,1:refreshing,2:change
+      }else{
+        dispatch(actionCreators.changePageIsLoding(true));
+        dispatch(actionCreators.getShangJia(shangjiaId,2));
+      }
+    
     },
     _addText() {
       dispatch(actionCreators.changeData("123123"));
@@ -367,9 +402,7 @@ const mapDispatchToProps = dispatch => {
         return require("../../images/unt.png");
       }
     },
-    _changeShops(){
-      dispatch(actionCreators.changeShops());       
-    }
+ 
   }
 }
 const styles = StyleSheet.create({

@@ -8,9 +8,9 @@ import { fromJS } from "immutable";
 const mWidth = Dimensions.get('window').width;
 const mHeight = Dimensions.get('window').height;
 const defaultState = fromJS({
-    list:'',
+   // list:'',
     isShow: true,//是否显示页面
-    text:'',
+   // text:'',
     videoIsShow :false,//视频是否显示标识
     videoLoadStart:true,//视频是否开始加载标识
     videoIsError:false,//视频错误标识
@@ -29,7 +29,9 @@ const defaultState = fromJS({
     videoEnd:false,//视频是否结束标识
     swiperImgs:[],//轮播列表
     swiperIs:false,//是否正在轮播
-    shangjiaPhone:963333
+    shangjiaPhone:963333,
+    refreshing:false,//下拉刷新开关
+    isChangeLoding:true,//请稍后
 })
 
 export default (state = defaultState, action) => {
@@ -46,7 +48,6 @@ export default (state = defaultState, action) => {
         return state;
     }
      if(action.type ===actionTypes.CHANGE_DATA){
-         console.log(action.data);
         return state.set('text', state.get('text')+action.data);
      }
      if(action.type ===actionTypes.VIDEO_ON_LOAD){
@@ -65,16 +66,31 @@ export default (state = defaultState, action) => {
      if(action.type ===actionTypes.JSON_DATA){
          let data = JSON.parse(action.data).data;
          let swiperImgsList = []
-         console.log(action.data);
          if(data.video!==""&&data.video!==undefined){
          swiperImgsList.push({'video':data.video})
         }
          data.imgs.map((item)=>{
              swiperImgsList.push({'img':item})
          })
-        return state.merge({'response':data,
-                'swiperImgs':swiperImgsList
-    });  
+         console.log(action.e);
+         switch(action.e){
+             case 0 :
+                 return state.merge({'response':data,
+                 'swiperImgs':swiperImgsList,
+                 'isShow':false
+     });  
+             case 1 :
+                 return state.merge({'response':data,
+                 'swiperImgs':swiperImgsList,
+                 'refreshing':false
+     });  
+             case 2 :
+                 return state.merge({'response':data,
+                 'swiperImgs':swiperImgsList,
+                 'isChangeLoding':false
+     });  
+         }
+     
      }
      if(action.type ===actionTypes.CHANGE_VIDEO_STATUS){
          if(state.get('videoIsPlay')==true){
@@ -90,6 +106,12 @@ export default (state = defaultState, action) => {
      }
      if(action.type===actionTypes.CHANGE_SHOPS){
          
+     }
+     if(action.type===actionTypes.CHANGE_REFRESHING){
+         return state.set('refreshing',action.data)
+     }
+     if(action.type===actionTypes.CHANGE_PAGE_IS_LODING){
+         return state.set('isChangeLoding',action.data);
      }
     
 

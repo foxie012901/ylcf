@@ -31,7 +31,6 @@ const se = new Path().moveTo(T_WIDTH/3,T_HEIGHT/3).lineTo(T_WIDTH/2, T_HEIGHT/2)
     };
   }
   _renderDataList (item){
-      console.log(item.item,item.index);
       let selectItemTextStyle={lineHeight:mHeight*0.0625,fontSize:12};
       if(item.index===this.props.isSelectIndex){
         selectItemTextStyle={lineHeight:mHeight*0.0625,fontSize:17};
@@ -89,7 +88,7 @@ const se = new Path().moveTo(T_WIDTH/3,T_HEIGHT/3).lineTo(T_WIDTH/2, T_HEIGHT/2)
       </TouchableHighlight>
       <TextInput
         placeholder={'🔍门店名称'}
-        placeholderTextColor={'rgb( 154 154 154)'}
+        placeholderTextColor={'rgb(154,154,154)'}
         style={styles.inputText}
         keyboardType='numeric'/>
         </View>

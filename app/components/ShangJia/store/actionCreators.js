@@ -17,9 +17,9 @@ export const getData = data => ({
     data:fromJS(data)
 })
 
-export const changeData = data =>({
+export const changeData = (data,type) =>({
     type : actionTypes.CHANGE_DATA,
-    data
+    data,type
 })
 export const videoLoadStart = data =>({
     type:actionTypes.VIDEO_LOAD_START,
@@ -28,13 +28,13 @@ export const videoLoadStart = data =>({
 export const videoOnLoad = () =>({
     type:actionTypes.VIDEO_ON_LOAD,
 })
-export const getShangJia = config =>({
+export const getShangJia = (shangjiaId,e) =>({
     type:actionTypes.TEST_JSON,
-    config
+    shangjiaId,e
 })
-export const shangjiaJsonData = data =>({
+export const shangjiaJsonData = (data,e) =>({
     type: actionTypes.JSON_DATA,
-    data
+    data,e
 })
 export const changeVideoStatus =data =>({
     type : actionTypes.CHANGE_VIDEO_STATUS,
@@ -44,8 +44,13 @@ export const changeShangjiaScreenStatus =data =>({
     type:actionTypes.CHANGE_SCREEN_STATUS,
     data
 })
-export const changeShops = data =>({
-    type:actionTypes.CHANGE_SHOPS,
+export const refreshing = data =>({
+    type:actionTypes.CHANGE_REFRESHING,
     data
 })
+export const changePageIsLoding = data =>({
+    type:actionTypes.CHANGE_PAGE_IS_LODING,
+    data
+})
+
 

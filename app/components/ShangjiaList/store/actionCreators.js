@@ -18,3 +18,15 @@ export const changeShangJiaListViewStyle = style =>({
     type:actionTypes.CHANGE_VIEW_STYLE,
     style
 })
+export const changeLoading = isLoad =>({
+    type:actionTypes.CHANGE_LOADING,
+    isLoad
+})
+export const changeShops = data =>({
+    type:actionTypes.CHANGE_SHOPS,
+    data
+})
+export const changeRefreshing =refreshing=>({
+    type:actionTypes.REFRESHING,
+    refreshing
+})

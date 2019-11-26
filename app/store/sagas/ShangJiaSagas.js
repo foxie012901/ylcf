@@ -5,7 +5,7 @@ import DateUtil from '../../util/DateUtil';
 import { getIsShow as shangjiaGetIsShow, shangjiaJsonData as getShangJia } from "../../components/ShangJia/store/actionCreators";
 import {getIsShow as ShangjiaListGetIsShow,getShangJiaListJson } from"../../components/ShangjiaList/store/actionCreators";
 
-  function* fetchPost  (api, params, headers)  {
+  function* fetchPost  (api, params, headers,e)  {
    
     
     let url = 'https://cs.jlcxtx.com/' + api
@@ -18,12 +18,12 @@ import {getIsShow as ShangjiaListGetIsShow,getShangJiaListJson } from"../../comp
     let res = yield fetch(url, fetchOptions); 
     let response = yield res.text();
     let json = JSON.parse(response);
+    
     if(json.ret===0){
         alert(json.message);
     }else{
    
-    yield put(getShangJia(response));
-    yield put(shangjiaGetIsShow(false));
+    yield put(getShangJia(response,e));
     }
 }
 function* getShopList  (api, params, headers)  {

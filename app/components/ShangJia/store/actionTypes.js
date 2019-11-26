@@ -10,4 +10,5 @@ export const TEST_JSON ='shanhjia/test_json'
 
 export const CHANGE_DATA ='shangjia/change_data'
 export const JSON_DATA='shangjia/json_data'
-export const CHANGE_SHOPS='shangjia/change_shop'
+export const CHANGE_REFRESHING = 'shangjia/change_refreshing'  // 下拉刷新
+export const CHANGE_PAGE_IS_LODING='shangjia/change_page_is_loding'//请稍后。。

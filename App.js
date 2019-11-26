@@ -21,15 +21,23 @@ const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBarManager.HEIGHT;
 export default class App extends Component {
   constructor(props) {
     super(props);
+    let selectedTab = 'home'
+    if(props.selectedTab!==undefined){
+      selectedTab=props.selectedTab
+    }
     this.state = {
-      selectedTab: 'home' // 默认选中的tab标签
+      selectedTab: selectedTab // 默认选中的tab标签
     };
+   
   }
 
   componentDidMount() {
 
   }
-
+  componentWillUpdate(){
+   
+  }
+ 
   render() {
 
     // let Platform = require('Platform');
@@ -62,7 +70,7 @@ export default class App extends Component {
             renderSelectedIcon={() => <IconFont name={'ios-map'} size={25} color={'#0079ff'} />}
             onPress={() => this.setState({ selectedTab: 'shangjia' })}
           >
-            <ShangJia />
+            <ShangJia shangjiaId={this.props.shangjiaId}/>
           </TabNavigator.Item>
 
           <TabNavigator.Item

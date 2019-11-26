@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import {StyleSheet, View, Text,Picker,Dimensions,ScrollView,NativeModules,Platform} from 'react-native';
+import {StyleSheet, View, Text,Dimensions,ScrollView,NativeModules,Platform,ActivityIndicator,FlatList,RefreshControl} from 'react-native';
 import { actionCreators } from "./store";
 import {actionCreators as shopListPickerActionCreators} from "../ShopListPicker/store";
 import { connect } from "react-redux";
 import ShopListPicker   from '../ShopListPicker/ShopListPicker';
 import   ShangJiaMessage     from'../ShangJiaMessage/ShangJiaMessage';
+import   LoadingUtil         from "../../util/LoadingUtil";
 const { StatusBarManager } = NativeModules;
 const mWidth = Dimensions.get('window').width;
 const mHeight = Dimensions.get('window').height;
@@ -13,6 +14,13 @@ class ShangjiaList extends Component {
     super(props);
     this.state = {
     };
+    this.props._changeShop()
+
+    
+  }
+ 
+  componentDidUpdate(){
+   
   }
 
   render() {
@@ -22,40 +30,68 @@ class ShangjiaList extends Component {
       city,//城市
       scrollViewStyle,//页面样式
       shopListPickerIsSelect,//下拉框是否被拉起
+      isLoading,//是否加载中,
+      refreshing,//下拉刷新中
       _changeCity,
-      _changeIsSelect
+      _changeIsSelect,
+      _onRefresh
     }=this.props
-    console.log(scrollViewStyle);
-    
     return (
       <View>
-      
        <ShopListPicker />
-      
-      
-        
-        <ScrollView style={this.props.scrollViewStyle} iosbounces={true}  scrollEnabled={!this.props.shopListPickerIsSelect} onTouchEnd={()=>{this.props._changeIsSelect()}} >
-      <ShangJiaMessage/>
-      <ShangJiaMessage/>
-      <ShangJiaMessage/>
-      <ShangJiaMessage/>
-      <ShangJiaMessage/>
-      <ShangJiaMessage/>
      
-        </ScrollView>
+          {//<ScrollView style={this.props.scrollViewStyle} iosbounces={true}  scrollEnabled={!this.props.shopListPickerIsSelect} onTouchCancel={(e)=>{console.log(e)}} onTouchEnd={()=>{this.props._changeIsSelect()}}
+          //onScrollEndDrag={(e)=>{console.log(e)}} onTouchMove={(e)=>{console.log(e.eventPhase)}}
+          //>
+            }
+            <FlatList
+            onEndReached={(e)=>{console.log("e")}} onEndReachedThreshold={1}
+            refreshControl={
+                <RefreshControl
+                  title={'下拉刷新'}
+                  refreshing={refreshing}
+                  colors={['rgb(255, 176, 0)', "#ffb100"]}
+                  onRefresh={() => {
+                    this.props._onRefresh()
+                  }}
+                />
+              
+            }
+            onTouchEnd={()=>{this.props._changeIsSelect()}} style={this.props.scrollViewStyle} horizontal={false}  scrollEnabled={!this.props.shopListPickerIsSelect} data={this.props.shopList} renderItem={(item)=>{
+  
+  return (
+          <View>
+             <ShangJiaMessage name={item.item.name} address={item.item.address} img={item.item.imgs[0]} distance={item.item.distance} key={item.index} id={item.item.id}/>
+             {item.index===shopList.length-1?<View style={{width:mWidth,alignSelf:'center'}}><Text style={{textAlign:'center'}}>-----到底了-----</Text></View>:null}
+        </View>
+        )
+    
+
+
+            }}/>
+       
+        
+     {this.props.isLoading?LoadingUtil.showLoading():LoadingUtil.dismissLoading()}
+      {/* </ScrollView>*/}
+       
       </View>
     );
   }
 }
 const mapStateToProps = state => {
-  console.log(state)
-  return {
-    shopList:state.getIn(['shangjialist','shopList']),
+    if((state.getIn(['shangjialist','shopList'])).toJS()==[]){
+      
+    }
+    return {
+    shopList:(state.getIn(['shangjialist','shopList'])).toJS(),
     cityList:state.getIn(['shangjialist','cityList']),
     city:state.getIn(['shangjialist','city']),
     shopListPickerIsSelect:state.getIn(['shoplistpicker','isSelect']),
     scrollViewStyle:(state.getIn(['shangjialist','scrollViewStyle'])).toJS(),
+    isLoading:state.getIn(['shangjialist','isLoading']),
+    refreshing:state.getIn(['shangjialist','refreshing']),
   }
+ 
 }
 const mapDispatchToProps = dispatch => {
   return {
@@ -66,7 +102,13 @@ const mapDispatchToProps = dispatch => {
       let style= {backgroundColor:'rgba(0,0,0,0)',height:mHeight*0.83-(Platform.OS === 'ios' ? 20 :StatusBarManager.HEIGHT)};
        dispatch(shopListPickerActionCreators.changeIsSelect(false));
        dispatch(actionCreators.changeShangJiaListViewStyle(style));
-
+     },
+     _changeShop(){
+       dispatch(actionCreators.changeShops(false));
+     },
+     _onRefresh(){
+      dispatch(actionCreators.changeRefreshing(true));
+      dispatch(actionCreators.changeShops(true));
      }
   }
 }

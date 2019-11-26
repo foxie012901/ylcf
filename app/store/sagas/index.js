@@ -11,9 +11,11 @@ import  MyLBS     from '../../androidModules/BaiduLBS'; //安卓获取地理位�
 import {Platform} from 'react-native';
 //引入各组件redux派发的creators
 import { homeIsshowChange } from "../../components/Home/store/actionCreators";
-
+import {refreshing as shangJiaRefreshing,getIsShow as shangjiaGetIsShow} from "../../components/ShangJia/store/actionCreators";
+import { changeLoading,changeRefreshing as shangJiaListRefreshing } from "../../components/ShangjiaList/store/actionCreators";
 //引入各组件redux派发的TYPES
-import { TEST_JSON ,CHANGE_SHOPS } from '../../components/ShangJia/store/actionTypes';
+import { TEST_JSON } from '../../components/ShangJia/store/actionTypes';
+import {CHANGE_SHOPS } from '../../components/ShangjiaList/store/actionTypes';
 import { GET_HOME_DATA } from "../../components/Home/store/actionTypes";
 import { GET_VIOINDEX } from "../../components/BindCar/store/actionTypes";
 import { GET_LOGIN } from '../../components/Login/store/actionTypes';
@@ -35,7 +37,7 @@ function* mySaga() {
     yield takeEvery(GET_HOME_DATA, getHomeData) // 获取home组件默认数据
     yield takeEvery(GET_VIOINDEX, getVioIndex)  // 获取首页顶部绑车信息
     yield takeEvery(TEST_JSON, getShangJiaJSON);//shangjia组件
-    yield takeEvery(CHANGE_SHOPS,changeShop);
+    yield takeEvery(CHANGE_SHOPS,changeShop);//换店
     yield takeEvery(GET_LOGIN, getLoginJSON); //login 组件
     yield takeEvery(GET_MAIL_LIST, getMailList);
 
@@ -107,16 +109,28 @@ function* getHomeData() {
 //加载旗舰店页面数据
 function* getShangJiaJSON(action) {
     let formData = new FormData();
-    let lastPullTime = yield DevicesStorageUtil.get('lastPullTime');
-    if (lastPullTime == null) {
-        lastPullTime = DateUtil.formatDate(DateUtil.getBeforeDayDate(2).getTime(), 'yyyy-MM-dd hh:mm:ss');
+    console.log(action.e);
+    if(Platform.OS==='android'){
+        let gps = yield MyLBS.startLocation();
+        let lng=JSON.parse(gps).d;
+        let lat=JSON.parse(gps).c;
+        formData.append('lng', lng);
+        formData.append('lat', lat);
+
+         }
+    if(action.shangjiaId!==undefined){
+        let storeId = action.shangjiaId;
+        formData.append('storeId', storeId);
     }
     let map = {};
-    formData.append('lastPullTime', lastPullTime);
     map = { Accept: 'application/json, text/plain,*/*' };
-    yield fetchPost("/store/home", formData, map);
+    yield fetchPost("/store/home", formData, map,action.e);
+   // yield put(shangJiaRefreshing(false));
+   // yield put(shangjiaGetIsShow(false));
+    
 
-    DevicesStorageUtil.save("lastPullTime", yield DateUtil.formatDate(new Date().getTime(), 'yyyy-MM-dd hh:mm:ss'));
+
+    
 }
 //登录
 function* getLoginJSON(action) {
@@ -146,6 +160,8 @@ function* changeShop(action){
   formData.append('lat', lat);
   formData.append('lng', lng);
     yield getShopList('/store/storeList',formData,null);
+    action.data==false?yield put(changeLoading(false)): yield put(shangJiaListRefreshing(false));
+    
 
 }
 export default mySaga
