@@ -25,7 +25,7 @@ class ReserveProject extends Component {
   async _jumpPage () {
     let token ="";
     DeviceStorageUtil.get('token').then(val=>{
-      val===null?Actions.login({actionTo:'reserveproject'}):token=val,alert(token);
+      val===null?Actions.login({actionTo:'reserveproject'}):token=val
     });
   }
 
