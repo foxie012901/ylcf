@@ -338,7 +338,7 @@ const mapDispatchToProps = dispatch => {
         token = val
       });
       if (token === null || token === '') {
-        Actions.login();
+        Actions.login({actionTo:'home'});
         // alert('未登录')
         // alert(islogin)
       } else {

@@ -60,11 +60,10 @@ class ShangJia extends Component {
  
   renderItem =({item})=>  {
     let iconUri ="";
-  
     if(item.icon===""||item.icon===null){
       iconUri=unIcon
     }else{iconUri={uri:item.icon}}
-    return (<TouchableOpacity onPress={ ()=>{Actions.reserveproject({title:'预约'+item.itemName})} } style={styles.aaa}>
+    return (<TouchableOpacity onPress={ ()=>{Actions.reserveproject({title:'预约'+item.itemName,accPackageId:this.props.response.accPackageId,storeId:this.props.response.id,storeItemId:item.id})} } style={styles.aaa}>
   <Image source={iconUri} style={{ width: mWidth * 0.15, height: mHeight * 0.08, resizeMode: 'stretch', alignSelf: 'center', marginLeft: mWidth * 0.02 }} />
         <Text style={{ width: mWidth * 0.1, height: mHeight * 0.15, alignSelf: 'center', textAlign: 'center', lineHeight: mHeight * 0.15, fontSize: 12, marginLeft: mWidth * 0.04 }}>{item.itemName}</Text>
     </TouchableOpacity>)

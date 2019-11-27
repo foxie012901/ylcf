@@ -20,6 +20,7 @@ const deviceId = DeviceInfo.getUniqueId();
 class Login extends Component {
     constructor(props) {
         super(props);
+        console.log(props);
         this.state = {
         };
 
@@ -27,13 +28,22 @@ class Login extends Component {
 
     }
     componentWillUpdate() {
-        // console.log("actopn1111=", this.props.actionTo);
+         console.log("actopn1111=", this.props.actionTo);
         if (this.props.actionTo === 'home' && this.props.isLogin === true) {
             // console.log("actopn222=", this.props.actionTo);
 
             this.props._cleanAction();
             Actions.app({selectedTab:'my'});
             //Actions.push('home')
+        }
+        if (this.props.actionTo === undefined && this.props.isLogin === true) {
+            this.props._cleanAction();
+            Actions.app({selectedTab:'home'});
+        }
+        if (this.props.actionTo !== undefined && this.props.isLogin === true && this.props.actionTo !== 'home') {
+            this.props._cleanAction();
+            let key = this.props.actionTo
+            Actions.popTo(key);
         }
     }
     render() {
@@ -46,18 +56,10 @@ class Login extends Component {
             password,//密码
             actionTo,//跳转标识
             actionData,//跳转参数
-
             _getVioIndex, //获取首页顶部绑车信息  
             _cleanAction //清理跳转
         } = this.props
-        // console.log("actopn1111=", actionTo);
-        // if (actionTo === 'home') {
-        // console.log("actopn222=", actionTo);
-
-        //     _cleanAction();
-        //     Actions.app(actionData);
-        // }
-
+     
         return (
 
             <View style={styles.content}>
@@ -122,7 +124,6 @@ const mapStateToProps = state => {
         isLogin: state.getIn(['login', 'isLogin']),
         phone: state.getIn(['login', 'phone']),
         password: state.getIn(['login', 'password']),
-        actionTo: state.getIn(['login', 'actionTo']),
         actionData: state.getIn(['login', 'actionData']),
 
     }

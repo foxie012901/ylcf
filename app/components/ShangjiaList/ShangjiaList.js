@@ -22,6 +22,14 @@ class ShangjiaList extends Component {
   componentDidUpdate(){
    
   }
+  _renderItem(item){
+    return (
+      <View>
+         <ShangJiaMessage name={item.item.name} address={item.item.address} img={item.item.imgs[0]} distance={item.item.distance} key={item.index.toString()} id={item.item.id}/>
+         {item.index===shopList.length-1?<View style={{width:mWidth,alignSelf:'center'}}><Text style={{textAlign:'center'}}>-----到底了-----</Text></View>:null}
+    </View>
+    )
+  }
 
   render() {
     let {
@@ -39,40 +47,32 @@ class ShangjiaList extends Component {
     return (
       <View>
        <ShopListPicker />
-     
-          {//<ScrollView style={this.props.scrollViewStyle} iosbounces={true}  scrollEnabled={!this.props.shopListPickerIsSelect} onTouchCancel={(e)=>{console.log(e)}} onTouchEnd={()=>{this.props._changeIsSelect()}}
-          //onScrollEndDrag={(e)=>{console.log(e)}} onTouchMove={(e)=>{console.log(e.eventPhase)}}
-          //>
-            }
             <FlatList
             onEndReached={(e)=>{console.log("e")}} onEndReachedThreshold={1}
             refreshControl={
                 <RefreshControl
                   title={'下拉刷新'}
                   refreshing={refreshing}
-                  colors={['rgb(255, 176, 0)', "#ffb100"]}
+                  colors={['rgb(255,176,0)', "#ffb100"]}
                   onRefresh={() => {
                     this.props._onRefresh()
                   }}
                 />
               
             }
-            onTouchEnd={()=>{this.props._changeIsSelect()}} style={this.props.scrollViewStyle} horizontal={false}  scrollEnabled={!this.props.shopListPickerIsSelect} data={this.props.shopList} renderItem={(item)=>{
-  
-  return (
-          <View>
-             <ShangJiaMessage name={item.item.name} address={item.item.address} img={item.item.imgs[0]} distance={item.item.distance} key={item.index} id={item.item.id}/>
-             {item.index===shopList.length-1?<View style={{width:mWidth,alignSelf:'center'}}><Text style={{textAlign:'center'}}>-----到底了-----</Text></View>:null}
-        </View>
-        )
-    
-
-
+            keyExtractor={(item, index) => index.toString()}
+            onTouchEnd={()=>{this.props._changeIsSelect()}} style={this.props.scrollViewStyle} horizontal={false}  scrollEnabled={!this.props.shopListPickerIsSelect} data={this.props.shopList} 
+            renderItem={(item)=>{
+              return (
+                <View>
+                   <ShangJiaMessage name={item.item.name} address={item.item.address} img={item.item.imgs[0]} distance={item.item.distance} key={item.index.toString()} id={item.item.id}/>
+                   {item.index===shopList.length-1?<View style={{width:mWidth,alignSelf:'center'}}><Text style={{textAlign:'center'}}>-----到底了-----</Text></View>:null}
+              </View>
+              )
             }}/>
        
         
      {this.props.isLoading?LoadingUtil.showLoading():LoadingUtil.dismissLoading()}
-      {/* </ScrollView>*/}
        
       </View>
     );

@@ -1,5 +1,5 @@
 import { takeEvery, put } from "redux-saga/effects";
-import { fetchPost, getShopList } from './ShangJiaSagas';
+import { fetchPost, getShopList,storeChildItemList } from './ShangJiaSagas';
 import { loginFetchPost } from "./LoginSagas";
 import { getHome } from "./HomeSagas";
 import { getVioIndex as getVio } from "./BindCarSagas";
@@ -22,6 +22,7 @@ import { GET_HOME_DATA } from "../../components/Home/store/actionTypes";
 import { GET_VIOINDEX } from "../../components/BindCar/store/actionTypes";
 import { GET_LOGIN } from '../../components/Login/store/actionTypes';
 import { GET_MAIL_LIST } from "../../components/MailRoll/store/actionTypes";
+import {GET_STORE_CHILD_ITEM_LIST} from "../../components/ReserveProject/store/actionTypes";
 import { GET_IS_SHOW } from "../../components/My/store/actionTypes";
 
 //全局请求地址
@@ -44,6 +45,7 @@ function* mySaga() {
     yield takeEvery(GET_LOGIN, getLoginJSON); //login 组件
     yield takeEvery(GET_MAIL_LIST, getMailList);
     yield takeEvery(GET_IS_SHOW, getMy);
+    yield takeEvery(GET_STORE_CHILD_ITEM_LIST,getStoreChileItemList);//获取服务项目列表
 
 }
 function* getMy() {
@@ -170,7 +172,17 @@ function* changeShop(action){
     yield getShopList('/store/storeList',formData,null);
     action.data==false?yield put(changeLoading(false)): yield put(shangJiaListRefreshing(false));
 
+
 }
+function* getStoreChileItemList(action){
+    let formData = new FormData();
+    formData.append('storeId', action.storeId);
+    formData.append('storeItemId', action.storeItemId);
+    formData.append('accPackageId', action.accPackageId);
+    console.log("开始")
+    yield storeChildItemList('/store/storeChildItemList',formData,null);
+
+    }
 export default mySaga
 
 

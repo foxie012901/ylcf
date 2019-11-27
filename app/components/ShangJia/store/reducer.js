@@ -94,7 +94,7 @@ export default (state = defaultState, action) => {
      }
      if(action.type ===actionTypes.CHANGE_VIDEO_STATUS){
          if(state.get('videoIsPlay')==true){
-            return state.setIn(['videoIsPlay',false])
+            return state.set(['videoIsPlay',false])
         }
          else{
             return state.set('videoIsPlay',true);

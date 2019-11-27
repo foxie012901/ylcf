@@ -5,7 +5,6 @@ import {Actions} from 'react-native-router-flux';
 export default class VPlayer extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
     this.state = {
     };
   }

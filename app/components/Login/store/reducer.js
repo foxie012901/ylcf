@@ -9,7 +9,6 @@ const defaultState = fromJS({
     phone: '',//电话号
     password: '',//密码
     isLogin: false,//是否正在登录
-    actionTo: '',//跳转标识
     actionData: {},//跳转参数
 })
 
@@ -29,10 +28,7 @@ export default (state = defaultState, action) => {
             DeviceStorageUtil.save('firstLogin', action.response.data.firstLogin);
             DeviceStorageUtil.save('appuserId', action.response.data.appuserId);
             
-            return state.merge({
-                actionTo: "home",
-                actionData: { aa: 111 },
-            })
+            return state
         } else {
             alert(action.response.message);
         }
