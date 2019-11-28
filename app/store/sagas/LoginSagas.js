@@ -4,9 +4,9 @@ import DevicesStorageUtil from '../../util/DeviceStorageUtil';
 import DateUtil from '../../util/DateUtil';
 import { getLogInResponse, changeIsLogin } from '../../components/Login/store/actionCreators';
 
-function* loginFetchPost(api, params, headers) {
+function* loginFetchPost(baseUrl,api, params, headers) {
 
-    let url = 'https://cs.jlcxtx.com/' + api
+    let url = baseUrl + api
     let fetchOptions = {
         method: 'POST',
         headers: headers,

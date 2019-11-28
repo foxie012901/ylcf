@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import DeviceStorageUtil  from '../../util/DeviceStorageUtil';
 import   LoadingUtil         from "../../util/LoadingUtil";
 import { Actions } from 'react-native-router-flux';
+import IconFont from 'react-native-vector-icons/Ionicons'
+
 const mWidth = Dimensions.get('window').width;
 const mHeight = Dimensions.get('window').height;
 class ReserveProject extends Component {
@@ -23,9 +25,9 @@ class ReserveProject extends Component {
    
   }
   async _jumpPage () {
-    let token ="";
+    let token ="";  
     DeviceStorageUtil.get('token').then(val=>{
-      val===null?Actions.login({actionTo:'reserveproject'}):token=val
+      val===null?Actions.login({actionTo:'reserveproject'}):Actions.childservicesdetails();
     });
   }
 

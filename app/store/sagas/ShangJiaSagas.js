@@ -5,11 +5,12 @@ import DateUtil from '../../util/DateUtil';
 import { getIsShow as shangjiaGetIsShow, shangjiaJsonData as getShangJia } from "../../components/ShangJia/store/actionCreators";
 import {getIsShow as ShangjiaListGetIsShow,getShangJiaListJson } from"../../components/ShangjiaList/store/actionCreators";
 import {getChildItemListJson} from '../../components/ReserveProject/store/actionCreators';
+import {getCarListJSON} from '../../components/ChildServicesDetailsTitle/store/actionCreators';
 
-  function* fetchPost  (api, params, headers,e)  {
+  function* fetchPost  (baseUrl,api, params, headers,e)  {
    
     
-    let url = 'https://cs.jlcxtx.com/' + api
+    let url = baseUrl + api
     let fetchOptions = {
         method: 'POST',
         headers: headers,
@@ -27,10 +28,10 @@ import {getChildItemListJson} from '../../components/ReserveProject/store/action
     yield put(getShangJia(response,e));
     }
 }
-function* getShopList  (api, params, headers)  {
+function* getShopList  (baseUrl,api, params, headers)  {
    
     
-    let url = 'https://cs.jlcxtx.com/' + api
+    let url = baseUrl + api
     let fetchOptions = {
         method: 'POST',
         headers: headers,
@@ -52,9 +53,9 @@ function* getShopList  (api, params, headers)  {
     }
 }
 
-function* storeChildItemList  (api, params, headers){
+function* storeChildItemList  (baseUrl,api, params, headers){
     console.log('进来了')
-    let url = 'https://cs.jlcxtx.com/' + api
+    let url = baseUrl + api
     let fetchOptions = {
         method: 'POST',
         headers: headers,
@@ -74,9 +75,42 @@ function* storeChildItemList  (api, params, headers){
         
     }
 }
+function* fetchGetCarList (baseUrl,api,params,headers){
+    console.log("就");
+    let url = baseUrl + api;
+    let fetchOptions = {
+        method: 'GET',
+        headers: headers,   
+    };
+    let param ="?"
+    
+for (let [key, value] of Object.entries(params)) {
+    param+=key+'='+value+'&'
+  }
+    console.log(api + "请求开始", fetchOptions);
+    let res = yield fetch(url+param, fetchOptions); 
+    let response = yield res.text();
+   
+   
+    let json = JSON.parse(response);
+   
+   
+    if(json.ret===0){
+        alert(json.message);
+    }else if(json.ret===1){
+        yield put(getCarListJSON(json));
+    } 
+    else {
+        console.log(json);
+        
+    }
+   
+
+}
 
 export {
     fetchPost,
     getShopList,
-    storeChildItemList
+    storeChildItemList,
+    fetchGetCarList
 }

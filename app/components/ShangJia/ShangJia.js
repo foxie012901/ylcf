@@ -12,7 +12,7 @@ import {
     Slider,
     FlatList,
     ScrollView,
-    RefreshControl
+    RefreshControl, 
 } from 'react-native';
 import Video from 'react-native-video';
 import   Carousel       from 'react-native-looped-carousel';

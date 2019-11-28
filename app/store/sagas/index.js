@@ -1,5 +1,5 @@
 import { takeEvery, put } from "redux-saga/effects";
-import { fetchPost, getShopList,storeChildItemList } from './ShangJiaSagas';
+import { fetchPost, getShopList,storeChildItemList,fetchGetCarList} from './ShangJiaSagas';
 import { loginFetchPost } from "./LoginSagas";
 import { getHome } from "./HomeSagas";
 import { getVioIndex as getVio } from "./BindCarSagas";
@@ -24,6 +24,8 @@ import { GET_LOGIN } from '../../components/Login/store/actionTypes';
 import { GET_MAIL_LIST } from "../../components/MailRoll/store/actionTypes";
 import {GET_STORE_CHILD_ITEM_LIST} from "../../components/ReserveProject/store/actionTypes";
 import { GET_IS_SHOW } from "../../components/My/store/actionTypes";
+import { GET_CAR_LIST } from "../../components/ChildServicesDetailsTitle/store/actionTypes";
+import { Function } from "core-js";
 
 //全局请求地址
 // const hostUrl = 'https://mapp.jlcxtx.com/'
@@ -46,6 +48,7 @@ function* mySaga() {
     yield takeEvery(GET_MAIL_LIST, getMailList);
     yield takeEvery(GET_IS_SHOW, getMy);
     yield takeEvery(GET_STORE_CHILD_ITEM_LIST,getStoreChileItemList);//获取服务项目列表
+    yield takeEvery(GET_CAR_LIST,getCarList);//获取我的车辆
 
 }
 function* getMy() {
@@ -133,7 +136,7 @@ function* getShangJiaJSON(action) {
     }
     let map = {};
     map = { Accept: 'application/json, text/plain,*/*' };
-    yield fetchPost("/store/home", formData, map,action.e);
+    yield fetchPost(hostUrl,"/store/home", formData, map,action.e);
    // yield put(shangJiaRefreshing(false));
    // yield put(shangjiaGetIsShow(false));
 
@@ -150,7 +153,7 @@ function* getLoginJSON(action) {
     formData.append('passwd', action.password);
     formData.append("deviceType", action.os);
     formData.append('deviceId', action.deviceId);
-    yield loginFetchPost("/appuser/login", formData, null);
+    yield loginFetchPost(hostUrl,"/appuser/login", formData, null);
 
 }
 //去换店
@@ -169,7 +172,7 @@ function* changeShop(action){
   let formData = new FormData();
   formData.append('lat', lat);
   formData.append('lng', lng);
-    yield getShopList('/store/storeList',formData,null);
+    yield getShopList(hostUrl,'/store/storeList',formData,null);
     action.data==false?yield put(changeLoading(false)): yield put(shangJiaListRefreshing(false));
 
 
@@ -180,9 +183,20 @@ function* getStoreChileItemList(action){
     formData.append('storeItemId', action.storeItemId);
     formData.append('accPackageId', action.accPackageId);
     console.log("开始")
-    yield storeChildItemList('/store/storeChildItemList',formData,null);
+    yield storeChildItemList(hostUrl,'/store/storeChildItemList',formData,null);
 
     }
+function* getCarList(){
+    //token格式
+    let tk = {
+        token: yield DevicesStorageUtil.get('token') 
+    }
+    let params =
+       {status : ""}
+    
+    yield fetchGetCarList(hostUrl,'/peccancy/getCarList180',params,tk);
+    
+}
 export default mySaga
 
 
