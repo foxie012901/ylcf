@@ -4,6 +4,7 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 target 'ylcf' do
   # Pods for ylcf
   pod 'React', :path => '../node_modules/react-native/'
+  pod 'react-native-netinfo', :path => '../node_modules/@react-native-community/netinfo'
   pod 'React-Core', :path => '../node_modules/react-native/React'
   pod 'React-DevSupport', :path => '../node_modules/react-native/React'
   pod 'React-RCTActionSheet', :path => '../node_modules/react-native/Libraries/ActionSheetIOS'
@@ -33,7 +34,7 @@ target 'ylcf' do
   end
 
   use_native_modules!
-end
+  end
 
 target 'ylcf-tvOS' do
   # Pods for ylcf-tvOS
