@@ -1,5 +1,5 @@
 import { takeEvery, put } from "redux-saga/effects";
-import { fetchPost, getShopList,storeChildItemList,fetchGetCarList} from './ShangJiaSagas';
+import { fetchPost, getShopList,storeChildItemList,fetchGetCarList,storeChildItemInfo} from './ShangJiaSagas';
 import { loginFetchPost } from "./LoginSagas";
 import { getHome } from "./HomeSagas";
 import { getVioIndex as getVio } from "./BindCarSagas";
@@ -25,8 +25,7 @@ import { GET_MAIL_LIST } from "../../components/MailRoll/store/actionTypes";
 import {GET_STORE_CHILD_ITEM_LIST} from "../../components/ReserveProject/store/actionTypes";
 import { GET_IS_SHOW } from "../../components/My/store/actionTypes";
 import { GET_CAR_LIST } from "../../components/ChildServicesDetailsTitle/store/actionTypes";
-import { Function } from "core-js";
-
+import { GET_CHILD_SERVICES_DETAILS } from '../../components/ChildServicesDetails/store/actionTypes';
 //全局请求地址
 // const hostUrl = 'https://mapp.jlcxtx.com/'
 // const hostUrl = 'https://dev.jlcxtx.com/'
@@ -49,6 +48,7 @@ function* mySaga() {
     yield takeEvery(GET_IS_SHOW, getMy);
     yield takeEvery(GET_STORE_CHILD_ITEM_LIST,getStoreChileItemList);//获取服务项目列表
     yield takeEvery(GET_CAR_LIST,getCarList);//获取我的车辆
+    yield takeEvery(GET_CHILD_SERVICES_DETAILS,getStoreChildItemInfo);
 
 }
 function* getMy() {
@@ -137,12 +137,6 @@ function* getShangJiaJSON(action) {
     let map = {};
     map = { Accept: 'application/json, text/plain,*/*' };
     yield fetchPost(hostUrl,"/store/home", formData, map,action.e);
-   // yield put(shangJiaRefreshing(false));
-   // yield put(shangjiaGetIsShow(false));
-
-
-
-
 }
 //登录
 function* getLoginJSON(action) {
@@ -157,7 +151,6 @@ function* getLoginJSON(action) {
 
 }
 //去换店
-
 function* changeShop(action){
     let lng ='';
     let lat ='';
@@ -177,15 +170,15 @@ function* changeShop(action){
 
 
 }
+//服务项目列表
 function* getStoreChileItemList(action){
     let formData = new FormData();
     formData.append('storeId', action.storeId);
     formData.append('storeItemId', action.storeItemId);
     formData.append('accPackageId', action.accPackageId);
-    console.log("开始")
     yield storeChildItemList(hostUrl,'/store/storeChildItemList',formData,null);
-
     }
+//车辆列表
 function* getCarList(){
     //token格式
     let tk = {
@@ -197,6 +190,20 @@ function* getCarList(){
     yield fetchGetCarList(hostUrl,'/peccancy/getCarList180',params,tk);
     
 }
+//服务项目详情
+function* getStoreChildItemInfo(action){
+    console.log(action)
+    let tk = {
+        token: yield DevicesStorageUtil.get('token') 
+    }
+    let formData = new FormData();
+    formData.append('storeId', action.storeId);
+    formData.append('storeChildItemId', action.storeChildItemId);
+    formData.append('accPackageId', action.accPackageId);
+    formData.append('date', action.date);
+    yield storeChildItemInfo(hostUrl,'/store/storeChildItemInfo',formData,null);
+}
+
 export default mySaga
 
 

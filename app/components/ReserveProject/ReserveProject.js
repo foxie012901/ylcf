@@ -6,7 +6,7 @@ import DeviceStorageUtil  from '../../util/DeviceStorageUtil';
 import   LoadingUtil         from "../../util/LoadingUtil";
 import { Actions } from 'react-native-router-flux';
 import IconFont from 'react-native-vector-icons/Ionicons'
-
+import DateUtil  from '../../util/DateUtil';
 const mWidth = Dimensions.get('window').width;
 const mHeight = Dimensions.get('window').height;
 class ReserveProject extends Component {
@@ -24,10 +24,11 @@ class ReserveProject extends Component {
   componentDidUpdate(){
    
   }
-  async _jumpPage () {
+  async _jumpPage (item) {
     let token ="";  
     DeviceStorageUtil.get('token').then(val=>{
-      val===null?Actions.login({actionTo:'reserveproject'}):Actions.childservicesdetails();
+      let defData = DateUtil.formatDate(DateUtil.getAfterDayDate(1).getTime(),'yyyy-MM-dd');
+      val===null?Actions.login({actionTo:'reserveproject'}):Actions.childservicesdetails({accPackageId:this.props.accPackageId,storeId:this.props.storeId,storeChildItemId:item.projectId,date:defData});
     });
   }
 
@@ -47,7 +48,7 @@ class ReserveProject extends Component {
             <Text style={styles.itemNameTextStyle}>{item.projectName}</Text>             
             <TouchableHighlight style={styles.reserveButtonStyle}
                             onPress={()=>{
-                              this._jumpPage();
+                              this._jumpPage(item);
                             }} >
                <Text style={styles.reserveTextStyle}>立即预约</Text>
             </TouchableHighlight> 

@@ -12,6 +12,7 @@ import { my } from "../components/My/store";
 import {shangjiamessage} from "../components/ShangJiaMessage/store";
 import {reserveproject} from "../components/ReserveProject/store";
 import {childservicesdetailstitle} from '../components/ChildServicesDetailsTitle/store';
+import {childservicesdetails} from '../components/ChildServicesDetails/store';
 const reducer = combineReducers({
     home,
     todolist,
@@ -24,7 +25,8 @@ const reducer = combineReducers({
     my,
     shangjiamessage,
     reserveproject,
-    childservicesdetailstitle
+    childservicesdetailstitle,
+    childservicesdetails
 })
 
 export default reducer

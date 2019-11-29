@@ -19,9 +19,7 @@ import { actionCreators } from "./store";
 import { connect } from "react-redux";
 import DeviceInfo from 'react-native-device-info';
 import { getLogIn } from './store/actionCreators';
-import Toast from 'react-native-easy-toast';
 import IconFont from 'react-native-vector-icons/Ionicons'
-import NetInfo from '@react-native-community/netinfo'
  class ChlidServicesDetailsTitle extends Component {
     constructor(props) {
         super(props);
@@ -33,13 +31,7 @@ import NetInfo from '@react-native-community/netinfo'
 
     }
     componentDidMount(){
-        NetInfo.fetch().then(state => {
-            console.log("Connection type", state.type);
-            console.log("Is connected?", state.isConnected);
-            if(state.type==='wifi'){
-                this.refs.toast.show('当前为wifi');
-            }
-          });
+     
     }
     componentWillUpdate() {
      
@@ -75,7 +67,6 @@ import NetInfo from '@react-native-community/netinfo'
                 />
                 <TouchableOpacity  onPress={()=>{this.props._changeSelectShow(false)}}><View style={{width:mWidth,height:mHeight,backgroundColor: 'rgba(0,0,0,0.7)',}}></View></TouchableOpacity>
             </View>:null}
-            <Toast ref={'toast'} position={'center'}/>
 
             </View>
             
