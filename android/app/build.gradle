@@ -199,6 +199,7 @@ android {
 }
 
 dependencies {
+   implementation project(':react-native-community-netinfo')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation project(':jpush-react-native')  // 添加 jpush 依赖
