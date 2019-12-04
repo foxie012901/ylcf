@@ -103,7 +103,8 @@ export default class Main extends Component {
               <Scene key='videoplayer' component={VPlayer} hideNavBar={true} />
               <Scene key='shoplist' component={ShangjiaList} hideNavBar={false} title='门店列表' titleStyle={{flex:1,textAlign:'center'}} navigationBarStyle={{height:mHeight*0.1}} rightButtonImage/>
               <Scene key='reserveproject' component={ReserveProject} hideNavBar={false} title='' navigationBarStyle={{height:mHeight*0.1}} titleStyle={{flex:1,textAlign:'center'}} rightButtonImage/>
-              <Scene key='childservicesdetails' component={ChildServicesDetails} hideNavBar={false} navBar={ChildServicesDetailsTitle} rightButtonImage/>
+              <Scene key='childservicesdetails' component={ChildServicesDetails} hideNavBar={false} navBar={ChildServicesDetailsTitle}  rightButtonImage/>
+
             </Stack>
           </Router>
 

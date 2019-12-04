@@ -7,6 +7,7 @@ import {getIsShow as ShangjiaListGetIsShow,getShangJiaListJson } from"../../comp
 import {getChildItemListJson} from '../../components/ReserveProject/store/actionCreators';
 import {getCarListJSON} from '../../components/ChildServicesDetailsTitle/store/actionCreators';
 import {getChildServicesDetailsJson} from '../../components/ChildServicesDetails/store/actionCreators';
+import {getNewServiceReservationResultList } from "../../components/ServiceReservation/store/actionCreators";
 
   function* fetchPost  (baseUrl,api, params, headers,e)  {
    
@@ -97,7 +98,6 @@ for (let [key, value] of Object.entries(params)) {
    
    
     if(json.ret===0){
-        alert(json.message);
     }else if(json.ret===1){
         yield put(getCarListJSON(json));
     } 
@@ -114,13 +114,39 @@ function* storeChildItemInfo  (baseUrl,api, params, headers){
         body: params,
     };
     console.log(api + "请求开始", fetchOptions);
-    let res = yield fetch(url, fetchOptions); 
+   let res = yield fetch(url, fetchOptions); 
     let response = yield res.text();
     let json = JSON.parse(response);
     if(json.ret===0){
-        alert(json.message);
+      
+        console.log(json);
     }else if(json.ret===1){
+        yield put(getNewServiceReservationResultList(json.data.serviceReservationResult))
         yield put(getChildServicesDetailsJson(json));
+    } 
+    else {
+        console.log(json);
+        
+    }
+}
+
+function* getNewServiceReservationResult  (baseUrl,api, params, headers){
+    console.log('进来了')
+    let url = baseUrl + api
+    let fetchOptions = {
+        method: 'POST',
+        headers: headers,
+        body: params,
+    };
+    console.log(api + "请求开始", fetchOptions);
+   let res = yield fetch(url, fetchOptions); 
+    let response = yield res.text();
+    let json = JSON.parse(response);
+    if(json.ret===0){
+      
+        console.log(json);
+    }else if(json.ret===1){
+        yield put(getNewServiceReservationResultList(json.data.serviceReservationResult));
     } 
     else {
         console.log(json);
@@ -134,5 +160,6 @@ export {
     getShopList,
     storeChildItemList,
     fetchGetCarList,
-    storeChildItemInfo
+    storeChildItemInfo,
+    getNewServiceReservationResult
 }

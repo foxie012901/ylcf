@@ -26,12 +26,20 @@ import NetInfo from '@react-native-community/netinfo'
 import Toast from 'react-native-easy-toast';
 import Video from 'react-native-video';
 import Carousel  from 'react-native-looped-carousel';
+import ChildServicesDetailsMessage from './ChildServicesDetailsMessage'
+import DateUtil from "../../util/DateUtil";
+import WeekDate  from "../WeekDate/WeekDate";
+import ServiceReservation  from "../ServiceReservation/ServiceReservation";
 class ChildServicesDetails extends Component {
     constructor(props) {
         super(props);
         console.log(props);
         this.state = {
         };
+        this._dateList();
+    }
+    _dateList(){
+   
     }
     componentWillMount(){
         this.props._getData(this.props.accPackageId,this.props.storeId,this.props.storeChildItemId,this.props.date);
@@ -55,6 +63,7 @@ class ChildServicesDetails extends Component {
         isRefreshing,
         loopList,
         serviceReservationResult,
+        basicsRepairProjectResult,
         basicsRepairProjectDetailResult,
         videoLoadStart,
         videoIsPlay,//视频是否正在播放
@@ -72,9 +81,10 @@ class ChildServicesDetails extends Component {
         _videoEnd,//视频播放结束
         _changeVideoStatus,//修改视频属性
       }=this.props 
-     console.log(this.props);
+     console.log(basicsRepairProjectDetailResult);
      let page = (<View style={{flex:1}}>
-               {loopList.length>0?<Carousel  style={{width: mWidth, height:mHeight*0.25}}
+       <ScrollView style={{flex:1}} >
+               {loopList.length>0?<Carousel  style={{width: mWidth, height:mHeight*0.18}}
        bullets={true}
        delay={6000}
       >
@@ -172,18 +182,18 @@ class ChildServicesDetails extends Component {
             }
          })
       }
-
+        
       </Carousel>:<View><Image style={{width: mWidth, height:mHeight*0.25,resizeMode:'stretch'}} source={require('../../images/BZlogo.png')}/></View>}
-        <ScrollView style={{flex:1}}>
-            <View style={{width:mWidth,height:mHeight*0.3,backgroundColor:'green',marginTop:20}}></View>
-            <View style={{width:mWidth,height:mHeight*0.3,backgroundColor:'green',marginTop:20}}></View>
+      <ChildServicesDetailsMessage name={basicsRepairProjectResult.ProjectName} custAccountPrice={basicsRepairProjectDetailResult.CustAccountPrcie} 
+                                    timeRequired={basicsRepairProjectResult.TimeRequired} remarks={basicsRepairProjectResult.Remarks}/>
+                    
+        <WeekDate accPackageId={this.props.accPackageId} storeId={this.props.storeId} storeChildItemId={this.props.storeChildItemId}/>
+        <ServiceReservation list={serviceReservationResult}/>
+            
 
-            <View style={{width:mWidth,height:mHeight*0.3,backgroundColor:'green',marginTop:20}}></View>
 
-            <View style={{width:mWidth,height:mHeight*0.3,backgroundColor:'green',marginTop:20}}></View>
-
-
-        </ScrollView>
+        </ScrollView >
+        <View style={{width:mWidth,height:60,backgroundColor:'rgb(6,123,237)'}}><Text style={{lineHeight:60,textAlign:'center',fontSize:16,color:'rgb(255,255,255)'}}>确定预约</Text></View>
         <Toast ref={'toast'} position={'center'}/>
 
 
@@ -212,6 +222,7 @@ const mapStateToProps = state => {
         videoHeight:state.getIn(['childservicesdetails','videoHeight']),
         videoWidth:state.getIn(['childservicesdetails','videoWidth']),
         videoEnd:state.getIn(['childservicesdetails','videoEnd']),
+        basicsRepairProjectResult:state.getIn(["childservicesdetails","basicsRepairProjectResult"]),
 
     }
 }

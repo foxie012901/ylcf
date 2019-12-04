@@ -9,7 +9,6 @@ export default class VPlayer extends Component {
     };
   }
  componentWillReceiveProps(props){
-   console.log(props)
  }
   render() {
     return (

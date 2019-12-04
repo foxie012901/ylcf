@@ -9,7 +9,7 @@ const defaultState = fromJS({
    isRefreshing : false,
    loopList:[],
    serviceReservationResult:[],
-   basicsRepairProjectDetailResult:null,
+   basicsRepairProjectDetailResult:{},
    videoIsShow :false,//视频是否显示标识
    videoLoadStart:true,//视频是否开始加载标识
    videoIsError:false,//视频错误标识
@@ -25,7 +25,7 @@ const defaultState = fromJS({
    isFullScreen:false,//是否全屏
    videoHeight:'25%',//视频高度
    videoEnd:false,//视频是否结束标识
-
+   basicsRepairProjectResult:{}
 })
 
 export default (state = defaultState, action) => {
@@ -33,7 +33,7 @@ export default (state = defaultState, action) => {
         case actionTypes.GET_CHILD_SERVICES_DETAILS_JSON:
             console.log(action.data.data);
             let list = [];
-            if(action.data.data.basicsRepairProjectResult.Video!==undefined){
+            if(action.data.data.basicsRepairProjectResult.Video!==undefined&&action.data.data.basicsRepairProjectResult.Video!==""){
                 list.push({'video':'http://mdglcs3.jlylcf.com/'+action.data.data.basicsRepairProjectResult.Video})
             }
             if(action.data.data.basicsRepairProjectResult.Images.length>0){
@@ -44,7 +44,9 @@ export default (state = defaultState, action) => {
             }
             return state.merge({"loopList":fromJS(list),
                                 "serviceReservationResult":fromJS(action.data.data.serviceReservationResult),
-                                "basicsRepairProjectDetailResult":action.data.data.basicsRepairProjectDetailResult    })
+                                "basicsRepairProjectDetailResult":action.data.data.basicsRepairProjectDetailResult,
+                                "basicsRepairProjectResult":action.data.data.basicsRepairProjectResult
+                            })
             
         case actionTypes.VIDEO_ON_LOAD:
                 return state.merge({
