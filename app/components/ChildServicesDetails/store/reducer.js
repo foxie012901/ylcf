@@ -4,6 +4,7 @@ import { actionTypes } from "./index";
 import { fromJS } from "immutable";
 import DeviceStorageUtil from '../../../util/DeviceStorageUtil';
 import { Actions, ActionConst } from "react-native-router-flux";
+import LoadingUtil from "../../../util/LoadingUtil";
 
 const defaultState = fromJS({
    isRefreshing : false,
@@ -47,7 +48,10 @@ export default (state = defaultState, action) => {
                                 "basicsRepairProjectDetailResult":action.data.data.basicsRepairProjectDetailResult,
                                 "basicsRepairProjectResult":action.data.data.basicsRepairProjectResult
                             })
-            
+        case actionTypes.ORDER_RESULT:
+                LoadingUtil.dismissLoading();
+                global.toast.show(action.data.message);
+                
         case actionTypes.VIDEO_ON_LOAD:
                 return state.merge({
                     videoLoadStart:false,

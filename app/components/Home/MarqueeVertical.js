@@ -15,14 +15,14 @@ const styles = {
   bgContainerStyle: {
     justifyContent: 'flex-start',
     backgroundColor: '#FFFFFF',
-   
+
     overflow: 'hidden',
-   
-    
+
+
   },
   viewStyle: {
     flexDirection: 'row',
-      
+
     alignItems: 'center',
   },
   textStyle: {
@@ -58,7 +58,6 @@ export default class MarqueeVertical extends Component {
   };
 
   componentWillMount() {
-    // console.log(this.props.textList)
     this.setState({
       textList: this.props.textList || [],
     });
@@ -143,7 +142,7 @@ export default class MarqueeVertical extends Component {
             delay: delay,
           }),
         },
-        
+
        this.state.textList.length>1? () => {
           this.state.animation &&
             this.state.animation.start(() => {
@@ -154,7 +153,7 @@ export default class MarqueeVertical extends Component {
         }:null
       );
     }
-  
+
   }
 
   componentWillUnmount() {
@@ -205,7 +204,7 @@ export default class MarqueeVertical extends Component {
               ...viewStyle,
             }}>
             {mHeadViewList ? mHeadViewList[i] : null}
-            
+
             <Text
               style={{
                 ...styles.textStyle,
@@ -240,8 +239,8 @@ export default class MarqueeVertical extends Component {
           width: mWidth*0.9,
           height: height,
           ...bgContainerStyle,
-        
-         
+
+
         }}
         opacity={this.state.animation ? 1 : 0}>
         {this.singleLineTextView(textList)}

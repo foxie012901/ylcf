@@ -10,7 +10,7 @@ import {
     Dimensions,
     FlatList,
     TouchableOpacity,
-     
+    DeviceEventEmitter
 } from 'react-native';
 const mWidth = Dimensions.get('window').width;
 const mHeight = Dimensions.get('window').height;
@@ -35,7 +35,7 @@ import IconFont from 'react-native-vector-icons/Ionicons';
         this.props.list=nProps.list;
     }
     componentDidMount(){
-     
+        
     }
     componentWillUpdate() {
      
@@ -62,7 +62,7 @@ import IconFont from 'react-native-vector-icons/Ionicons';
                                     <Text style={{textAlign:'center',color:'rgb(154,154,154)'}}>{item.Time}</Text><Text style={{textAlign:'center',color:'rgb(154,154,154)'}}>名额已满</Text>
                                     </View>)
                         }else{
-                            return ( <TouchableOpacity onPress={()=>{this.props._changeSelectIndex(index)}} style={style}><Text style={textStyle}>{item.Time}</Text><Text style={textStyle}>剩余名额 : {item.Num}</Text></TouchableOpacity>)
+                            return ( <TouchableOpacity onPress={()=>{this.props._changeSelectIndex(index,item.Time)}} style={style}><Text style={textStyle}>{item.Time}</Text><Text style={textStyle}>剩余名额 : {item.Num}</Text></TouchableOpacity>)
                         }
                     
                       
@@ -83,8 +83,8 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        _changeSelectIndex(index){
-            dispatch(actionCreators.changeSelectIndex(index));
+        _changeSelectIndex(index,time){
+            dispatch(actionCreators.changeSelectIndex(index,time));
         }
       
     }

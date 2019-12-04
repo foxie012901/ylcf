@@ -23,13 +23,13 @@ import IconFont from 'react-native-vector-icons/Ionicons'
 const mWidth = Dimensions.get('window').width;
 const mHeight = Dimensions.get('window').height;
 import NetInfo from '@react-native-community/netinfo'
-import Toast from 'react-native-easy-toast';
 import Video from 'react-native-video';
 import Carousel  from 'react-native-looped-carousel';
 import ChildServicesDetailsMessage from './ChildServicesDetailsMessage'
 import DateUtil from "../../util/DateUtil";
 import WeekDate  from "../WeekDate/WeekDate";
 import ServiceReservation  from "../ServiceReservation/ServiceReservation";
+import LoadingUtil from '../../util/LoadingUtil';
 class ChildServicesDetails extends Component {
     constructor(props) {
         super(props);
@@ -51,7 +51,7 @@ class ChildServicesDetails extends Component {
             console.log("Connection type", state.type);
             console.log("Is connected?", state.isConnected);
             if(state.type==='wifi'){
-                this.refs.toast.show('当前为wifi');
+              global.toast.show('当前为wifi');
             }
           });
     }
@@ -80,8 +80,12 @@ class ChildServicesDetails extends Component {
         videoEnd,//视频播放结束
         _videoEnd,//视频播放结束
         _changeVideoStatus,//修改视频属性
+        _getFromDate,
+        time,//选择的时段
+        plateNum,//选择的车牌号
+        weekIndex,//选择日历下标
       }=this.props 
-     console.log(basicsRepairProjectDetailResult);
+     
      let page = (<View style={{flex:1}}>
        <ScrollView style={{flex:1}} >
                {loopList.length>0?<Carousel  style={{width: mWidth, height:mHeight*0.18}}
@@ -188,13 +192,16 @@ class ChildServicesDetails extends Component {
                                     timeRequired={basicsRepairProjectResult.TimeRequired} remarks={basicsRepairProjectResult.Remarks}/>
                     
         <WeekDate accPackageId={this.props.accPackageId} storeId={this.props.storeId} storeChildItemId={this.props.storeChildItemId}/>
-        <ServiceReservation list={serviceReservationResult}/>
+        <ServiceReservation list={serviceReservationResult} />
             
 
 
         </ScrollView >
-        <View style={{width:mWidth,height:60,backgroundColor:'rgb(6,123,237)'}}><Text style={{lineHeight:60,textAlign:'center',fontSize:16,color:'rgb(255,255,255)'}}>确定预约</Text></View>
-        <Toast ref={'toast'} position={'center'}/>
+        <TouchableOpacity onPress={()=>{this.props._getFromDate(
+            this.props.accPackageId,this.props.storeId,plateNum,time,DateUtil.formatDate( DateUtil.getAfterDayDate(weekIndex+1).getTime(),"yyyy-MM-dd"),this.props.basicsRepairProjectDetailResult.ID,this.props.storeChildItemId)}} 
+        style={{width:mWidth,height:60,backgroundColor:'rgb(6,123,237)'}}>
+            <Text style={{lineHeight:60,textAlign:'center',fontSize:16,color:'rgb(255,255,255)'}}>确定预约</Text>
+        </TouchableOpacity>
 
 
     </View>)
@@ -205,7 +212,7 @@ class ChildServicesDetails extends Component {
     }
 }
 const mapStateToProps = state => {
-    return {
+    return {     
         isRefreshing:state.getIn(["childservicesdetails","isRefreshing"]),//下拉刷新
         loopList:(state.getIn(['childservicesdetails','loopList'])).toJS(),//轮播列表
         serviceReservationResult:(state.getIn(["childservicesdetails","serviceReservationResult"])).toJS(),
@@ -223,13 +230,38 @@ const mapStateToProps = state => {
         videoWidth:state.getIn(['childservicesdetails','videoWidth']),
         videoEnd:state.getIn(['childservicesdetails','videoEnd']),
         basicsRepairProjectResult:state.getIn(["childservicesdetails","basicsRepairProjectResult"]),
-
+        time:state.getIn(['servicereservation','selectTime']),
+        plateNum:state.getIn(["childservicesdetailstitle","selectPlateNum"]),
+        weekIndex:state.getIn(['weekdate',"selectIndex"]),
     }
 }
 const mapDispatchToProps = dispatch => {
     return {
       _getData(accPackageId,storeId,storeChildItemId,date){
        dispatch(actionCreators.getStoreChildItemInfo(accPackageId,storeId,storeChildItemId,date))
+      },
+      _getFromDate(accPackageId,storeId,plateNum,time,date,storeChildItemDetailId,storeChildItemId){
+        if(plateNum===undefined){
+          alert("请选择车牌号")
+        }
+        if(time===undefined){
+          alert("请选择预约时间")
+        }
+        else{
+          
+        console.log(accPackageId,storeId,plateNum,time,date,storeChildItemDetailId,storeChildItemId);
+        let formData = new FormData();
+          formData.append("accPackageId",accPackageId);
+          formData.append("storeId",storeId);
+          formData.append("plateNum",plateNum);
+          formData.append("time",time);
+          formData.append("date",date);
+          formData.append("storeChildItemDetailId",storeChildItemDetailId);
+          formData.append("storeChildItemId",storeChildItemId);
+
+        dispatch(actionCreators.orderStoreChildItem(formData));
+        LoadingUtil.showLoading();
+        }
       },
       _videoEnd(videoIsPlay){
         alert("视频结束");

@@ -10,3 +10,6 @@ export const VIDEO_LOAD_START ='childservicesdetails/video_load_start'
 export const VIDEO_ON_LOAD ='childservicesdetails/video_on_load'
 export const CHANGE_VIDEO_STATUS ='childservicesdetails/change_video_status'
 export const CHANGE_SCREEN_STATUS='childservicesdetails/change_screen_status'
+
+export const ORDER_STORE_CHILD_ITEM='childservicesdetails/order_store_child_item'
+export const ORDER_RESULT='childservicesdetails/order_result'

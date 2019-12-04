@@ -1,7 +1,7 @@
-import { 
- 
+import {
+
     Dimensions,
-    
+
 } from 'react-native';
  import { actionTypes } from "./index";
 import { fromJS } from "immutable";
@@ -35,12 +35,6 @@ const defaultState = fromJS({
 })
 
 export default (state = defaultState, action) => {
-    console.log('create for state')
-    // if (action.type === actionTypes.GET_IS_SHOW) {
-
-    //     return state.set('isShow', action.changedata)
-    // }
-
     if (action.type === actionTypes.GET_IS_SHOW) {
         return state.set('isShow', action.changedata)
     }
@@ -72,25 +66,24 @@ export default (state = defaultState, action) => {
          data.imgs.map((item)=>{
              swiperImgsList.push({'img':item})
          })
-         console.log(action.e);
          switch(action.e){
              case 0 :
                  return state.merge({'response':data,
                  'swiperImgs':swiperImgsList,
                  'isShow':false
-     });  
+     });
              case 1 :
                  return state.merge({'response':data,
                  'swiperImgs':swiperImgsList,
                  'refreshing':false
-     });  
+     });
              case 2 :
                  return state.merge({'response':data,
                  'swiperImgs':swiperImgsList,
                  'isChangeLoding':false
-     });  
+     });
          }
-     
+
      }
      if(action.type ===actionTypes.CHANGE_VIDEO_STATUS){
          if(state.get('videoIsPlay')==true){
@@ -102,10 +95,10 @@ export default (state = defaultState, action) => {
      }
      if(action.type===actionTypes.CHANGE_SCREEN_STATUS){
          return state.merge(action.data);
-     
+
      }
      if(action.type===actionTypes.CHANGE_SHOPS){
-         
+
      }
      if(action.type===actionTypes.CHANGE_REFRESHING){
          return state.set('refreshing',action.data)
@@ -113,7 +106,7 @@ export default (state = defaultState, action) => {
      if(action.type===actionTypes.CHANGE_PAGE_IS_LODING){
          return state.set('isChangeLoding',action.data);
      }
-    
+
 
     return state
 }

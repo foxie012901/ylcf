@@ -30,7 +30,6 @@ class TodoList extends Component {
 
   componentDidMount() {
     this.props._getData()
-    console.log('shenmging')
     console.log(this.props.isShow)
     this.setState({
       isShow: false

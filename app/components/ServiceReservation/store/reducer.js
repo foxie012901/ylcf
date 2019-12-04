@@ -10,6 +10,8 @@ import LoadingUtil from '../../../util/LoadingUtil';
 const defaultState = fromJS({
      list:[],
      selectServiceIndex:undefined,
+     selectTime:undefined
+     
      
 })
 
@@ -18,9 +20,15 @@ export default (state = defaultState, action) => {
           case actionTypes.GET_NEW_LIST:
               console.log(action)
               LoadingUtil.dismissLoading();
-              return state.merge({"list":fromJS(action.list)})
+              return state.merge({"list":fromJS(action.list),
+                    "selectServiceIndex":undefined,
+                    "selectTime":undefined
+            })
           case actionTypes.CHANGE_SELECT_INDEX:
-              return state.set("selectServiceIndex",action.index);
+              let mp={}
+              return state.merge({"selectServiceIndex":action.index,
+                                  "selectTime":action.time
+                            });
         }
             
    

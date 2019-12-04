@@ -10,7 +10,7 @@ import {
     Dimensions,
     FlatList,
     TouchableOpacity,
-     
+    DeviceEventEmitter
 } from 'react-native';
 const mWidth = Dimensions.get('window').width;
 const mHeight = Dimensions.get('window').height;
@@ -33,10 +33,15 @@ import LoadingUtil from "../../util/LoadingUtil";
 
     }
     componentDidMount(){
-        
+        this.listener = DeviceEventEmitter.addListener('refresh',(val)=>{
+            this.props._changeSelectIndex(this.props.selectIndex,this.props.accPackageId,this.props.storeId,this.props.storeChildItemId)
+        });
     }
     componentWillUpdate() {
      
+    }
+    componentWillUnmount(){
+        this.listener.remove();
     }
     
     render() {

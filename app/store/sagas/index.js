@@ -1,5 +1,5 @@
 import { takeEvery, put } from "redux-saga/effects";
-import { fetchPost, getShopList,storeChildItemList,fetchGetCarList,storeChildItemInfo,getNewServiceReservationResult} from './ShangJiaSagas';
+import { fetchPost, getShopList,storeChildItemList,fetchGetCarList,storeChildItemInfo,getNewServiceReservationResult,orderResult} from './ShangJiaSagas';
 import { loginFetchPost } from "./LoginSagas";
 import { getHome } from "./HomeSagas";
 import { getVioIndex as getVio } from "./BindCarSagas";
@@ -25,7 +25,7 @@ import { GET_MAIL_LIST } from "../../components/MailRoll/store/actionTypes";
 import {GET_STORE_CHILD_ITEM_LIST} from "../../components/ReserveProject/store/actionTypes";
 import { GET_IS_SHOW } from "../../components/My/store/actionTypes";
 import { GET_CAR_LIST } from "../../components/ChildServicesDetailsTitle/store/actionTypes";
-import { GET_CHILD_SERVICES_DETAILS } from '../../components/ChildServicesDetails/store/actionTypes';
+import { GET_CHILD_SERVICES_DETAILS ,ORDER_STORE_CHILD_ITEM} from '../../components/ChildServicesDetails/store/actionTypes';
 import { CHANGE_SELECT_INDEX } from "../../components/WeekDate/store/actionTypes";
 //全局请求地址
 // const hostUrl = 'https://mapp.jlcxtx.com/'
@@ -51,6 +51,8 @@ function* mySaga() {
     yield takeEvery(GET_CAR_LIST,getCarList);//获取我的车辆
     yield takeEvery(GET_CHILD_SERVICES_DETAILS,getStoreChildItemInfo);//获取服务详情
     yield takeEvery(CHANGE_SELECT_INDEX,getServiceReservationResult);//获取预约时段列表
+    yield takeEvery(ORDER_STORE_CHILD_ITEM,orderStoreChildItem);//服务项目预约
+
 }
 function* getMy() {
     yield getMyData(true)
@@ -136,8 +138,6 @@ function* getShangJiaJSON(action) {
 }
 //登录
 function* getLoginJSON(action) {
-
-    // console.log(JSON.stringify(action));
     let formData = new FormData();
     formData.append('phone', action.phone);
     formData.append('passwd', action.password);
@@ -178,19 +178,18 @@ function* getStoreChileItemList(action){
 function* getCarList(){
     //token格式
     let tk = {
-        token: yield DevicesStorageUtil.get('token') 
+        token: yield DevicesStorageUtil.get('token')
     }
     let params =
        {status : ""}
-    
+
     yield fetchGetCarList(hostUrl,'/peccancy/getCarList180',params,tk);
-    
+
 }
 //服务项目详情
 function* getStoreChildItemInfo(action){
-    console.log(action)
     let tk = {
-        token: yield DevicesStorageUtil.get('token') 
+        token: yield DevicesStorageUtil.get('token')
     }
     let formData = new FormData();
     formData.append('storeId', action.storeId);
@@ -199,10 +198,11 @@ function* getStoreChildItemInfo(action){
     formData.append('date', action.date);
     yield storeChildItemInfo(hostUrl,'/store/storeChildItemInfo',formData,null);
 }
+//获取项目时段详情
 function* getServiceReservationResult(action){
-    console.log(action)
+
     let tk = {
-        token: yield DevicesStorageUtil.get('token') 
+        token: yield DevicesStorageUtil.get('token')
     }
     let formData = new FormData();
     formData.append('storeId', action.storeId);
@@ -210,6 +210,14 @@ function* getServiceReservationResult(action){
     formData.append('accPackageId', action.accPackageId);
     formData.append('date',DateUtil.formatDate(DateUtil.getAfterDayDate(action.index+1).getTime(),"yyyy-MM-dd") );
    yield getNewServiceReservationResult(hostUrl,'/store/storeChildItemInfo',formData,null)
+}
+//服务项目预约
+function* orderStoreChildItem(action){
+    let tk = {
+        token: yield DevicesStorageUtil.get('token')
+    }
+    action.formData.append("token",yield DevicesStorageUtil.get('token'));
+    yield orderResult(hostUrl,'/store/orderStoreChildItem',action.formData,tk);
 }
 export default mySaga
 

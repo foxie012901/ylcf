@@ -19,6 +19,8 @@ import ChildServicesDetails from './app/components/ChildServicesDetails/ChildSer
 import  ChildServicesDetailsTitle from './app/components/ChildServicesDetailsTitle/ChildServicesDetailsTitle';
 //loading
 import MyLoading from "./app/MyLoading";
+import Toast from 'react-native-easy-toast';
+
 //react-redux
 import { Provider } from "react-redux";
 import store from './app/store'
@@ -107,7 +109,9 @@ export default class Main extends Component {
 
             </Stack>
           </Router>
-
+          {
+                    <Toast ref={(ref) =>{global.toast=ref}} position={'center'}/>
+          }
 
 
           {<MyLoading

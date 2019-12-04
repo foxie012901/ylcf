@@ -12,7 +12,7 @@ import {
     Slider,
     FlatList,
     ScrollView,
-    RefreshControl, 
+    RefreshControl,
 } from 'react-native';
 import Video from 'react-native-video';
 import   Carousel       from 'react-native-looped-carousel';
@@ -36,7 +36,7 @@ class ShangJia extends Component {
     };
     console.log(props)
     if(!this.props.isShow && this.props.isChangeLoding){
-     
+
     LoadingUtil.showLoading();
       }else{
       LoadingUtil.dismissLoading();
@@ -47,17 +47,17 @@ class ShangJia extends Component {
 
    if(!this.props.isShow && nProps.isChangeLoding&&this.props.shangjiaId!==undefined){
     LoadingUtil.showLoading();
-    
+
    }else{      LoadingUtil.dismissLoading();
    }
  }
-   
+
   componentWillMount() {
-   
+
   }
   componentWillUpdate(){
   }
- 
+
   renderItem =({item})=>  {
     let iconUri ="";
     if(item.icon===""||item.icon===null){
@@ -113,8 +113,6 @@ class ShangJia extends Component {
     let Loading =(<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
     <ActivityIndicator animating={this.props.isShow} />
   </View>);
-
-
     let ShangJiaPage = (
     <View style={styles.content}>
       <View style={{ flexDirection: 'row' }}>
@@ -139,13 +137,13 @@ class ShangJia extends Component {
                       ref={(ref) => {
                       this.player = ref
                                      }}
-                      rate={1}                         
+                      rate={1}
                       paused={!videoIsPlay}
-                      volume={1}                   
+                      volume={1}
                       muted={false}
-                      repeat={false}                 
-                      resizeMode='stretch'     
-                      onLoad={_videoOnLoad}                     
+                      repeat={false}
+                      resizeMode='stretch'
+                      onLoad={_videoOnLoad}
                       onEnd={()=>{_videoEnd(videoIsPlay)}}
             source={{uri:response.video}} />
             </TouchableOpacity>
@@ -379,14 +377,13 @@ const mapDispatchToProps = dispatch => {
       dispatch(actionCreators.getIsShow(changedata))
     },
     _getData(shangjiaId) {
-      console.log('shangjiaId',shangjiaId);
       if(shangjiaId===undefined){
         dispatch(actionCreators.getShangJia(shangjiaId,0))  //0:init,1:refreshing,2:change
       }else{
         dispatch(actionCreators.changePageIsLoding(true));
         dispatch(actionCreators.getShangJia(shangjiaId,2));
       }
-    
+
     },
     _addText() {
       dispatch(actionCreators.changeData("123123"));
@@ -404,7 +401,7 @@ const mapDispatchToProps = dispatch => {
         return require("../../images/unt.png");
       }
     },
- 
+
   }
 }
 const styles = StyleSheet.create({
