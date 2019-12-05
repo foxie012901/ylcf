@@ -14,6 +14,8 @@ import {
 } from 'react-native';
 import { RNCamera } from 'react-native-camera'
 import LocalBarcodeRecognizer from '../../androidModules/LocalBarcodeRecognizer';
+import {QRreader} from 'react-native-qr-scanner';
+
 //图片选择器
 var ImagePicker = require('react-native-image-picker');
 //图片选择器参数设置
@@ -55,7 +57,11 @@ class ScanScreen extends Component {
             else {
                 if(Platform.OS==="android"){
                 this.recoginze(response.data);
-                }else{alert("ios暂不支持")}
+                }else{
+                    QRreader(response.path).then((data)=>{
+                        alert(data)
+                    })
+                }
             }
         });
     }
