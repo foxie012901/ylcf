@@ -135,6 +135,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        missingDimensionStrategy 'react-native-camera', 'general'
     manifestPlaceholders = [
                 JPUSH_APPKEY: "ebc9c8882549aaef7108bd28",         //在此替换你的APPKey
                 JPUSH_CHANNEL: "default"        //在此替换你的channel
@@ -199,12 +200,14 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-camera')
    implementation project(':react-native-community-netinfo')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation project(':jpush-react-native')  // 添加 jpush 依赖
     implementation project(':jcore-react-native') 
 	implementation "com.google.code.gson:gson:2.7"
+        implementation "com.google.zxing:core:3.3.0"
     if (enableHermes) {
       def hermesPath = "../../node_modules/hermesvm/android/";
       debugImplementation files(hermesPath + "hermes-debug.aar")

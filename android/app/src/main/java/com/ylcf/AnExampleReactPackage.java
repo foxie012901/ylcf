@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import com.ylcf.BaiduLBS;
+import com.ylcf.LocalBarcodeRecognizerModule;
 
 
 class AnExampleReactPackage implements ReactPackage {
@@ -25,6 +26,7 @@ class AnExampleReactPackage implements ReactPackage {
         List<NativeModule> modules = new ArrayList<>();
 
         modules.add(new BaiduLBS(reactContext));
+        modules.add(new LocalBarcodeRecognizerModule(reactContext));
                 return modules;
     }
 }
