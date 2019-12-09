@@ -50,7 +50,6 @@ import IconFont from 'react-native-vector-icons/Ionicons';
             console.log(list)
         return (<View style={{flexDirection:'row', flexWrap: 'wrap',justifyContent:'space-between',}}>
                 {this.props.list.map((item,index)=>{
-                    console.log(item,index,this.props.selectServiceIndex);
                     let style={width:'40%',height:mHeight*0.08,border:1,flexDirection:'column',backgroundColor:'#ffffff',marginTop:10,marginBottom:8,justifyContent:'center',margin:16}
                     let textStyle={textAlign:'center'}
                     if(index===this.props.selectServiceIndex){

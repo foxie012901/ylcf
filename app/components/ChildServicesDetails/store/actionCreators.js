@@ -29,12 +29,12 @@ export const videoLoadStart = data =>({
 export const videoOnLoad = () =>({
     type:actionTypes.VIDEO_ON_LOAD,
 })
-export const orderStoreChildItem =formData =>({
+export const orderStoreChildItem =(formData,serviceName,dateTime)=>({
     type:actionTypes.ORDER_STORE_CHILD_ITEM,
-    formData
+    formData,serviceName,dateTime
 })
-export const getOrderResult = data =>({
+export const getOrderResult = (bool,data,serviceName,dateTime) =>({
     type:actionTypes.ORDER_RESULT,
-    data
+    bool,data,serviceName,dateTime
 })
 

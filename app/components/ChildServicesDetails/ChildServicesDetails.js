@@ -13,6 +13,7 @@ import {
     Image,
     TouchableWithoutFeedback,
     TouchableOpacity,
+    BackHandler
 } from 'react-native';
 import { actionCreators } from "./store";
 import { connect } from "react-redux";
@@ -47,6 +48,9 @@ class ChildServicesDetails extends Component {
     }
 
     componentDidMount(){
+      if (Platform.OS === 'android') {
+        this.backHandler= BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid); //添加安卓物理返回键监听,防止遮罩层与页面一同被返回
+    }
         NetInfo.fetch().then(state => {
             console.log("Connection type", state.type);
             console.log("Is connected?", state.isConnected);
@@ -55,6 +59,13 @@ class ChildServicesDetails extends Component {
             }
           });
     }
+    onBackAndroid(){
+      alertView.closeAlert();   //关闭遮罩层 返回上一页
+      Actions.pop();
+      return true
+        }
+        componentWillUnmount() {    this.backHandler.remove()} //页面销毁时监听一同销毁
+
     componentWillUpdate() {
      
     }
@@ -198,16 +209,15 @@ class ChildServicesDetails extends Component {
 
         </ScrollView >
         <TouchableOpacity onPress={()=>{this.props._getFromDate(
-            this.props.accPackageId,this.props.storeId,plateNum,time,DateUtil.formatDate( DateUtil.getAfterDayDate(weekIndex+1).getTime(),"yyyy-MM-dd"),this.props.basicsRepairProjectDetailResult.ID,this.props.storeChildItemId)}} 
+            this.props.accPackageId,this.props.storeId,plateNum,time,DateUtil.formatDate( DateUtil.getAfterDayDate(weekIndex+1).getTime(),"yyyy-MM-dd"),this.props.basicsRepairProjectDetailResult.ID,this.props.storeChildItemId,this.props.basicsRepairProjectResult.ProjectName)}} 
         style={{width:mWidth,height:60,backgroundColor:'rgb(6,123,237)'}}>
             <Text style={{lineHeight:60,textAlign:'center',fontSize:16,color:'rgb(255,255,255)'}}>确定预约</Text>
         </TouchableOpacity>
-
+       
 
     </View>)
         return (
-       page
-            
+       page   
         );
     }
 }
@@ -240,7 +250,7 @@ const mapDispatchToProps = dispatch => {
       _getData(accPackageId,storeId,storeChildItemId,date){
        dispatch(actionCreators.getStoreChildItemInfo(accPackageId,storeId,storeChildItemId,date))
       },
-      _getFromDate(accPackageId,storeId,plateNum,time,date,storeChildItemDetailId,storeChildItemId){
+      _getFromDate(accPackageId,storeId,plateNum,time,date,storeChildItemDetailId,storeChildItemId,projectName){
         if(plateNum===undefined){
           alert("请选择车牌号")
         }
@@ -251,6 +261,7 @@ const mapDispatchToProps = dispatch => {
           
         console.log(accPackageId,storeId,plateNum,time,date,storeChildItemDetailId,storeChildItemId);
         let formData = new FormData();
+        
           formData.append("accPackageId",accPackageId);
           formData.append("storeId",storeId);
           formData.append("plateNum",plateNum);
@@ -258,8 +269,10 @@ const mapDispatchToProps = dispatch => {
           formData.append("date",date);
           formData.append("storeChildItemDetailId",storeChildItemDetailId);
           formData.append("storeChildItemId",storeChildItemId);
-
-        dispatch(actionCreators.orderStoreChildItem(formData));
+          let serviceName=projectName;
+          let dateTime=date+" "+time
+          console.log(dateTime)
+        dispatch(actionCreators.orderStoreChildItem(formData,serviceName,dateTime));
         LoadingUtil.showLoading();
         }
       },

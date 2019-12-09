@@ -5,7 +5,8 @@ import { fromJS } from "immutable";
 import DeviceStorageUtil from '../../../util/DeviceStorageUtil';
 import { Actions, ActionConst } from "react-native-router-flux";
 import LoadingUtil from "../../../util/LoadingUtil";
-
+import AlertView from "../AlertView";
+import State from '../../ServiceReservation/store/reducer';
 const defaultState = fromJS({
    isRefreshing : false,
    loopList:[],
@@ -50,7 +51,8 @@ export default (state = defaultState, action) => {
                             })
         case actionTypes.ORDER_RESULT:
                 LoadingUtil.dismissLoading();
-                global.toast.show(action.data.message);
+                action.bool?alertView.getText(action.dateTime,action.serviceName):global.toast.show(action.data.message);
+
                 
         case actionTypes.VIDEO_ON_LOAD:
                 return state.merge({

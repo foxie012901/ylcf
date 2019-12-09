@@ -217,7 +217,8 @@ function* orderStoreChildItem(action){
         token: yield DevicesStorageUtil.get('token')
     }
     action.formData.append("token",yield DevicesStorageUtil.get('token'));
-    yield orderResult(hostUrl,'/store/orderStoreChildItem',action.formData,tk);
+    console.log(action.dateTime)
+    yield orderResult(hostUrl,'/store/orderStoreChildItem',action.formData,tk,action.serviceName,action.dateTime);
 }
 export default mySaga
 

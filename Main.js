@@ -17,6 +17,7 @@ import ShangjiaList from './app/components/ShangjiaList/ShangjiaList'; //门店�
 import ReserveProject from './app/components/ReserveProject/ReserveProject';//预约项目
 import ChildServicesDetails from './app/components/ChildServicesDetails/ChildServicesDetails';
 import  ChildServicesDetailsTitle from './app/components/ChildServicesDetailsTitle/ChildServicesDetailsTitle';
+import AlertView from "./app/components/ChildServicesDetails/AlertView";
 //loading
 import MyLoading from "./app/MyLoading";
 import Toast from 'react-native-easy-toast';
@@ -95,7 +96,7 @@ export default class Main extends Component {
 
           <Router>
             <Stack>
-              <Scene key='app' component={App} title='' hideNavBar={true} initial={true} />
+              <Scene key='app' component={App} title='' hideNavBar={true}  initial={true} />
               <Scene key='home' component={Home} title='' hideNavBar={true} />
               <Scene key='shangjia' component={ShangJia} title='' hideNavBar={true} />
               <Scene key='order' component={Order} title='' hideNavBar={true} />
@@ -106,6 +107,7 @@ export default class Main extends Component {
               <Scene key='shoplist' component={ShangjiaList} hideNavBar={false} title='门店列表' titleStyle={{flex:1,textAlign:'center'}} navigationBarStyle={{height:mHeight*0.1}} rightButtonImage/>
               <Scene key='reserveproject' component={ReserveProject} hideNavBar={false} title='' navigationBarStyle={{height:mHeight*0.1}} titleStyle={{flex:1,textAlign:'center'}} rightButtonImage/>
               <Scene key='childservicesdetails' component={ChildServicesDetails} hideNavBar={false} navBar={ChildServicesDetailsTitle}  rightButtonImage/>
+              <Scene key='alertview' component={AlertView} hideNavBar={true}  />
 
             </Stack>
           </Router>
@@ -119,6 +121,7 @@ export default class Main extends Component {
               global.mLoadingComponentRef = ref;
             }}
           />}
+          {<AlertView ref={(ref) =>alertView = ref}/>}
         </View>
 
       </Provider>

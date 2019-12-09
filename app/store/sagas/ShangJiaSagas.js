@@ -154,7 +154,7 @@ function* getNewServiceReservationResult  (baseUrl,api, params, headers){
     }
 }
 
-function* orderResult  (baseUrl,api, params, headers){
+function* orderResult  (baseUrl,api, params, headers,serviceName,dateTime){
 
     let url = baseUrl + api
     let fetchOptions = {
@@ -166,11 +166,12 @@ function* orderResult  (baseUrl,api, params, headers){
    let res = yield fetch(url, fetchOptions);
     let response = yield res.text();
     let json = JSON.parse(response);
+ console.log(response)
     if(json.ret===0){
-        yield put(getOrderResult(json));
+        yield put(getOrderResult(false,json,serviceName,dateTime));
     }else if(json.ret===1){
         DeviceEventEmitter.emit('refresh',null);
-        yield put(getOrderResult(json));
+        yield put(getOrderResult(true,json,serviceName,dateTime));
     }
     else {
         console.log(json);

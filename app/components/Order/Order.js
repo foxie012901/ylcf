@@ -10,11 +10,13 @@ import {
     Platform,
     Animated,
     Easing,
-    Linking
+    Linking,
+    Alert
 } from 'react-native';
 import { RNCamera } from 'react-native-camera'
 import LocalBarcodeRecognizer from '../../androidModules/LocalBarcodeRecognizer';
 import {readerQR} from 'react-native-lewin-qrcode'
+import AlertPro from "react-native-alert-pro";
 
 //图片选择器
 var ImagePicker = require('react-native-image-picker');
@@ -37,6 +39,7 @@ class ScanScreen extends Component {
     }
 
     componentDidMount() {
+        alert("123123")
     }
 
   
@@ -64,6 +67,7 @@ class ScanScreen extends Component {
                         alert('识别结果'+data);
                     }).catch((err)=>{
                         alert('识别失败');
+                        Alert.alert()
                     });
                 }
             }
