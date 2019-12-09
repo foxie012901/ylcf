@@ -16,7 +16,6 @@ import {
 import { RNCamera } from 'react-native-camera'
 import LocalBarcodeRecognizer from '../../androidModules/LocalBarcodeRecognizer';
 import {readerQR} from 'react-native-lewin-qrcode'
-import AlertPro from "react-native-alert-pro";
 
 //图片选择器
 var ImagePicker = require('react-native-image-picker');

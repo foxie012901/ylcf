@@ -64,7 +64,7 @@ class ChildServicesDetails extends Component {
       Actions.pop();
       return true
         }
-        componentWillUnmount() {    this.backHandler.remove()} //页面销毁时监听一同销毁
+        componentWillUnmount() {   if (Platform.OS === 'android') {this.backHandler.remove()}} //页面销毁时监听一同销毁
 
     componentWillUpdate() {
      
