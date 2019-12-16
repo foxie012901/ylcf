@@ -16,6 +16,7 @@ import Home from "./app/components/Home/Home";
 import My from './app/components/My/MyVideo'
 import Order from './app/components/Order/Order'
 import ShangJia from './app/components/ShangJia/ShangJia'
+import AllyShop from './app/components/AllyShop/AllyShop'
 //获取信息栏高度,并在样式设置padding-top等于信息栏高度
 const { StatusBarManager } = NativeModules;
 const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBarManager.HEIGHT;
@@ -71,13 +72,13 @@ export default class App extends Component {
           </TabNavigator.Item>
 
           <TabNavigator.Item
-            selected={this.state.selectedTab === 'order'}
-            title='order'
+            selected={this.state.selectedTab === 'allyShop'}
+            title='allyShop'
             renderIcon={() => <IconFont name={'ios-list'} size={25} color={'gray'} />}
             renderSelectedIcon={() => <IconFont name={'ios-list'} size={25} color={'#0079ff'} />}
-            onPress={() => this.setState({ selectedTab: 'order' })}
+            onPress={() => this.setState({ selectedTab: 'allyShop' })}
           >
-            <Order />
+            <AllyShop />
           </TabNavigator.Item>
 
 

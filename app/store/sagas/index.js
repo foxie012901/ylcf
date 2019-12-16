@@ -1,5 +1,6 @@
 import { takeEvery, put } from "redux-saga/effects";
 import { fetchPost, getShopList,storeChildItemList,fetchGetCarList,storeChildItemInfo,getNewServiceReservationResult,orderResult} from './ShangJiaSagas';
+import { queryIndexList18} from './AllyShopSagas';
 import { loginFetchPost } from "./LoginSagas";
 import { getHome } from "./HomeSagas";
 import { getVioIndex as getVio } from "./BindCarSagas";
@@ -27,6 +28,7 @@ import { GET_IS_SHOW } from "../../components/My/store/actionTypes";
 import { GET_CAR_LIST } from "../../components/ChildServicesDetailsTitle/store/actionTypes";
 import { GET_CHILD_SERVICES_DETAILS ,ORDER_STORE_CHILD_ITEM} from '../../components/ChildServicesDetails/store/actionTypes';
 import { CHANGE_SELECT_INDEX } from "../../components/WeekDate/store/actionTypes";
+import {POST_JSON} from "../../components/AllyShop/store/actionTypes"
 //全局请求地址
 // const hostUrl = 'https://mapp.jlcxtx.com/'
 // const hostUrl = 'https://dev.jlcxtx.com/'
@@ -52,7 +54,7 @@ function* mySaga() {
     yield takeEvery(GET_CHILD_SERVICES_DETAILS,getStoreChildItemInfo);//获取服务详情
     yield takeEvery(CHANGE_SELECT_INDEX,getServiceReservationResult);//获取预约时段列表
     yield takeEvery(ORDER_STORE_CHILD_ITEM,orderStoreChildItem);//服务项目预约
-
+    yield takeEvery(POST_JSON,queryIndexList);//合作店首页数据
 }
 function* getMy() {
     yield getMyData(true)
@@ -220,6 +222,31 @@ function* orderStoreChildItem(action){
     console.log(action.dateTime)
     yield orderResult(hostUrl,'/store/orderStoreChildItem',action.formData,tk,action.serviceName,action.dateTime);
 }
+//获取合作点数据
+function* queryIndexList(action){
+    let lng ='';
+    let lat ='';
+   if(Platform.OS==='android'){
+  let gps = yield MyLBS.startLocation();
+  lng=JSON.parse(gps).d;
+  lat=JSON.parse(gps).c;
+   }else{
+    lng=0;
+    lat=0;
+   }
+  let formData = new FormData();
+  formData.append('lat', lat);
+  formData.append('lng', lng);
+ 
+  let tk = {
+    headers: { token: yield DevicesStorageUtil.get('token') }
+}
+for (let [key, value] of Object.entries(action.params)) {
+    formData.append(key,value)
+  }
+    yield queryIndexList18(hostUrl+'/seller/queryIndexList18',tk,formData);
+}
+
 export default mySaga
 
 
