@@ -55,9 +55,9 @@ class LevelSelect extends Component {
     renderTowItem =({item,index},)=>{
         console.log(item,index,this.props.menuSelectIndex)
         if(this.props.menuSelectIndex===2){
-        return <TouchableOpacity style={{width:mWidth*0.5,height:mHeight*0.05}}><Text>{item.text}</Text></TouchableOpacity>
+        return <TouchableOpacity key={'tow'+index} style={{width:mWidth*0.5,height:mHeight*0.05}}><Text>{item.text}</Text></TouchableOpacity>
         }else{
-        return <TouchableOpacity style={{width:mWidth*0.5,height:mHeight*0.05}}><Text>{item.name}</Text></TouchableOpacity>
+        return <TouchableOpacity key={'tow'+index} style={{width:mWidth*0.5,height:mHeight*0.05}}><Text>{item.name}</Text></TouchableOpacity>
         }
     }
     onPressSelect =() =>{
@@ -82,14 +82,14 @@ class LevelSelect extends Component {
                 console.log(item,index)
                 console.log(this.props.levelSelectData[index][item.one])
                 if(index===0){
-                return (<TouchableOpacity  onPress={()=>{this.toAllyShop(index),this.props._changeMenuSelected(index),this.props._changeStatus(this.props.openStatus)}} style={{flex:1,backgroundColor:'green'}}><Text>{this.props.levelSelectData[index][item.one].name}</Text></TouchableOpacity>)
+                return (<TouchableOpacity key={"top"+index} onPress={()=>{this.toAllyShop(index),this.props._changeMenuSelected(index),this.props._changeStatus(this.props.openStatus)}} style={{flex:1,backgroundColor:'green'}}><Text>{this.props.levelSelectData[index][item.one].name}</Text></TouchableOpacity>)
                 }else if(index===1){
-                return (<TouchableOpacity onPress={()=>{this.toAllyShop(index),this.props._changeMenuSelected(index),this.props._changeStatus(this.props.openStatus)}} style={{flex:1,backgroundColor:'green'}}><Text>{this.props.levelSelectData[index][item.one].name}</Text></TouchableOpacity>)
+                return (<TouchableOpacity key={"top"+index} onPress={()=>{this.toAllyShop(index),this.props._changeMenuSelected(index),this.props._changeStatus(this.props.openStatus)}} style={{flex:1,backgroundColor:'green'}}><Text>{this.props.levelSelectData[index][item.one].name}</Text></TouchableOpacity>)
                 }else {
                     if(item.one===0){
-                        return (<TouchableOpacity onPress={()=>{this.toAllyShop(index),this.props._changeMenuSelected(index),this.props._changeStatus(this.props.openStatus)}} style={{flex:1,backgroundColor:'green'}}><Text>{this.props.levelSelectData[index][item.one].text}</Text></TouchableOpacity>)
+                        return (<TouchableOpacity key={"top"+index} onPress={()=>{this.toAllyShop(index),this.props._changeMenuSelected(index),this.props._changeStatus(this.props.openStatus)}} style={{flex:1,backgroundColor:'green'}}><Text>{this.props.levelSelectData[index][item.one].text}</Text></TouchableOpacity>)
                     }else{
-                        return (<TouchableOpacity onPress={()=>{ this.props._changeMenuSelected(index),this.props._changeStatus(this.props.openStatus)}} style={{flex:1,backgroundColor:'green'}}><Text>{this.props.levelSelectData[index][item.one].text}</Text></TouchableOpacity>)
+                        return (<TouchableOpacity key={"top"+index} onPress={()=>{ this.props._changeMenuSelected(index),this.props._changeStatus(this.props.openStatus)}} style={{flex:1,backgroundColor:'green'}}><Text>{this.props.levelSelectData[index][item.one].text}</Text></TouchableOpacity>)
 
                     }
                 }
@@ -100,12 +100,13 @@ class LevelSelect extends Component {
             {
                 
             this.props.openStatus?
-                    
+                    <View>
                         <FlatList
-                    style={{width:mWidth,height:mHeight*0.25,top:mHeight*0.06,backgroundColor:'rgba(50,50,50,0.2)',position:'absolute',zIndex:999}}
+                    style={{width:mWidth,height:mHeight*0.25,top:mHeight*0.06,backgroundColor:'#ffffff',position:'absolute',zIndex:999}}
                     data={this.props.levelSelectData[this.props.menuSelectIndex]}
                     renderItem={this.renderTowItem}
-                    />
+                        />
+                        <TouchableHighlight style={{width:mWidth,height:mHeight,backgroundColor:'rgba(0,0,0,0.7)',position:'absolute',zIndex:99}} onPress={()=>{this.props._changeStatus(this.props.openStatus)}}><View></View></TouchableHighlight></View>
             :null}
 
             </View>
@@ -127,6 +128,7 @@ const mapDispatchToProps = dispatch => {
         },
         _changeStatus(status){
             dispatch(actionCreators.changeLevelSelectStatus(!status))
+            alert('aaa')
         }
     }
 }

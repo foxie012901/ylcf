@@ -45,7 +45,7 @@ class AllyShop extends Component {
                 <View style={{width:mWidth,height:mHeight*0.08,backgroundColor:"#cccccc"}}>
                     <Text style={{lineHeight:mHeight*0.08,textAlign:'center',fontSize:15}}>服务商家</Text>
                 </View>
-                <ScrollView  ref={(e)=>this.myRef=e} stickyHeaderIndices={[5]} canCancelContentTouches={false} >
+                <ScrollView  ref={(e)=>this.myRef=e} stickyHeaderIndices={[5]}  >
                     <ShopServiceType data={this.props.shopServiceTypeList}/>
                     <View style={{width:mWidth,height:mHeight*0.05,backgroundColor:'#ffffff',borderBottomWidth:1,borderColor:'#cccc'}}></View>
                     <Carousel  style={{width: mWidth, height:mHeight*0.15}}
@@ -63,7 +63,7 @@ class AllyShop extends Component {
                     </View>
                     <Recommend data={this.props.recommendList}/>
                     <View style={{zIndex:999,height:mHeight*0.36}}>
-                   {<LevelSelect click={(e)=>{alert(e),this.myRef.scrollTo(mHeight,mHeight,true),console.log(this.myRef)}} levelSelectData={this.props.levelSelectDataLists}/>}
+                   {<LevelSelect click={(e)=>{this.myRef.scrollTo({x:mHeight,y:mHeight,animated:true})}} levelSelectData={this.props.levelSelectDataLists}/>}
                     </View>
                     <View style={{width:mWidth,height:mHeight*0.3,backgroundColor:'red',marginBottom:20,position:'relative',top:-mHeight*0.25}}></View>
                     <View style={{width:mWidth,height:mHeight*0.3,backgroundColor:'red',marginBottom:20}}></View>
