@@ -17,6 +17,14 @@ export default (state = defaultState, action) => {
            return state.set("menuSelectIndex",action.index)
         case actionTypes.CHANGE_STATUS:
             return state.set("openStatus",action.status)
+        case actionTypes.CHANGE_MENU_LIST:
+            let ll = state.get('menuList').toJS()[action.menuIndex]
+            let td = {one:action.twoIndex,tow:action.threeIndex,three:null}
+            let asd = defaultState
+      
+          return state.setIn(['menuList',action.menuIndex],td);
+        
+
     }
 
 

@@ -45,7 +45,7 @@ class AllyShop extends Component {
                 <View style={{width:mWidth,height:mHeight*0.08,backgroundColor:"#cccccc"}}>
                     <Text style={{lineHeight:mHeight*0.08,textAlign:'center',fontSize:15}}>服务商家</Text>
                 </View>
-                <ScrollView  ref={(e)=>this.myRef=e} stickyHeaderIndices={[5]}  >
+                <ScrollView  ref={(e)=>this.myRef=e} stickyHeaderIndices={[5]} scrollEnabled={!this.props.openStatus} >
                     <ShopServiceType data={this.props.shopServiceTypeList}/>
                     <View style={{width:mWidth,height:mHeight*0.05,backgroundColor:'#ffffff',borderBottomWidth:1,borderColor:'#cccc'}}></View>
                     <Carousel  style={{width: mWidth, height:mHeight*0.15}}
@@ -62,14 +62,14 @@ class AllyShop extends Component {
                         <Text style={{fontSize:18,paddingLeft:10,lineHeight:mHeight*0.07}}>推荐</Text>
                     </View>
                     <Recommend data={this.props.recommendList}/>
-                    <View style={{zIndex:999,height:mHeight*0.36}}>
-                   {<LevelSelect click={(e)=>{this.myRef.scrollTo({x:mHeight,y:mHeight,animated:true})}} levelSelectData={this.props.levelSelectDataLists}/>}
+                    <View style={{zIndex:999,height:mHeight}}>
+                   <LevelSelect click={(e)=>{this.myRef.scrollTo({x:mHeight,y:mHeight,animated:true})}} levelSelectData={this.props.levelSelectDataLists}/>
                     </View>
-                    <View style={{width:mWidth,height:mHeight*0.3,backgroundColor:'red',marginBottom:20,position:'relative',top:-mHeight*0.25}}></View>
+                    {console.log('tfghjkl')}
+                    <View style={{width:mWidth,height:mHeight*0.3,backgroundColor:'red',marginBottom:20,position:'relative',top:-mHeight*0.9}}></View>
                     <View style={{width:mWidth,height:mHeight*0.3,backgroundColor:'red',marginBottom:20}}></View>
-                   
                     <View style={{width:mWidth,height:mHeight*0.3,backgroundColor:'red',marginBottom:20}}></View>
-                    <View style={{width:mWidth,height:mHeight*0.3,backgroundColor:'red',marginBottom:20 }} ></View>
+                    <View style={{width:mWidth,height:mHeight*0.3,backgroundColor:'red',marginBottom:20 }}></View>
 
 
                     
@@ -91,7 +91,8 @@ const mapStateToProps = state => {
         recommendList:(state.getIn(["allyshop","recommendList"])).toJS(),//推荐
         isShow:state.getIn(["allyshop","isShow"]),
         levelSelectDataList:(state.getIn(["allyshop","levelSelectDataList"])).toJS(),//下拉选列表
-        levelSelectDataLists:(state.getIn(['allyshop','levelSelectDataLists'])).toJS()
+        levelSelectDataLists:(state.getIn(['allyshop','levelSelectDataLists'])).toJS(),
+        openStatus:state.getIn(["levelselect","openStatus"]),//下拉选是否展开
 
     }
 }

@@ -51,13 +51,20 @@ class LevelSelect extends Component {
             duration:3000
         }).start()
     }
+    //三级
+    reanderThreeItem =({item,index})=>{
+      console.log(item)
+      return <TouchableOpacity key={'three'+index} style={{width:mWidth*0.5,height:mHeight*0.05}} onPress={()=>{}}><Text>{item.typename}</Text></TouchableOpacity>
+    }
     //二级
     renderTowItem =({item,index},)=>{
-        console.log(item,index,this.props.menuSelectIndex)
+        console.log(item)
         if(this.props.menuSelectIndex===2){
-        return <TouchableOpacity key={'tow'+index} style={{width:mWidth*0.5,height:mHeight*0.05}}><Text>{item.text}</Text></TouchableOpacity>
+        return <TouchableOpacity key={'tow'+index} style={{width:mWidth*0.5,height:mHeight*0.05}} onPress={()=>{this.props._changeChild(this.props.menuSelectIndex,index,undefined)}} ><Text>{item.text}</Text></TouchableOpacity>
+        }else if(this.props.menuSelectIndex===0){
+        return <TouchableOpacity key={'tow'+index} style={{width:mWidth*0.5,height:mHeight*0.05}} onPress={()=>{}}><Text>{item.name}</Text></TouchableOpacity>
         }else{
-        return <TouchableOpacity key={'tow'+index} style={{width:mWidth*0.5,height:mHeight*0.05}}><Text>{item.name}</Text></TouchableOpacity>
+            return <TouchableOpacity key={'tow'+index} style={{width:mWidth*0.5,height:mHeight*0.05}} onPress={()=>{this.props._changeChild(this.props.menuSelectIndex,index,index)}}><Text>{item.name}</Text></TouchableOpacity>
         }
     }
     onPressSelect =() =>{
@@ -67,45 +74,65 @@ class LevelSelect extends Component {
         }
     }
     toAllyShop =(index) =>{
+        if(index===this.props.menuSelectIndex){
+            this.props._changeStatus(this.props.openStatus);
+        }else{
+            if(!this.props.openStatus){
+        this.props._changeMenuSelected(index);
+        this.props._changeStatus(this.props.openStatus);
+        }else{
+            this.props._changeMenuSelected(index);
+        }
+        };
         if(!this.props.openStatus){
             return this.props.click(index);
         }
     }
     render() {
         let {menuList,menuSelectIndex,_changeMenuSelected,openStatus,_changeStatus}=this.props
+        console.log(menuList)
         let bg ={}
         !openStatus?bg={}:bg={position:'absolute'}
         return (
             <View style={{flex:1,}} >
             <View style={[{width:'100%',height:mHeight*0.06,flexDirection:'row',zIndex:99}]}>
             {this.props.menuList.map((item,index)=>{
-                console.log(item,index)
-                console.log(this.props.levelSelectData[index][item.one])
+                let isSelect ={}
+                if(this.props.openStatus&&this.props.menuSelectIndex===index){
+                    isSelect={color:'green'}
+                }
                 if(index===0){
-                return (<TouchableOpacity key={"top"+index} onPress={()=>{this.toAllyShop(index),this.props._changeMenuSelected(index),this.props._changeStatus(this.props.openStatus)}} style={{flex:1,backgroundColor:'green'}}><Text>{this.props.levelSelectData[index][item.one].name}</Text></TouchableOpacity>)
+                return (<TouchableOpacity key={"top"+index} onPress={()=>{this.toAllyShop(index)}} style={{flex:1,backgroundColor:'#ffffff'}}><Text style={[{fontSize:14},isSelect]}>{this.props.levelSelectData[index][item.one].name}</Text></TouchableOpacity>)
                 }else if(index===1){
-                return (<TouchableOpacity key={"top"+index} onPress={()=>{this.toAllyShop(index),this.props._changeMenuSelected(index),this.props._changeStatus(this.props.openStatus)}} style={{flex:1,backgroundColor:'green'}}><Text>{this.props.levelSelectData[index][item.one].name}</Text></TouchableOpacity>)
+                return (<TouchableOpacity key={"top"+index} onPress={()=>{this.toAllyShop(index)}} style={{flex:1,backgroundColor:'#ffffff'}}><Text style={[{fontSize:14},isSelect]}>{this.props.levelSelectData[index][item.one].name}</Text></TouchableOpacity>)
                 }else {
-                    if(item.one===0){
-                        return (<TouchableOpacity key={"top"+index} onPress={()=>{this.toAllyShop(index),this.props._changeMenuSelected(index),this.props._changeStatus(this.props.openStatus)}} style={{flex:1,backgroundColor:'green'}}><Text>{this.props.levelSelectData[index][item.one].text}</Text></TouchableOpacity>)
-                    }else{
-                        return (<TouchableOpacity key={"top"+index} onPress={()=>{ this.props._changeMenuSelected(index),this.props._changeStatus(this.props.openStatus)}} style={{flex:1,backgroundColor:'green'}}><Text>{this.props.levelSelectData[index][item.one].text}</Text></TouchableOpacity>)
-
-                    }
+                   
+                        return (<TouchableOpacity key={"top"+index} onPress={()=>{this.toAllyShop(index)}} style={{flex:1,backgroundColor:'#ffffff'}}><Text style={[{fontSize:14},isSelect]}>{this.props.levelSelectData[index][item.one].text}</Text></TouchableOpacity>)
+                 
                 }
            })}
             </View>
-            {console.log(this.props.levelSelectData[this.props.menuSelectIndex])}
-
             {
                 
             this.props.openStatus?
-                    <View>
-                        <FlatList
+                    <View style={{width:mWidth,height:mHeight}}>
+                        {this.props.menuSelectIndex===1?
+                        <View style={{flexDirection:'row',position:'absolute'}}>
+                            <FlatList   style={{width:mWidth*0.5,height:mHeight*0.25,top:mHeight*0.06,backgroundColor:'#cccc',zIndex:999}}
+                                        data={this.props.levelSelectData[this.props.menuSelectIndex]}
+                                        renderItem={this.renderTowItem}/>
+                            <FlatList   style={{width:mWidth*0.5,height:mHeight*0.25,top:mHeight*0.06,backgroundColor:'#ffffff',zIndex:999}}
+                                        data={this.props.levelSelectData[this.props.menuSelectIndex][this.props.menuList[1].one].shopType3Response}
+                                        renderItem={this.reanderThreeItem}/>
+                        </View>
+                    :
+                    <FlatList
                     style={{width:mWidth,height:mHeight*0.25,top:mHeight*0.06,backgroundColor:'#ffffff',position:'absolute',zIndex:999}}
                     data={this.props.levelSelectData[this.props.menuSelectIndex]}
                     renderItem={this.renderTowItem}
                         />
+                    }
+                   
                         <TouchableHighlight style={{width:mWidth,height:mHeight,backgroundColor:'rgba(0,0,0,0.7)',position:'absolute',zIndex:99}} onPress={()=>{this.props._changeStatus(this.props.openStatus)}}><View></View></TouchableHighlight></View>
             :null}
 
@@ -128,7 +155,9 @@ const mapDispatchToProps = dispatch => {
         },
         _changeStatus(status){
             dispatch(actionCreators.changeLevelSelectStatus(!status))
-            alert('aaa')
+        },
+        _changeChild(menuSelectIndex,towIndex,threeIndex){
+            dispatch(actionCreators.changeMenuSelect(menuSelectIndex,towIndex,threeIndex))
         }
     }
 }
