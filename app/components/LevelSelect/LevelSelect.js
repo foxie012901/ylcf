@@ -65,7 +65,13 @@ class LevelSelect extends Component {
     //三级
     reanderThreeItem =({item,index})=>{
       console.log(item)
-      return <TouchableOpacity key={'three'+index} style={{width:mWidth*0.5,height:mHeight*0.05}} onPress={()=>{}}><Text>{item.typename}</Text></TouchableOpacity>
+      return <TouchableOpacity key={'three'+index} style={{width:mWidth*0.5,height:mHeight*0.05}} onPress={()=>{this.props._changeMenuListName(this.props.menuSelectIndex,item.typename,this.props.openStatus)}}><Text>{item.typename}</Text></TouchableOpacity>
+    }
+    shopTypeItem =(item,index) =>{
+        console.log(item,index);
+        if(item.shopType3Response.length===0){
+            this.props._changeMenuListName(this.props.menuSelectIndex,item.name,this.props.openStatus)
+        }
     }
     //二级
     renderTowItem =({item,index},)=>{
@@ -75,7 +81,7 @@ class LevelSelect extends Component {
         }else if(this.props.menuSelectIndex===0){
         return <TouchableOpacity key={'tow'+index} style={{width:mWidth*0.5,height:mHeight*0.05}} onPress={()=>{this.props._changeChild(this.props.menuSelectIndex,index,index);this.props._changeMenuListName(this.props.menuSelectIndex,item.name,this.props.openStatus)}}><Text>{item.name}</Text></TouchableOpacity>
         }else{
-            return <TouchableOpacity key={'tow'+index} style={{width:mWidth*0.5,height:mHeight*0.05}} onPress={()=>{this.props._changeChild(this.props.menuSelectIndex,index,index)}}><Text>{item.name}</Text></TouchableOpacity>
+            return <TouchableOpacity key={'tow'+index} style={{width:mWidth*0.5,height:mHeight*0.05,zIndex:99}} onPress={()=>{this.props._changeChild(this.props.menuSelectIndex,index,index),this.shopTypeItem(item,index)}}><Text>{item.name}</Text></TouchableOpacity>
         }
     }
     onPressSelect =() =>{
@@ -121,23 +127,28 @@ class LevelSelect extends Component {
             this.props.openStatus?
                     <View style={{width:mWidth,height:mHeight}}>
                         {this.props.menuSelectIndex===1?
-                        <View style={{flexDirection:'row',position:'absolute',zIndex:999}}>
-                            <FlatList   style={{width:mWidth*0.5,height:mHeight*0.25,top:mHeight*0.06,backgroundColor:'#cccc',zIndex:999}}
+                        <View style={{flexDirection:'row',position:'absolute',zIndex:999}} pointerEvents={'auto'}>
+                            <FlatList   style={{width:mWidth*0.5,height:mHeight*0.2,backgroundColor:'#cccc',zIndex:99}}
                                         data={this.props.levelSelectData[this.props.menuSelectIndex]}
-                                        renderItem={this.renderTowItem}/>
-                            <FlatList   style={{width:mWidth*0.5,height:mHeight*0.25,top:mHeight*0.06,backgroundColor:'#ffffff',zIndex:999}}
+                                        renderItem={this.renderTowItem}
+                                        keyExtractor={(item, index) => index.toString()}/>
+                            <FlatList   style={{width:mWidth*0.5,height:mHeight*0.2,backgroundColor:'#ffffff',zIndex:99}}
                                         data={this.props.levelSelectData[this.props.menuSelectIndex][this.props.menuList[1].one].shopType3Response}
-                                        renderItem={this.reanderThreeItem}/>
+                                        renderItem={this.reanderThreeItem}
+                                        pointerEvents={'auto'}
+                                        keyExtractor={(item, index) => index.toString()}
+                                        />
                         </View>
                     :
                     <FlatList
-                    style={{width:mWidth,height:mHeight*0.25,top:mHeight*0.06,backgroundColor:'#ffffff',position:'absolute',zIndex:999}}
+                    style={{width:mWidth,height:mHeight*0.25,backgroundColor:'#ffffff',position:'absolute',zIndex:999}}
                     data={this.props.levelSelectData[this.props.menuSelectIndex]}
                     renderItem={this.renderTowItem}
+                    keyExtractor={(item, index) => index.toString()}
                         />
                     }
                    
-                        <TouchableHighlight style={{width:mWidth,height:mHeight,backgroundColor:'rgba(0,0,0,0.7)',position:'absolute',zIndex:99}} onPress={()=>{this.props._changeStatus(this.props.openStatus)}}><View></View></TouchableHighlight></View>
+                        <TouchableHighlight style={{width:mWidth,height:mHeight,backgroundColor:'rgba(0,0,0,0.7)',position:'absolute',zIndex:9}} onPress={()=>{this.props._changeStatus(this.props.openStatus)}}><View></View></TouchableHighlight></View>
             :null}
 
             </View>
