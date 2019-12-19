@@ -22,3 +22,11 @@ export const changeMenuSelectTow =(index) =>({
     type:actionTypes.CHANGE_MENU_LIST_TOW,
     index
 })
+export const initMenuListName = list =>({
+    type:actionTypes.INIT_MENU_LIST_NAME,
+    list
+})
+export const changeMenuListName = (menuIndex,name) =>({
+    type:actionTypes.CHANGE_MENU_LIST_NAME,
+    menuIndex,name
+})

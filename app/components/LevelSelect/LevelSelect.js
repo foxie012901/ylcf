@@ -32,7 +32,18 @@ class LevelSelect extends Component {
                 vh:new Animated.Value(0)
         };
         console.log("加载合作店初始传递数据",props);
-            
+        for(let i=0;i<this.props.levelSelectData.length;i++){
+           
+            if(i!==2){
+                console.log(this.props.levelSelectData[i].name)  
+                this.props.menuNameList.push({name:this.props.levelSelectData[i][0].name})
+            }else{
+                this.props.menuNameList.push({name:this.props.levelSelectData[i][0].text})
+            }
+          
+        }
+        this.props._initMenuListName(this.props.menuNameList);      
+      
     }
     componentWillReceiveProps(nProps){
         console.log('获取到合作店home数据',nProps)
@@ -60,9 +71,9 @@ class LevelSelect extends Component {
     renderTowItem =({item,index},)=>{
         console.log(item)
         if(this.props.menuSelectIndex===2){
-        return <TouchableOpacity key={'tow'+index} style={{width:mWidth*0.5,height:mHeight*0.05}} onPress={()=>{this.props._changeChild(this.props.menuSelectIndex,index,undefined)}} ><Text>{item.text}</Text></TouchableOpacity>
+        return <TouchableOpacity key={'tow'+index} style={{width:mWidth*0.5,height:mHeight*0.05}} onPress={()=>{this.props._changeChild(this.props.menuSelectIndex,index,undefined),this.props._changeMenuListName(this.props.menuSelectIndex,item.text,this.props.openStatus)}} ><Text>{item.text}</Text></TouchableOpacity>
         }else if(this.props.menuSelectIndex===0){
-        return <TouchableOpacity key={'tow'+index} style={{width:mWidth*0.5,height:mHeight*0.05}} onPress={()=>{}}><Text>{item.name}</Text></TouchableOpacity>
+        return <TouchableOpacity key={'tow'+index} style={{width:mWidth*0.5,height:mHeight*0.05}} onPress={()=>{this.props._changeChild(this.props.menuSelectIndex,index,index);this.props._changeMenuListName(this.props.menuSelectIndex,item.name,this.props.openStatus)}}><Text>{item.name}</Text></TouchableOpacity>
         }else{
             return <TouchableOpacity key={'tow'+index} style={{width:mWidth*0.5,height:mHeight*0.05}} onPress={()=>{this.props._changeChild(this.props.menuSelectIndex,index,index)}}><Text>{item.name}</Text></TouchableOpacity>
         }
@@ -96,28 +107,21 @@ class LevelSelect extends Component {
         return (
             <View style={{flex:1,}} >
             <View style={[{width:'100%',height:mHeight*0.06,flexDirection:'row',zIndex:99}]}>
-            {this.props.menuList.map((item,index)=>{
+            {this.props.menuNameList.map((item,index)=>{
+                console.log(item,index)
                 let isSelect ={}
                 if(this.props.openStatus&&this.props.menuSelectIndex===index){
                     isSelect={color:'green'}
                 }
-                if(index===0){
-                return (<TouchableOpacity key={"top"+index} onPress={()=>{this.toAllyShop(index)}} style={{flex:1,backgroundColor:'#ffffff'}}><Text style={[{fontSize:14},isSelect]}>{this.props.levelSelectData[index][item.one].name}</Text></TouchableOpacity>)
-                }else if(index===1){
-                return (<TouchableOpacity key={"top"+index} onPress={()=>{this.toAllyShop(index)}} style={{flex:1,backgroundColor:'#ffffff'}}><Text style={[{fontSize:14},isSelect]}>{this.props.levelSelectData[index][item.one].name}</Text></TouchableOpacity>)
-                }else {
-                   
-                        return (<TouchableOpacity key={"top"+index} onPress={()=>{this.toAllyShop(index)}} style={{flex:1,backgroundColor:'#ffffff'}}><Text style={[{fontSize:14},isSelect]}>{this.props.levelSelectData[index][item.one].text}</Text></TouchableOpacity>)
-                 
-                }
+                return (<TouchableOpacity key={"top"+index} onPress={()=>{this.toAllyShop(index)}} style={{flex:1,backgroundColor:'#ffffff'}}><Text style={[{fontSize:14},isSelect]}>{item.name}</Text></TouchableOpacity>)
+
            })}
             </View>
-            {
-                
+            {                
             this.props.openStatus?
                     <View style={{width:mWidth,height:mHeight}}>
                         {this.props.menuSelectIndex===1?
-                        <View style={{flexDirection:'row',position:'absolute'}}>
+                        <View style={{flexDirection:'row',position:'absolute',zIndex:999}}>
                             <FlatList   style={{width:mWidth*0.5,height:mHeight*0.25,top:mHeight*0.06,backgroundColor:'#cccc',zIndex:999}}
                                         data={this.props.levelSelectData[this.props.menuSelectIndex]}
                                         renderItem={this.renderTowItem}/>
@@ -143,9 +147,9 @@ class LevelSelect extends Component {
 const mapStateToProps = state => {
     return {
         menuSelectIndex:state.getIn(["levelselect",'menuSelectIndex']),//被选中菜单下标
-        menuList:(state.getIn(["levelselect","menuList"])).toJS(),//菜单
+        menuList:(state.getIn(["levelselect","menuList"])).toJS(),//菜单下标保存
         openStatus:state.getIn(['levelselect','openStatus']),//展开状态
-
+        menuNameList:(state.getIn(['levelselect','menuNameList'])).toJS(),//菜单名称
     }
 }
 const mapDispatchToProps = dispatch => {
@@ -158,6 +162,13 @@ const mapDispatchToProps = dispatch => {
         },
         _changeChild(menuSelectIndex,towIndex,threeIndex){
             dispatch(actionCreators.changeMenuSelect(menuSelectIndex,towIndex,threeIndex))
+        },
+        _initMenuListName(list){
+            dispatch(actionCreators.initMenuListName(list))
+        },
+        _changeMenuListName(menuSelectIndex,name,status){
+            dispatch(actionCreators.changeMenuListName(menuSelectIndex,name));
+            dispatch(actionCreators.changeLevelSelectStatus(!status));
         }
     }
 }

@@ -8,6 +8,10 @@ export const CHANGE_MENU_LIST = 'levelselect/change_menu_list' //修改菜单选
 
 export const CHANGE_MENU_LIST_TOW ='levelselect/change_menu_list_tow' //修改子选项索引
 
+export const INIT_MENU_LIST_NAME = 'levelselect/init_menu_list_name' //获取数据后初始化菜单列表
+
+export const CHANGE_MENU_LIST_NAME ='levelselect/change_menu_list_name' //修改菜单列表
+
 
 
 

@@ -7,7 +7,8 @@ const defaultState = fromJS({
     levelTowSelectIndex:undefined,//被拉起的二级菜单下标(有三级)  被选中的二级菜单下标(无三级)
     levelThreeselectedIndex:undefined,//被选中的三级菜单下标
     menuList:[{one:0,tow:null,three:null},{one:0,tow:null,three:null},{one:0,tow:null,three:null}],//菜单列表
-    openStatus:false
+    openStatus:false,
+    menuNameList:[]
 })
 
 export default (state = defaultState, action) => {
@@ -20,11 +21,14 @@ export default (state = defaultState, action) => {
         case actionTypes.CHANGE_MENU_LIST:
             let ll = state.get('menuList').toJS()[action.menuIndex]
             let td = {one:action.twoIndex,tow:action.threeIndex,three:null}
-            let asd = defaultState
-      
           return state.setIn(['menuList',action.menuIndex],td);
+        case actionTypes.INIT_MENU_LIST_NAME:
+            console.log(action)
+            return state.set('menuNameList',fromJS(action.list))
+        case actionTypes.CHANGE_MENU_LIST_NAME:
+            console.log(action);
+            return state.setIn(['menuNameList',action.menuIndex],{name:action.name})
         
-
     }
 
 

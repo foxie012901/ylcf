@@ -21,6 +21,7 @@ import Carousel from 'react-native-looped-carousel'
 //路由
 import { Actions } from "react-native-router-flux";
 import {actionCreators, allyshop} from './store'
+import {actionCreators as levelSelectActionCreators} from '../LevelSelect/store'
 import LevelSelect from '../LevelSelect/LevelSelect'
 import TopMenu from './TopMenu';
 const mWidth = Dimensions.get('window').width;
@@ -33,11 +34,13 @@ class AllyShop extends Component {
         };
     }
     componentWillMount() {
-        this.props._postJson()
+        this.props._postJson();
     }
     onSelectMenu=(index, subindex, data)=>{
         this.setState({index, subindex, data});
     };
+    componentDidMount(){
+    }
     render() {
         console.log(12313213123213123);
         let page = ( 
@@ -101,7 +104,11 @@ const mapDispatchToProps = dispatch => {
         _postJson(){
             let params ={pageno:1,pagesize:5}
             dispatch(actionCreators.postJson(params));
-        }  
+        },
+        _toLevelSelectData(data){
+            dispatch(levelSelectActionCreators.getData(data))
+        }
+          
     }
 }
 
