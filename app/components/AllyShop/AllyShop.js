@@ -23,7 +23,8 @@ import { Actions } from "react-native-router-flux";
 import {actionCreators, allyshop} from './store'
 import {actionCreators as levelSelectActionCreators} from '../LevelSelect/store'
 import LevelSelect from '../LevelSelect/LevelSelect'
-import TopMenu from './TopMenu';
+import AllyShopList from'../AllyShopList/AllyShopList';
+import {actionCreators as allyShopListActionCreators} from "../AllyShopList/store"
 const mWidth = Dimensions.get('window').width;
 const mHeight = Dimensions.get('window').height;
 class AllyShop extends Component {
@@ -68,11 +69,7 @@ class AllyShop extends Component {
                     <View style={{zIndex:999,height:mHeight}}>
                    <LevelSelect click={(e)=>{this.myRef.scrollTo({x:mHeight,y:mHeight,animated:true})}} levelSelectData={this.props.levelSelectDataLists}/>
                     </View>
-                    {console.log('tfghjkl')}
-                    <View style={{width:mWidth,height:mHeight*0.3,backgroundColor:'red',marginBottom:20,position:'relative',top:-mHeight*0.9}}></View>
-                    <View style={{width:mWidth,height:mHeight*0.3,backgroundColor:'red',marginBottom:20}}></View>
-                    <View style={{width:mWidth,height:mHeight*0.3,backgroundColor:'red',marginBottom:20}}></View>
-                    <View style={{width:mWidth,height:mHeight*0.3,backgroundColor:'red',marginBottom:20 }}></View>
+                   <AllyShopList shopResponse={this.props.shopResponse}/>
 
 
                     
@@ -96,6 +93,7 @@ const mapStateToProps = state => {
         levelSelectDataList:(state.getIn(["allyshop","levelSelectDataList"])).toJS(),//下拉选列表
         levelSelectDataLists:(state.getIn(['allyshop','levelSelectDataLists'])).toJS(),
         openStatus:state.getIn(["levelselect","openStatus"]),//下拉选是否展开
+        shopResponse:(state.getIn(["allyshop","shopResponse"])).toJS(),//商店列表
 
     }
 }

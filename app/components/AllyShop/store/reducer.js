@@ -9,6 +9,8 @@ const defaultState = fromJS({
     levelSelectDataList:[],
     localDataList:[{text:"离我最近",code:0},{text:"价格从低到高",code:1},{text:"价格从高到低",code:2}],
     levelSelectDataLists:[],
+    shopResponse:[],//商店列表
+    cdCityResponse:[],//地理编码
 })
 
 export default (state = defaultState, action) => {
@@ -16,7 +18,7 @@ export default (state = defaultState, action) => {
     switch (action.type) {
         case actionTypes.GET_DATA:
             console.log(action.Json)
-            let{shopAdResponse,shopType2Response,topItemResponse,cdCityResponse,shopLableResponse}=action.Json
+            let{shopAdResponse,shopType2Response,topItemResponse,cdCityResponse,shopLableResponse,shopResponse}=action.Json
             let levList =[];let levsList=[];
             levList.push({type:'ttt',selectedIndex:0,data:cdCityResponse});
             levList.push({type:'ttt',selectedIndex:0,data:shopType2Response});
@@ -33,6 +35,8 @@ export default (state = defaultState, action) => {
                 isShow:true,
                 levelSelectDataList:fromJS(levList),
                 levelSelectDataLists:fromJS(levsList),
+                shopResponse:fromJS(shopResponse),
+                cdCityResponse:fromJS(cdCityResponse),
             });
         case actionTypes.CHANGE_SCOLLVIEW:   
             return state;

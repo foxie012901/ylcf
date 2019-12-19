@@ -17,6 +17,7 @@ import {weekdate} from "../components/WeekDate/store";
 import { servicereservation} from "../components/ServiceReservation/store";
 import {levelselect} from "../components/LevelSelect/store";
 import {allyshop} from "../components/AllyShop/store";
+import {allyshoplist} from '../components/AllyShopList/store'
 const reducer = combineReducers({
     home,
     todolist,
@@ -34,7 +35,8 @@ const reducer = combineReducers({
     weekdate,
     servicereservation,
     levelselect,
-    allyshop
+    allyshop,
+    allyshoplist
 })
 
 export default reducer
