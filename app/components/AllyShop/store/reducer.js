@@ -11,13 +11,16 @@ const defaultState = fromJS({
     levelSelectDataLists:[],
     shopResponse:[],//商店列表
     cdCityResponse:[],//地理编码
+    noNewShop:false,
+    isButtom:false,
+    page:1,
+    
 })
 
 export default (state = defaultState, action) => {
 
     switch (action.type) {
         case actionTypes.GET_DATA:
-            console.log(action.Json)
             let{shopAdResponse,shopType2Response,topItemResponse,cdCityResponse,shopLableResponse,shopResponse}=action.Json
             let levList =[];let levsList=[];
             levList.push({type:'ttt',selectedIndex:0,data:cdCityResponse});
@@ -37,11 +40,25 @@ export default (state = defaultState, action) => {
                 levelSelectDataLists:fromJS(levsList),
                 shopResponse:fromJS(shopResponse),
                 cdCityResponse:fromJS(cdCityResponse),
+                page:state.get('page')+1
             });
         case actionTypes.CHANGE_SCOLLVIEW:   
             return state;
-             
-    }
+        case actionTypes.CHANGE_IS_BUTTOM:
+            return state.set('isButtom',!(action.isButtom))
+        case actionTypes.ADDING:
+                let ss = action.Data.shopResponse;
+                console.log(ss)
+                let shopList = state.get('shopResponse').toJS()
+                ss.map((item,index)=>{
+                    shopList.push(item)
+              })
+              return state.merge({
+                page:state.get('page')+1,
+                shopResponse:fromJS(shopList),
+              })
+                
+        }
         
 
 

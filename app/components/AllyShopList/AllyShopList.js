@@ -46,8 +46,8 @@ class AllyShopList extends Component {
         return (
             <View style={{}}>
                 {this.props.shopResponse.map((item,index)=>{
-                    return(<View style={{flexDirection:'column'}}>
-                    <TouchableOpacity style={{width:mWidth,height:mHeight*0.09,backgroundColor:'#ffffff',flexDirection:'row',borderTopColor:'#cccccc',borderTopWidth:1}}>
+                    return(<View style={{flexDirection:'column'}} key={'shop'+index}>
+                    <TouchableOpacity  style={{width:mWidth,height:mHeight*0.09,backgroundColor:'#ffffff',flexDirection:'row',borderTopColor:'#cccccc',borderTopWidth:1}}>
                         <View style={{flex:2,justifyContent:'center'}}><Image style={{resizeMode:'cover',width:40,height:30,alignSelf:'center'}} source={{uri:item.pic}}/></View>
                         <View style={{flex:8,flexDirection:'column',justifyContent:'space-around'}}>
                             <Text style={{fontSize:18}}>{item.shopname}</Text>
@@ -57,7 +57,7 @@ class AllyShopList extends Component {
                     </TouchableOpacity>
                         {item.shopTypeResponse.map((shopTypeItem,index)=>{
                             if(index<2){
-                                return (<View style={{width:mWidth,height:mHeight*0.05,flexDirection:'row',borderTopColor:'#cccc',borderTopWidth:1,backgroundColor:'#ffffff'}}>
+                                return (<View key={'shoptype'+index} style={{width:mWidth,height:mHeight*0.05,flexDirection:'row',borderTopColor:'#cccc',borderTopWidth:1,backgroundColor:'#ffffff'}}>
                                     <Text style={{flex:8,fontSize:12,lineHeight:mHeight*0.05}}>{shopTypeItem.servicename}</Text>
                                     <Text style={{flex:8,fontSize:13,color:'blue',lineHeight:mHeight*0.05}}>{shopTypeItem.appprice}</Text>
                                     <Text style={{flex:8,fontSize:10,lineHeight:mHeight*0.05}}>{shopTypeItem.price}</Text>

@@ -28,7 +28,7 @@ import { GET_IS_SHOW } from "../../components/My/store/actionTypes";
 import { GET_CAR_LIST } from "../../components/ChildServicesDetailsTitle/store/actionTypes";
 import { GET_CHILD_SERVICES_DETAILS ,ORDER_STORE_CHILD_ITEM} from '../../components/ChildServicesDetails/store/actionTypes';
 import { CHANGE_SELECT_INDEX } from "../../components/WeekDate/store/actionTypes";
-import {POST_JSON} from "../../components/AllyShop/store/actionTypes"
+import {POST_JSON,ADDING} from "../../components/AllyShop/store/actionTypes"
 //全局请求地址
 // const hostUrl = 'https://mapp.jlcxtx.com/'
 // const hostUrl = 'https://dev.jlcxtx.com/'
@@ -244,7 +244,9 @@ function* queryIndexList(action){
 for (let [key, value] of Object.entries(action.params)) {
     formData.append(key,value)
   }
-    yield queryIndexList18(hostUrl+'/seller/queryIndexList18',tk,formData);
+  console.log(action.init)
+    yield queryIndexList18(hostUrl+'/seller/queryIndexList18',tk,formData,action.init);
+  
 }
 
 export default mySaga

@@ -33,22 +33,37 @@ class AllyShop extends Component {
         this.myRef=React.createRef();
         this.state = {      
         };
+        console.log(this.props)
     }
     componentWillMount() {
-        this.props._postJson();
+       
+        this.props._postJson(1,this.props.page);
     }
     onSelectMenu=(index, subindex, data)=>{
         this.setState({index, subindex, data});
     };
     componentDidMount(){
     }
+     // 监听上拉触底
+     _onScroll =(e) => {
+        let offsetY = e.nativeEvent.contentOffset.y; //滑动距离
+        let contentSizeHeight = e.nativeEvent.contentSize.height; //scrollView contentSize高度
+        let oriageScrollHeight = e.nativeEvent.layoutMeasurement.height; //scrollView高度
+        if(offsetY+oriageScrollHeight>=contentSizeHeight-10){
+            this.props._contentViewScroll(this.props.isButtom)
+            this.props._postJson(0,this.props.page);
+        }
+        
+      }
     render() {
+        console.log(this.props.dataList);
+  
         let page = ( 
-            <View>
+            <View style={{flex:1}}>
                 <View style={{width:mWidth,height:mHeight*0.08,backgroundColor:"#cccccc"}}>
                     <Text style={{lineHeight:mHeight*0.08,textAlign:'center',fontSize:15}}>服务商家</Text>
                 </View>
-                <ScrollView  ref={(e)=>this.myRef=e} stickyHeaderIndices={[5]} scrollEnabled={!this.props.openStatus} >
+                <ScrollView style={{flex:1}}  ref={(e)=>this.myRef=e} stickyHeaderIndices={[5]} scrollEnabled={!this.props.openStatus} onMomentumScrollEnd={(e)=>{this._onScroll(e)}}>
                     <ShopServiceType data={this.props.shopServiceTypeList}/>
                     <View style={{width:mWidth,height:mHeight*0.05,backgroundColor:'#ffffff',borderBottomWidth:1,borderColor:'#cccc'}}></View>
                     <Carousel  style={{width: mWidth, height:mHeight*0.15}}
@@ -68,11 +83,13 @@ class AllyShop extends Component {
                     <View style={{zIndex:999}}>
                    <LevelSelect click={(e)=>{this.myRef.scrollTo({x:mHeight,y:mHeight,animated:true})}} levelSelectData={this.props.levelSelectDataLists}/>
                     </View>
-                   <AllyShopList shopResponse={this.props.shopResponse}/>
-
-
-                    
+                   <AllyShopList shopResponse={this.props.shopResponse}/>  
+                   {this.props.isButtom?<View style={{width:mWidth,height:mHeight*0.05,flexDirection:'column',}}>
+                        <Text style={{fontSize:16,alignSelf:'center'}}>加载中...</Text>
+                        <ActivityIndicator style={{alignSelf:'center'}} animating={true} color='red'/>
+                    </View>:null} 
                 </ScrollView>
+               
             </View>
            )     
            let Loading =(<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -93,17 +110,22 @@ const mapStateToProps = state => {
         levelSelectDataLists:(state.getIn(['allyshop','levelSelectDataLists'])).toJS(),
         openStatus:state.getIn(["levelselect","openStatus"]),//下拉选是否展开
         shopResponse:(state.getIn(["allyshop","shopResponse"])).toJS(),//商店列表
-
+        isButtom:state.getIn(['allyshop',"isButtom"]),//下拉到底部
+        dataList:(state.getIn(['allyshop','dataList'])).toJS(),
+        page:state.getIn(['allyshop','page']),//合作商店页数
     }
 }
 const mapDispatchToProps = dispatch => {
     return {
-        _postJson(){
-            let params ={pageno:1,pagesize:5}
-            dispatch(actionCreators.postJson(params));
+        _postJson(init,page){
+            let params ={pageno:page,pagesize:5}
+            dispatch(actionCreators.postJson(init,params));
         },
         _toLevelSelectData(data){
             dispatch(levelSelectActionCreators.getData(data))
+        },
+        _contentViewScroll(isButtom){
+            dispatch(actionCreators.changeIsButtom(isButtom))
         }
           
     }
