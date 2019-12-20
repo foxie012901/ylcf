@@ -25,10 +25,8 @@ const mHeight = Dimensions.get('window').height;
 class AllyShopList extends Component {
     constructor(props) {
         super(props);
-        console.log("商店列表初始化数据",props)
     }
     componentWillReceiveProps(nProps){
-        console.log('商店列表接收数据',nProps)
     }
     componentWillMount() {
     }
@@ -42,13 +40,14 @@ class AllyShopList extends Component {
             }
         }
     }
+  
     render() {
 
         return (
             <View style={{top:-mHeight*0.94}}>
                 {this.props.shopResponse.map((item,index)=>{
                     return(<View style={{flexDirection:'column'}}>
-                    <TouchableOpacity style={{width:mWidth,height:mHeight*0.06,backgroundColor:'#ffffff',flexDirection:'row'}}>
+                    <TouchableOpacity style={{width:mWidth,height:mHeight*0.09,backgroundColor:'#ffffff',flexDirection:'row',borderTopColor:'#cccccc',borderTopWidth:1}}>
                         <View style={{flex:2,justifyContent:'center'}}><Image style={{resizeMode:'cover',width:40,height:30,alignSelf:'center'}} source={{uri:item.pic}}/></View>
                         <View style={{flex:8,flexDirection:'column',justifyContent:'space-around'}}>
                             <Text style={{fontSize:18}}>{item.shopname}</Text>
@@ -56,7 +55,20 @@ class AllyShopList extends Component {
                             <Text style={{fontSize:12}}>{this.getDistrict(item.countycode)}|{item.distance}km</Text>
                         </View>
                     </TouchableOpacity>
-                </View>)
+                        {item.shopTypeResponse.map((shopTypeItem,index)=>{
+                            if(index<2){
+                                return (<View style={{width:mWidth,height:mHeight*0.05,flexDirection:'row',borderTopColor:'#cccc',borderTopWidth:1,backgroundColor:'#ffffff'}}>
+                                    <Text style={{flex:8,fontSize:12,lineHeight:mHeight*0.05}}>{shopTypeItem.servicename}</Text>
+                                    <Text style={{flex:8,fontSize:13,color:'blue',lineHeight:mHeight*0.05}}>{shopTypeItem.appprice}</Text>
+                                    <Text style={{flex:8,fontSize:10,lineHeight:mHeight*0.05}}>{shopTypeItem.price}</Text>
+                                </View>)
+                            }
+                        })}
+                   
+                        {item.ckxm!==''?<View style={{width:mWidth,height:mHeight*0.1,backgroundColor:'#ffffff',justifyContent:'center'}}><Text style={{alignSelf:'center',color:'blue'}}>{item.ckxm}</Text></View>:null}
+                </View>
+                
+                )
                 })}
                 
             </View>

@@ -43,7 +43,6 @@ class AllyShop extends Component {
     componentDidMount(){
     }
     render() {
-        console.log(12313213123213123);
         let page = ( 
             <View>
                 <View style={{width:mWidth,height:mHeight*0.08,backgroundColor:"#cccccc"}}>
