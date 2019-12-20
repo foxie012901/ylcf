@@ -44,7 +44,7 @@ class AllyShopList extends Component {
     render() {
 
         return (
-            <View style={{top:-mHeight*0.94}}>
+            <View style={{}}>
                 {this.props.shopResponse.map((item,index)=>{
                     return(<View style={{flexDirection:'column'}}>
                     <TouchableOpacity style={{width:mWidth,height:mHeight*0.09,backgroundColor:'#ffffff',flexDirection:'row',borderTopColor:'#cccccc',borderTopWidth:1}}>

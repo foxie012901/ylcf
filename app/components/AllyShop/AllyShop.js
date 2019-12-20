@@ -65,7 +65,7 @@ class AllyShop extends Component {
                         <Text style={{fontSize:18,paddingLeft:10,lineHeight:mHeight*0.07}}>推荐</Text>
                     </View>
                     <Recommend data={this.props.recommendList}/>
-                    <View style={{zIndex:999,height:mHeight}}>
+                    <View style={{zIndex:999}}>
                    <LevelSelect click={(e)=>{this.myRef.scrollTo({x:mHeight,y:mHeight,animated:true})}} levelSelectData={this.props.levelSelectDataLists}/>
                     </View>
                    <AllyShopList shopResponse={this.props.shopResponse}/>
