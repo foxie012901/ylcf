@@ -48,8 +48,8 @@ class WyTest extends Component {
             alert("自定义按钮点击：" + response.customButton);
         }
         else {
-        console.log(response.path)
-        this.props._postImg(response.path)
+        console.log(response.uri)
+        this.props._postImg(response.uri,response.fileName)
         }
     });
 }
@@ -75,8 +75,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-        _postImg(path){
-          dispatch(actionCreators.postImg(path))
+        _postImg(path,fileName){
+          dispatch(actionCreators.postImg(path,fileName))
         }
   }
 }

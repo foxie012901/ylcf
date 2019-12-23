@@ -253,7 +253,7 @@ for (let [key, value] of Object.entries(action.params)) {
 //上传并获取图片
 function* postImg(action){
     console.log(action);
-    var file = { uri:action.url, type: 'multipart/form-data', name: 'image.png' }
+    var file = { uri:action.url, type: 'multipart/form-data', name: action.fileName }
     let formdata = new FormData();
     formdata.append('inputfile', file);
     let hd = {

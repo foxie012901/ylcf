@@ -13,7 +13,6 @@ function* getRes(urls,headers,params){
    
     let url = urls;
 
-    var appUserPost = { 'appUserPost': params, type: 'application/octet-stream' }
     let formdata = new FormData();
 
 
@@ -23,7 +22,6 @@ function* getRes(urls,headers,params){
         method: 'POST',
         headers: {
             'Accept': 'application/json',
-            // 'Content-Type': 'multipart/form-data',
         },
         processData: false,
         contentType: false,
