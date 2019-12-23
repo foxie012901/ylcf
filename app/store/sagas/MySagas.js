@@ -3,9 +3,38 @@ import axios from 'axios'
 import DeviceStorageUtil from "../../util/DeviceStorageUtil";
 
 import { alertIsShow } from "../../components/My/store/actionCreators";
+import { getResponse } from "../../components/WyTest/store/actionCreators";
 
 function* getMyData (data) {
     yield put(alertIsShow(data))
+}
+
+function* getRes(urls,headers,params){
+   
+    let url = urls;
+
+    var appUserPost = { 'appUserPost': params, type: 'application/octet-stream' }
+    let formdata = new FormData();
+
+
+    console.log("formdata", JSON.stringify(formdata))
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            // 'Content-Type': 'multipart/form-data',
+        },
+        processData: false,
+        contentType: false,
+        body: params
+    }).then(function (response) {
+        console.log(response)
+    }).catch(err => {
+        console.log(err)
+    })
+
+
 }
 
 
@@ -33,5 +62,5 @@ function* getMyData (data) {
 // }
 
 export {
-    getMyData,
+    getMyData,getRes
 }

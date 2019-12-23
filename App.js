@@ -14,6 +14,7 @@ import IconFont from 'react-native-vector-icons/Ionicons'
 import Home from "./app/components/Home/Home";
 // import My from './app/components/My/My'
 import My from './app/components/My/MyVideo'
+import WyTest  from'./app/components/WyTest/WyTest'
 import Order from './app/components/Order/Order'
 import ShangJia from './app/components/ShangJia/ShangJia'
 import AllyShop from './app/components/AllyShop/AllyShop'
@@ -90,7 +91,7 @@ export default class App extends Component {
             renderSelectedIcon={() => <IconFont name={'ios-person'} size={25} color={'#0079ff'} />}
             onPress={() => this.setState({ selectedTab: 'my' })}
           >
-            <My />
+            <WyTest />
           </TabNavigator.Item>
         </TabNavigator>
       </View>

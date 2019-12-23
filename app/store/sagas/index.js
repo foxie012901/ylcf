@@ -5,7 +5,7 @@ import { loginFetchPost } from "./LoginSagas";
 import { getHome } from "./HomeSagas";
 import { getVioIndex as getVio } from "./BindCarSagas";
 import { getMailRoll } from './MailRollSagas'
-import { getMyData } from "./MySagas";
+import { getMyData,getRes} from "./MySagas";
 //日期类工具
 import DateUtil from '../../util/DateUtil';
 import DevicesStorageUtil from '../../util/DeviceStorageUtil';//持久化工具
@@ -29,6 +29,7 @@ import { GET_CAR_LIST } from "../../components/ChildServicesDetailsTitle/store/a
 import { GET_CHILD_SERVICES_DETAILS ,ORDER_STORE_CHILD_ITEM} from '../../components/ChildServicesDetails/store/actionTypes';
 import { CHANGE_SELECT_INDEX } from "../../components/WeekDate/store/actionTypes";
 import {POST_JSON,ADDING} from "../../components/AllyShop/store/actionTypes"
+import {POST_IMG} from "../../components/WyTest/store/actionTypes";
 //全局请求地址
 // const hostUrl = 'https://mapp.jlcxtx.com/'
 // const hostUrl = 'https://dev.jlcxtx.com/'
@@ -55,7 +56,8 @@ function* mySaga() {
     yield takeEvery(CHANGE_SELECT_INDEX,getServiceReservationResult);//获取预约时段列表
     yield takeEvery(ORDER_STORE_CHILD_ITEM,orderStoreChildItem);//服务项目预约
     yield takeEvery(POST_JSON,queryIndexList);//合作店首页数据
-}
+    yield takeEvery(POST_IMG,postImg);
+}   
 function* getMy() {
     yield getMyData(true)
 }
@@ -247,6 +249,17 @@ for (let [key, value] of Object.entries(action.params)) {
   console.log(action.init)
     yield queryIndexList18(hostUrl+'/seller/queryIndexList18',tk,formData,action.init);
   
+}
+//上传并获取图片
+function* postImg(action){
+    console.log(action);
+    var file = { uri:action.url, type: 'multipart/form-data', name: 'image.png' }
+    let formdata = new FormData();
+    formdata.append('inputfile', file);
+    let hd = {
+        headers:{'Content-Type':'multipart/form-data'}
+    }
+    yield getRes('http://192.168.34.201:8088/uploadImg',hd,formdata);
 }
 
 export default mySaga
