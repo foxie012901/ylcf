@@ -178,6 +178,7 @@ const mapDispatchToProps = dispatch => {
             dispatch(actionCreators.initMenuListName(list))
         },
         _changeMenuListName(menuSelectIndex,name,status){
+            console.log(menuSelectIndex,name)
             dispatch(actionCreators.changeMenuListName(menuSelectIndex,name));
             dispatch(actionCreators.changeLevelSelectStatus(!status));
         }

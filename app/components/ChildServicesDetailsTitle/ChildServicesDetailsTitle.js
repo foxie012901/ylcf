@@ -65,7 +65,7 @@ import IconFont from 'react-native-vector-icons/Ionicons'
                 renderItem={this._carListRenderItem.bind(this)}
                
                 />
-                <TouchableOpacity  onPress={()=>{this.props._changeSelectShow(false)}}><View style={{width:mWidth,height:mHeight,backgroundColor: 'rgba(0,0,0,0.7)',}}></View></TouchableOpacity>
+                <TouchableOpacity  onPress={()=>{this.props._changeSelectShow(false)}}><View style={{width:mWidth,height:mHeight,backgroundColor:'rgba(0,0,0,0.7)',}}></View></TouchableOpacity>
             </View>:null}
 
             </View>

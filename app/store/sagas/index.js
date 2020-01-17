@@ -246,7 +246,14 @@ function* queryIndexList(action){
 for (let [key, value] of Object.entries(action.params)) {
     formData.append(key,value)
   }
-  console.log(action.init)
+  console.log(action)
+  for (let [key, value] of Object.entries(action.request)) {
+      if(value===null){
+          continue;
+      }
+    formData.append(key,value)
+  }
+  console.log(formData)
     yield queryIndexList18(hostUrl+'/seller/queryIndexList18',tk,formData,action.init);
   
 }

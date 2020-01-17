@@ -78,6 +78,7 @@ export default class App extends Component {
             renderIcon={() => <IconFont name={'ios-list'} size={25} color={'gray'} />}
             renderSelectedIcon={() => <IconFont name={'ios-list'} size={25} color={'#0079ff'} />}
             onPress={() => this.setState({ selectedTab: 'allyShop' })}
+            hidesTabTouch={this.state.selectedTab === 'allyShop'?false:true}
           >
             <AllyShop />
           </TabNavigator.Item>

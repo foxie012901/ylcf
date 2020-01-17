@@ -14,7 +14,7 @@ import {
     Animated,
 } from 'react-native';
 import Video from 'react-native-video';
-
+import UtilsShare from "../../util/UtilsShare"
 import Carousel from "react-native-looped-carousel";
 
 import styles from './style'
@@ -88,7 +88,7 @@ export default class MyVideo extends Component {
 
                 <Button
                     title='PLAY'
-                    onPress={() => { this._videoPlay() }}
+                    onPress={() => {  }}
                 />
 
 

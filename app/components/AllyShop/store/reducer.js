@@ -14,6 +14,7 @@ const defaultState = fromJS({
     noNewShop:false,
     isButtom:false,
     page:1,
+    defaultQueryIndexListRequest:{vehicle:null,shop2type:null,shop3type:null,citycode:null,sorttype:0,tagval:null,wayid:null}//默认请求参数
     
 })
 
@@ -23,20 +24,19 @@ export default (state = defaultState, action) => {
         case actionTypes.GET_DATA:
             let{shopAdResponse,shopType2Response,topItemResponse,cdCityResponse,shopLableResponse,shopResponse}=action.Json
             let levList =[];let levsList=[];
-            levList.push({type:'ttt',selectedIndex:0,data:cdCityResponse});
-            levList.push({type:'ttt',selectedIndex:0,data:shopType2Response});
-            console.log(state.toJS());
+            // levList.push({type:'ttt',selectedIndex:0,data:cdCityResponse});
+            // levList.push({type:'ttt',selectedIndex:0,data:shopType2Response});
             state.toJS().localDataList.map((item,index)=>{
                 shopLableResponse.splice(index,0,item)
             })
-            levList.push({type:'lab',selectedIndex:0,data:shopLableResponse});
+          //  levList.push({type:'lab',selectedIndex:0,data:shopLableResponse});
             levsList.push(cdCityResponse);levsList.push(shopType2Response);levsList.push(shopLableResponse)
             return state.merge({
                 shopServiceTypeList:fromJS(shopType2Response),
                 loopList:fromJS(shopAdResponse),
                 recommendList:fromJS(topItemResponse),
                 isShow:true,
-                levelSelectDataList:fromJS(levList),
+              //  levelSelectDataList:fromJS(levList),
                 levelSelectDataLists:fromJS(levsList),
                 shopResponse:fromJS(shopResponse),
                 cdCityResponse:fromJS(cdCityResponse),
@@ -48,7 +48,6 @@ export default (state = defaultState, action) => {
             return state.set('isButtom',!(action.isButtom))
         case actionTypes.ADDING:
                 let ss = action.Data.shopResponse;
-                console.log(ss)
                 let shopList = state.get('shopResponse').toJS()
                 ss.map((item,index)=>{
                     shopList.push(item)

@@ -9,6 +9,7 @@ const defaultState = fromJS({
     menuList:[{one:0,tow:null,three:null},{one:0,tow:null,three:null},{one:0,tow:null,three:null}],//菜单列表
     openStatus:false,
     menuNameList:[],
+    
 })
 
 export default (state = defaultState, action) => {

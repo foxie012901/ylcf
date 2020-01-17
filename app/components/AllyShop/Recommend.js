@@ -8,10 +8,8 @@ export default class Recommend extends Component {
         this.state = {
        
         };
-        console.log(props)
       }
     componentWillReceiveProps(nProps){
-        console.log(nProps)
     }
     renderRecommendList({item,index}) {
        
@@ -34,7 +32,8 @@ export default class Recommend extends Component {
                     renderItem={this.renderRecommendList}
                     horizontal={true}
                     showsHorizontalScrollIndicator = {false}
-                    keyExtractor={(item, index) => index.toString()}
+                    keyExtractor={(item, index) => index.toString()+'recommend'}
+                    removeClippedSubviews={true }
                 />
             </View>
         )
@@ -45,12 +44,12 @@ const styles = StyleSheet.create({
     ls:{
         borderBottomWidth:1,
         borderBottomColor:'#707070',
-        flexDirection:'row',
         width:mWidth,
         height:mHeight*0.25,
         alignContent:'center'
     },
     topimg: {
+        overflow:'hidden',
         width:mWidth*0.3,
         height:mHeight*0.1,
         resizeMode:'stretch',

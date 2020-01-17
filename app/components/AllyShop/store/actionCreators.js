@@ -2,9 +2,9 @@ import { actionTypes } from "./";
 import { fromJS } from "immutable";
 
 
-export const postJson =(init,params)=>({
+export const postJson =(init,params,request)=>({
     type:actionTypes.POST_JSON,
-    init,params
+    init,params,request
 })
 
 export const changeScollView =()=>({

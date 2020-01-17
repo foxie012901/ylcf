@@ -10,7 +10,6 @@ import {
     SectionList,
     TouchableOpacity
 } from 'react-native';
-import IconFont from 'react-native-vector-icons/Ionicons'
 import ShopServiceType from './ShopServiceType';
 import Recommend from './Recommend';
 //登录相关
@@ -33,15 +32,12 @@ class AllyShop extends Component {
         this.myRef=React.createRef();
         this.state = {      
         };
-        console.log(this.props)
     }
     componentWillMount() {
        
-        this.props._postJson(1,this.props.page);
+        this.props._postJson(1,this.props.page,this.props.defaultQueryIndexListRequest);
     }
-    onSelectMenu=(index, subindex, data)=>{
-        this.setState({index, subindex, data});
-    };
+
     componentDidMount(){
     }
      // 监听上拉触底
@@ -51,46 +47,46 @@ class AllyShop extends Component {
         let oriageScrollHeight = e.nativeEvent.layoutMeasurement.height; //scrollView高度
         if(offsetY+oriageScrollHeight>=contentSizeHeight-10){
             this.props._contentViewScroll(this.props.isButtom)
-            this.props._postJson(0,this.props.page);
+            this.props._postJson(0,this.props.page,this.props.defaultQueryIndexListRequest);
         }
         
       }
-    render() {
-        console.log(this.props.dataList);
-  
+    render() {  
         let page = ( 
-            <View style={{flex:1}}>
+            <>
                 <View style={{width:mWidth,height:mHeight*0.08,backgroundColor:"#cccccc"}}>
                     <Text style={{lineHeight:mHeight*0.08,textAlign:'center',fontSize:15}}>服务商家</Text>
                 </View>
                 <ScrollView style={{flex:1}}  ref={(e)=>this.myRef=e} stickyHeaderIndices={[5]} scrollEnabled={!this.props.openStatus} onMomentumScrollEnd={(e)=>{this._onScroll(e)}}>
-                    <ShopServiceType data={this.props.shopServiceTypeList}/>
+                    <ShopServiceType />
                     <View style={{width:mWidth,height:mHeight*0.05,backgroundColor:'#ffffff',borderBottomWidth:1,borderColor:'#cccc'}}></View>
                     <Carousel  style={{width: mWidth, height:mHeight*0.15}}
                         bullets={true}
                         delay={6000}>
                      {this.props.loopList.length>0?this.props.loopList.map((item,index)=>{
                          return<TouchableOpacity onPress={()=>{alert(JSON.stringify(item))}} key={index}>
-                                <Image  style={{width:mWidth,height:mHeight*0.15,resizeMode:'stretch'}} source={{uri:item.pic}}/>
+                                <Image  style={{width:mWidth,height:mHeight*0.15,resizeMode:'stretch',overflow:'hidden'}} source={{uri:item.pic}}/>
                               </TouchableOpacity>
                      })
-                    :(<View><Image style={{width:mWidth,height:mHeight*0.2,resizeMode:'stretch'}} source={require('../../images/unphoto.png')}/></View>)}
+                    :(<><Image style={{width:mWidth,height:mHeight*0.2,resizeMode:'stretch'}} source={require('../../images/unphoto.png')}/></>)}
                     </Carousel>
                     <View style={{width:mWidth,height:mHeight*0.07,backgroundColor:'#ffffff',borderBottomColor:'#cccc',borderBottomWidth:1}}>
                         <Text style={{fontSize:18,paddingLeft:10,lineHeight:mHeight*0.07}}>推荐</Text>
                     </View>
-                    <Recommend data={this.props.recommendList}/>
+                    <Recommend data={this.props.recommendList}/> 
                     <View style={{zIndex:999}}>
-                   <LevelSelect click={(e)=>{this.myRef.scrollTo({x:mHeight,y:mHeight,animated:true})}} levelSelectData={this.props.levelSelectDataLists}/>
+                   <LevelSelect click={(e)=>{this.myRef.scrollTo({x:mHeight,y:mHeight*0.90,animated:true})}} levelSelectData={this.props.levelSelectDataLists}/>
                     </View>
-                   <AllyShopList shopResponse={this.props.shopResponse}/>  
+                 
+                    <AllyShopList />  
+                  
                    {this.props.isButtom?<View style={{width:mWidth,height:mHeight*0.05,flexDirection:'column',}}>
                         <Text style={{fontSize:16,alignSelf:'center'}}>加载中...</Text>
                         <ActivityIndicator style={{alignSelf:'center'}} animating={true} color='red'/>
                     </View>:null} 
                 </ScrollView>
                
-            </View>
+            </>
            )     
            let Loading =(<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
     <ActivityIndicator animating={!this.props.isShow} />
@@ -113,13 +109,15 @@ const mapStateToProps = state => {
         isButtom:state.getIn(['allyshop',"isButtom"]),//下拉到底部
         dataList:(state.getIn(['allyshop','dataList'])).toJS(),
         page:state.getIn(['allyshop','page']),//合作商店页数
+        defaultQueryIndexListRequest:(state.getIn(["allyshop","defaultQueryIndexListRequest"])).toJS(),//默认请求参数
     }
 }
 const mapDispatchToProps = dispatch => {
     return {
-        _postJson(init,page){
+        _postJson(init,page,defaultQueryIndexListRequest){
+            console.log(defaultQueryIndexListRequest)
             let params ={pageno:page,pagesize:5}
-            dispatch(actionCreators.postJson(init,params));
+            dispatch(actionCreators.postJson(init,params,defaultQueryIndexListRequest));
         },
         _toLevelSelectData(data){
             dispatch(levelSelectActionCreators.getData(data))

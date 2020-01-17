@@ -29,7 +29,6 @@ export default class AlertView extends Component {
             line:new Animated.Value(0),
             fz:new Animated.Value(0)
         };
-        console.log(this.state.sz)
     }
     getText =(dateTime,serviceName) =>{
         this.setState({isShow:true,time:dateTime,serviceName:serviceName})
@@ -67,25 +66,25 @@ export default class AlertView extends Component {
             [Animated.timing(this.state.translateValue, //四个动画同时执行
             {
                 toValue: {x:mHeight*0.3, y:mWidth*0.8},    //目标值
-                duration: 500,                   // 让动画持续一段时间
+                duration: 2000,                   // 让动画持续一段时间
                 isInteraction: false
             }).start(),
         Animated.timing(this.state.sz,
                 {
                     toValue: 15,   
-                    duration:500,
+                    duration:2000,
                     isInteraction: false
                 }).start(),
         Animated.timing(this.state.fz,
                     {
                         toValue: 18,   
-                        duration:500,
+                        duration:2000,
                         isInteraction: false
                     }).start(),
         Animated.timing(this.state.line,
                         {
                             toValue: 2,   
-                            duration:500,
+                            duration:2000,
                             isInteraction: false
                         }).start(),
             ])
@@ -116,7 +115,8 @@ export default class AlertView extends Component {
         >
             <Animated.View style={{flex:3,justifyContent:'center',flexDirection:'row',}}><Animated.Text style={{fontSize:this.state.fz,textAlign:'center',alignSelf:'center',flex:1}}>预约提交成功</Animated.Text></Animated.View>
             <Animated.View style={{flex:4,justifyContent:'center',flexDirection:'row',padding:10,}}>
-                <Animated.Text style={{fontSize:5,textAlign:'center',alignSelf:'center',flex:1,fontSize:this.state.sz}}>您于{this.state.time}到店享受{this.state.serviceName}业务的预约提交成功，请到我的【我的预约】跟踪预约状态。</Animated.Text>
+                <Animated.Text style={{fontSize:this.state.sz,textAlign:'center',alignSelf:'center',flex:1,
+            }}>您于{this.state.time}到店享受{this.state.serviceName}业务的预约提交成功，请到我的【我的预约】跟踪预约状态。</Animated.Text>
             </Animated.View>
             <Animated.View style={{height:this.state.line,backgroundColor:'red',}}></Animated.View>
             <Animated.View style={{flex:2,justifyContent:'center',flexDirection:'row',zIndex:99,}}><Animated.Text style={{fontSize:this.state.fz,textAlign:'center',alignSelf:'center',flex:1}}>去查看</Animated.Text></Animated.View>
