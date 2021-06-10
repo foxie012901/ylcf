@@ -940,6 +940,16 @@
     eslint-plugin-react-native "3.6.0"
     prettier "1.16.4"
 
+"@react-native-community/netinfo@^4.6.1":
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/@react-native-community/netinfo/-/netinfo-4.7.0.tgz#7482d36836cac69d0a0ae25581f65bc472639930"
+  integrity sha512-a/sDB+AsLEUNmhAUlAaTYeXKyQdFGBUfatqKkX5jluBo2CB3OAuTHfm7rSjcaLB9EmG5iSq3fOTpync2E7EYTA==
+
+"@react-native-community/viewpager@^3.1.0":
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/@react-native-community/viewpager/-/viewpager-3.3.1.tgz#c2c530fb99653252a4272c8cf1bb85dbd1edf57d"
+  integrity sha512-UeCJBS172uCcsiAOLhAOsVjiWsj4YdeM44v0bGik/JXqFoplSmo/SPKFQm5ZQWRjYTckcOL5zkli+WULBwzJgQ==
+
 "@redux-saga/core@^1.1.1":
   version "1.1.1"
   resolved "https://registry.npm.taobao.org/@redux-saga/core/download/@redux-saga/core-1.1.1.tgz?cache=0&sync_timestamp=1568706569553&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40redux-saga%2Fcore%2Fdownload%2F%40redux-saga%2Fcore-1.1.1.tgz#72432130630cca08260086ffc564c2aa5488a0a2"
@@ -2939,9 +2949,9 @@ getpass@^0.1.1:
     assert-plus "^1.0.0"
 
 glob-parent@^5.0.0:
-  version "5.1.0"
-  resolved "https://registry.npm.taobao.org/glob-parent/download/glob-parent-5.1.0.tgz#5f4c1d1e748d30cd73ad2944b3577a81b081e8c2"
-  integrity sha1-X0wdHnSNMM1zrSlEs1d6gbCB6MI=
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/glob-parent/-/glob-parent-5.1.2.tgz#869832c58034fe68a4093c17dc15e8340d8401c4"
+  integrity sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==
   dependencies:
     is-glob "^4.0.1"
 
@@ -3386,7 +3396,7 @@ is-extendable@^1.0.1:
 
 is-extglob@^2.1.1:
   version "2.1.1"
-  resolved "https://registry.npm.taobao.org/is-extglob/download/is-extglob-2.1.1.tgz#a88c02535791f02ed37c76a1b9ea9773c833f8c2"
+  resolved "https://registry.yarnpkg.com/is-extglob/-/is-extglob-2.1.1.tgz#a88c02535791f02ed37c76a1b9ea9773c833f8c2"
   integrity sha1-qIwCU1eR8C7TfHahueqXc8gz+MI=
 
 is-fullwidth-code-point@^1.0.0:
@@ -5483,6 +5493,13 @@ react-lifecycles-compat@^3, react-lifecycles-compat@^3.0.4:
   resolved "https://registry.npm.taobao.org/react-lifecycles-compat/download/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha1-TxonOv38jzSIqMUWv9p4+HI1I2I=
 
+react-native-camera@^3.13.1:
+  version "3.44.1"
+  resolved "https://registry.yarnpkg.com/react-native-camera/-/react-native-camera-3.44.1.tgz#60e7d60fe778c1fc59d0579b64c63c3c1a59865a"
+  integrity sha512-B95RL3laK2v8R7L/37v28MYcEcwsM/mS94h6EZuRMLH5HFolkAwh7zJo+UAn7FG9eFtAdBwIM6s9OqYudTVO4Q==
+  dependencies:
+    prop-types "^15.6.2"
+
 react-native-device-info@^5.2.1:
   version "5.3.0"
   resolved "https://registry.npm.taobao.org/react-native-device-info/download/react-native-device-info-5.3.0.tgz#ca0386310f59ccce458e1cea39b9f5b8f8d02098"
@@ -5514,6 +5531,13 @@ react-native-dropdown-menu@^2.0.0:
   dependencies:
     prop-types "^15.6.1"
 
+react-native-easy-toast@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-easy-toast/-/react-native-easy-toast-1.2.0.tgz#0f70bcb99e3306cda4800c244bfb4a67d42276ed"
+  integrity sha512-UtpxnRn1ME+035Uey4VR+9K0P4aVoTcWNOx5QkioWBe3LBKMPb/kZjrQ1LtvWzOyeGP4TeTUTtMX3IOPWv5MtA==
+  dependencies:
+    prop-types "^15.5.10"
+
 react-native-gesture-handler@^1.5.0:
   version "1.5.0"
   resolved "https://registry.npm.taobao.org/react-native-gesture-handler/download/react-native-gesture-handler-1.5.0.tgz#df7dc5285c152e0656db70f55200fa632c4f45af"
@@ -5524,6 +5548,16 @@ react-native-gesture-handler@^1.5.0:
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
+react-native-image-picker@^0.26.7:
+  version "0.26.10"
+  resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-0.26.10.tgz#0bb9ab928984948c67aee0b9e64216bee007a9fc"
+  integrity sha512-z6gAbru2E6SyGWm4ZTbiM9hPHZ5Tsl9kXGfRxW6YQXf9us7zybKoS7dKE1fQPsssv/OSvpPDKannJNncE+ATRA==
+
+react-native-lewin-qrcode@^1.0.2:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-lewin-qrcode/-/react-native-lewin-qrcode-1.1.0.tgz#a8a504b152825156d7eeb5c3bf29dcb851439869"
+  integrity sha512-k298Sc3UA3XG1IUEg4uBzvhg2fYA+tocF1a85CoWgFwH5SLAAdrTrR027YPYJnnzLNW0oaQHYvguMxxvoOQDPA==
+
 react-native-looped-carousel@^0.1.13:
   version "0.1.13"
   resolved "https://registry.npm.taobao.org/react-native-looped-carousel/download/react-native-looped-carousel-0.1.13.tgz#bc1f94ee818347ecfd573acd9710c84b2f450d1f"
@@ -5532,12 +5566,10 @@ react-native-looped-carousel@^0.1.13:
     lodash.isequal "^4.5.0"
     prop-types "^15.6.1"
 
-react-native-noticesbar@0.0.5:
-  version "0.0.5"
-  resolved "https://registry.npm.taobao.org/react-native-noticesbar/download/react-native-noticesbar-0.0.5.tgz#40fe2e382ee729429e4f2bd7cae8c24a4f6a11e9"
-  integrity sha1-QP4uOC7nKUKeTyvXyujCSk9qEek=
-  dependencies:
-    prop-types "^15.6.1"
+react-native-network@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-network/-/react-native-network-1.0.3.tgz#63f23257c2a43f9ea1349a97e8100063175accaf"
+  integrity sha1-Y/IyV8KkP56hNJqX6BAAYxdazK8=
 
 react-native-paper@^3.2.1:
   version "3.2.1"
@@ -5548,10 +5580,10 @@ react-native-paper@^3.2.1:
     color "^3.1.2"
     react-native-safe-area-view "^0.12.0"
 
-react-native-pull-refresh@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npm.taobao.org/react-native-pull-refresh/download/react-native-pull-refresh-1.0.0.tgz#890968a002466050c621a628bd095e03bbb6887a"
-  integrity sha1-iQlooAJGYFDGIaYovQleA7u2iHo=
+react-native-permissions@^2.0.6:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-2.2.2.tgz#3d2a63f6b7d6be52fc86e30f77412a9566283028"
+  integrity sha512-ihf4shQDSX5Oo9ChQXb9kr13mmyyNem5MaEvOpr3dCjhBOBWyEMztXm9/uPK1Qg5PsNpaYLa1KpcPZDCw87LXg==
 
 react-native-reanimated@^1.4.0:
   version "1.4.0"
