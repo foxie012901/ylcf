@@ -940,6 +940,16 @@
     eslint-plugin-react-native "3.6.0"
     prettier "1.16.4"
 
+"@react-native-community/netinfo@^4.6.1":
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/@react-native-community/netinfo/-/netinfo-4.7.0.tgz#7482d36836cac69d0a0ae25581f65bc472639930"
+  integrity sha512-a/sDB+AsLEUNmhAUlAaTYeXKyQdFGBUfatqKkX5jluBo2CB3OAuTHfm7rSjcaLB9EmG5iSq3fOTpync2E7EYTA==
+
+"@react-native-community/viewpager@^3.1.0":
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/@react-native-community/viewpager/-/viewpager-3.3.1.tgz#c2c530fb99653252a4272c8cf1bb85dbd1edf57d"
+  integrity sha512-UeCJBS172uCcsiAOLhAOsVjiWsj4YdeM44v0bGik/JXqFoplSmo/SPKFQm5ZQWRjYTckcOL5zkli+WULBwzJgQ==
+
 "@redux-saga/core@^1.1.1":
   version "1.1.1"
   resolved "https://registry.npm.taobao.org/@redux-saga/core/download/@redux-saga/core-1.1.1.tgz?cache=0&sync_timestamp=1568706569553&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40redux-saga%2Fcore%2Fdownload%2F%40redux-saga%2Fcore-1.1.1.tgz#72432130630cca08260086ffc564c2aa5488a0a2"
@@ -1537,10 +1547,15 @@ balanced-match@^1.0.0:
   resolved "https://registry.npm.taobao.org/balanced-match/download/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
   integrity sha1-ibTRmasr7kneFk6gK4nORi1xt2c=
 
-base64-js@^1.1.2, base64-js@^1.2.3:
+base64-js@^1.1.2:
   version "1.3.1"
   resolved "https://registry.npm.taobao.org/base64-js/download/base64-js-1.3.1.tgz#58ece8cb75dd07e71ed08c736abc5fac4dbf8df1"
   integrity sha1-WOzoy3XdB+ce0IxzarxfrE2/jfE=
+
+base64-js@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-1.5.1.tgz#1b1b440160a5bf7ad40b650f095963481903930a"
+  integrity sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==
 
 base@^0.11.1:
   version "0.11.2"
@@ -1569,24 +1584,24 @@ bcrypt-pbkdf@^1.0.0:
   dependencies:
     tweetnacl "^0.14.3"
 
-big-integer@^1.6.7:
-  version "1.6.47"
-  resolved "https://registry.npm.taobao.org/big-integer/download/big-integer-1.6.47.tgz#e1e9320e26c4cc81f64fbf4b3bb20e025bf18e2d"
-  integrity sha1-4ekyDibEzIH2T79LO7IOAlvxji0=
+big-integer@1.6.x:
+  version "1.6.51"
+  resolved "https://registry.yarnpkg.com/big-integer/-/big-integer-1.6.51.tgz#0df92a5d9880560d3ff2d5fd20245c889d130686"
+  integrity sha512-GPEid2Y9QU1Exl1rpO9B2IPJGHPSupF5GnVIP0blYvNOMer2bTvSWs1jGOUg04hTmu67nmLsQ9TBo1puaotBHg==
 
-bplist-creator@0.0.7:
-  version "0.0.7"
-  resolved "https://registry.npm.taobao.org/bplist-creator/download/bplist-creator-0.0.7.tgz#37df1536092824b87c42f957b01344117372ae45"
-  integrity sha1-N98VNgkoJLh8QvlXsBNEEXNyrkU=
+bplist-creator@0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/bplist-creator/-/bplist-creator-0.1.0.tgz#018a2d1b587f769e379ef5519103730f8963ba1e"
+  integrity sha512-sXaHZicyEEmY86WyueLTQesbeoH/mquvarJaQNbjuOQO+7gbFcDEWqKmcWA4cOTLzFlfgvkiVxolk1k5bBIpmg==
   dependencies:
-    stream-buffers "~2.2.0"
+    stream-buffers "2.2.x"
 
-bplist-parser@0.1.1:
-  version "0.1.1"
-  resolved "https://registry.npm.taobao.org/bplist-parser/download/bplist-parser-0.1.1.tgz#d60d5dcc20cba6dc7e1f299b35d3e1f95dafbae6"
-  integrity sha1-1g1dzCDLptx+HymbNdPh+V2vuuY=
+bplist-parser@0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/bplist-parser/-/bplist-parser-0.3.1.tgz#e1c90b2ca2a9f9474cc72f6862bbf3fee8341fd1"
+  integrity sha512-PyJxiNtA5T2PlLIeBot4lbp7rj4OadzjnMZD/G5zuBNt8ei/yCU7+wW0h2bag9vr8c+/WuRWmSxbqAl9hL1rBA==
   dependencies:
-    big-integer "^1.6.7"
+    big-integer "1.6.x"
 
 brace-expansion@^1.1.7:
   version "1.1.11"
@@ -5309,14 +5324,13 @@ pkg-dir@^3.0.0:
   dependencies:
     find-up "^3.0.0"
 
-plist@^3.0.0, plist@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.npm.taobao.org/plist/download/plist-3.0.1.tgz#a9b931d17c304e8912ef0ba3bdd6182baf2e1f8c"
-  integrity sha1-qbkx0XwwTokS7wujvdYYK68uH4w=
+plist@^3.0.0, plist@^3.0.5:
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/plist/-/plist-3.0.5.tgz#2cbeb52d10e3cdccccf0c11a63a85d830970a987"
+  integrity sha512-83vX4eYdQp3vP9SxuYgEM/G/pJQqLUz/V/xzPrzruLs7fz7jxGQ1msZ/mg1nwZxUSuOp4sb+/bEIbRrbzZRxDA==
   dependencies:
-    base64-js "^1.2.3"
+    base64-js "^1.5.1"
     xmlbuilder "^9.0.7"
-    xmldom "0.1.x"
 
 plugin-error@^0.1.2:
   version "0.1.2"
@@ -5483,6 +5497,13 @@ react-lifecycles-compat@^3, react-lifecycles-compat@^3.0.4:
   resolved "https://registry.npm.taobao.org/react-lifecycles-compat/download/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha1-TxonOv38jzSIqMUWv9p4+HI1I2I=
 
+react-native-camera@^3.13.1:
+  version "3.44.3"
+  resolved "https://registry.yarnpkg.com/react-native-camera/-/react-native-camera-3.44.3.tgz#f8f35f2484e508b0694dee54a8801a1e0833d851"
+  integrity sha512-Efb5aKhFsE7qnqvTnbSEwFAom79L5BT4jMn+B2wYVUnZeRgWh45gNSG7Ou3MQ6zU2DpUHBPlBFKGVS5yOSfSZQ==
+  dependencies:
+    prop-types "^15.6.2"
+
 react-native-device-info@^5.2.1:
   version "5.3.0"
   resolved "https://registry.npm.taobao.org/react-native-device-info/download/react-native-device-info-5.3.0.tgz#ca0386310f59ccce458e1cea39b9f5b8f8d02098"
@@ -5514,6 +5535,13 @@ react-native-dropdown-menu@^2.0.0:
   dependencies:
     prop-types "^15.6.1"
 
+react-native-easy-toast@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-easy-toast/-/react-native-easy-toast-1.2.0.tgz#0f70bcb99e3306cda4800c244bfb4a67d42276ed"
+  integrity sha512-UtpxnRn1ME+035Uey4VR+9K0P4aVoTcWNOx5QkioWBe3LBKMPb/kZjrQ1LtvWzOyeGP4TeTUTtMX3IOPWv5MtA==
+  dependencies:
+    prop-types "^15.5.10"
+
 react-native-gesture-handler@^1.5.0:
   version "1.5.0"
   resolved "https://registry.npm.taobao.org/react-native-gesture-handler/download/react-native-gesture-handler-1.5.0.tgz#df7dc5285c152e0656db70f55200fa632c4f45af"
@@ -5524,6 +5552,16 @@ react-native-gesture-handler@^1.5.0:
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
+react-native-image-picker@^0.26.7:
+  version "0.26.10"
+  resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-0.26.10.tgz#0bb9ab928984948c67aee0b9e64216bee007a9fc"
+  integrity sha512-z6gAbru2E6SyGWm4ZTbiM9hPHZ5Tsl9kXGfRxW6YQXf9us7zybKoS7dKE1fQPsssv/OSvpPDKannJNncE+ATRA==
+
+react-native-lewin-qrcode@^1.0.2:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-lewin-qrcode/-/react-native-lewin-qrcode-1.1.0.tgz#a8a504b152825156d7eeb5c3bf29dcb851439869"
+  integrity sha512-k298Sc3UA3XG1IUEg4uBzvhg2fYA+tocF1a85CoWgFwH5SLAAdrTrR027YPYJnnzLNW0oaQHYvguMxxvoOQDPA==
+
 react-native-looped-carousel@^0.1.13:
   version "0.1.13"
   resolved "https://registry.npm.taobao.org/react-native-looped-carousel/download/react-native-looped-carousel-0.1.13.tgz#bc1f94ee818347ecfd573acd9710c84b2f450d1f"
@@ -5532,12 +5570,10 @@ react-native-looped-carousel@^0.1.13:
     lodash.isequal "^4.5.0"
     prop-types "^15.6.1"
 
-react-native-noticesbar@0.0.5:
-  version "0.0.5"
-  resolved "https://registry.npm.taobao.org/react-native-noticesbar/download/react-native-noticesbar-0.0.5.tgz#40fe2e382ee729429e4f2bd7cae8c24a4f6a11e9"
-  integrity sha1-QP4uOC7nKUKeTyvXyujCSk9qEek=
-  dependencies:
-    prop-types "^15.6.1"
+react-native-network@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-network/-/react-native-network-1.0.3.tgz#63f23257c2a43f9ea1349a97e8100063175accaf"
+  integrity sha1-Y/IyV8KkP56hNJqX6BAAYxdazK8=
 
 react-native-paper@^3.2.1:
   version "3.2.1"
@@ -5548,10 +5584,10 @@ react-native-paper@^3.2.1:
     color "^3.1.2"
     react-native-safe-area-view "^0.12.0"
 
-react-native-pull-refresh@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npm.taobao.org/react-native-pull-refresh/download/react-native-pull-refresh-1.0.0.tgz#890968a002466050c621a628bd095e03bbb6887a"
-  integrity sha1-iQlooAJGYFDGIaYovQleA7u2iHo=
+react-native-permissions@^2.0.6:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-2.2.2.tgz#3d2a63f6b7d6be52fc86e30f77412a9566283028"
+  integrity sha512-ihf4shQDSX5Oo9ChQXb9kr13mmyyNem5MaEvOpr3dCjhBOBWyEMztXm9/uPK1Qg5PsNpaYLa1KpcPZDCw87LXg==
 
 react-native-reanimated@^1.4.0:
   version "1.4.0"
@@ -6280,13 +6316,13 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   integrity sha1-tf3AjxKH6hF4Yo5BXiUTK3NkbG0=
 
 simple-plist@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npm.taobao.org/simple-plist/download/simple-plist-1.0.0.tgz#bed3085633b22f371e111f45d159a1ccf94b81eb"
-  integrity sha1-vtMIVjOyLzceER9F0VmhzPlLges=
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/simple-plist/-/simple-plist-1.3.1.tgz#16e1d8f62c6c9b691b8383127663d834112fb017"
+  integrity sha512-iMSw5i0XseMnrhtIzRb7XpQEXepa9xhWxGUojHBL43SIpQuDQkh3Wpy67ZbDzZVr6EKxvwVChnVpdl8hEVLDiw==
   dependencies:
-    bplist-creator "0.0.7"
-    bplist-parser "0.1.1"
-    plist "^3.0.1"
+    bplist-creator "0.1.0"
+    bplist-parser "0.3.1"
+    plist "^3.0.5"
 
 simple-swizzle@^0.2.2:
   version "0.2.2"
@@ -6476,9 +6512,9 @@ stealthy-require@^1.1.1:
   resolved "https://registry.npm.taobao.org/stealthy-require/download/stealthy-require-1.1.1.tgz#35b09875b4ff49f26a777e509b3090a3226bf24b"
   integrity sha1-NbCYdbT/SfJqd35QmzCQoyJr8ks=
 
-stream-buffers@~2.2.0:
+stream-buffers@2.2.x:
   version "2.2.0"
-  resolved "https://registry.npm.taobao.org/stream-buffers/download/stream-buffers-2.2.0.tgz#91d5f5130d1cef96dcfa7f726945188741d09ee4"
+  resolved "https://registry.yarnpkg.com/stream-buffers/-/stream-buffers-2.2.0.tgz#91d5f5130d1cef96dcfa7f726945188741d09ee4"
   integrity sha1-kdX1Ew0c75bc+n9yaUUYh0HQnuQ=
 
 strict-uri-encode@^2.0.0:
@@ -7147,7 +7183,7 @@ xml-name-validator@^3.0.0:
 
 xmlbuilder@^9.0.7:
   version "9.0.7"
-  resolved "https://registry.npm.taobao.org/xmlbuilder/download/xmlbuilder-9.0.7.tgz#132ee63d2ec5565c557e20f4c22df9aca686b10d"
+  resolved "https://registry.yarnpkg.com/xmlbuilder/-/xmlbuilder-9.0.7.tgz#132ee63d2ec5565c557e20f4c22df9aca686b10d"
   integrity sha1-Ey7mPS7FVlxVfiD0wi35rKaGsQ0=
 
 xmldoc@^1.1.2:
@@ -7156,11 +7192,6 @@ xmldoc@^1.1.2:
   integrity sha1-ZmbgKf4lRw1ZnNMOI/8NHtUEZtc=
   dependencies:
     sax "^1.2.1"
-
-xmldom@0.1.x:
-  version "0.1.27"
-  resolved "https://registry.npm.taobao.org/xmldom/download/xmldom-0.1.27.tgz#d501f97b3bdb403af8ef9ecc20573187aadac0e9"
-  integrity sha1-1QH5ezvbQDr4757MIFcxh6rawOk=
 
 xpipe@^1.0.5:
   version "1.0.5"
